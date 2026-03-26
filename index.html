@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S.J. Rubin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080808;
+      --text: #f0ede8;
+      --orange: #E8570A;
+      --muted: #6b6560;
+      --border: rgba(240, 237, 232, 0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      cursor: crosshair;
+      overflow-x: hidden;
+    }
+
+    /* ── Grid background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(232, 87, 10, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232, 87, 10, 0.04) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      z-index: 0;
+      animation: gridPulse 8s ease-in-out infinite;
+    }
+
+    @keyframes gridPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      transition: background 0.3s, backdrop-filter 0.3s, border-bottom 0.3s;
+    }
+
+    nav.scrolled {
+      background: rgba(8, 8, 8, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--orange);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 1; }
+
+    /* ── Sections ── */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(5rem, 14vw, 11rem);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-name .first { color: #333; }
+    .hero-name .last  { color: var(--orange); }
+
+    .hero-tagline {
+      margin-top: 2.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--muted);
+      max-width: 460px;
+      line-height: 1.6;
+    }
+
+    /* ── About ── */
+    #about {
+      padding: 7rem 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 2rem;
+    }
+
+    .about-headline {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+
+    .about-body {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(240, 237, 232, 0.65);
+      max-width: 560px;
+      line-height: 1.8;
+    }
+
+    /* ── Companies ── */
+    #companies {
+      padding: 7rem 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-top: 1px solid var(--border);
+    }
+
+    .companies-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      margin-top: 3rem;
+      background: var(--border);
+    }
+
+    .company-card {
+      background: var(--bg);
+      padding: 2.5rem 2rem;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: background 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .company-card::after {
+      content: '↗';
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--orange);
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      transform: translate(-4px, 4px);
+    }
+
+    .company-card:hover {
+      background: rgba(232, 87, 10, 0.04);
+    }
+
+    .company-card:hover::after {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+
+    .company-sector {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    .company-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .company-desc {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: auto;
+    }
+
+    /* ── Contact ── */
+    #contact {
+      padding: 7rem 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-headline {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-sub {
+      font-weight: 300;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      font-size: 1rem;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 1rem;
+      color: var(--orange);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(232, 87, 10, 0.3);
+      padding-bottom: 0.15rem;
+      transition: border-color 0.2s, gap 0.2s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--orange);
+      gap: 1rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav { padding: 1.25rem 1.5rem; }
+
+      #hero, #about, #companies, #contact { padding-left: 1.5rem; padding-right: 1.5rem; }
+
+      .companies-grid {
+        grid-template-columns: 1fr;
+      }
+
+      footer { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">S.J.Rubin</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <h1 class="hero-name">
+      <span class="first">S.J.</span><br />
+      <span class="last">Rubin.</span>
+    </h1>
+    <p class="hero-tagline">Founder. Builder. BC Canada.<br />If you're here, you know why.</p>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">About</p>
+    <h2 class="about-headline">Built things.<br />Running them.</h2>
+    <p class="about-body">
+      Started in trades. Grew a roofing company. Then a development company.
+      Then helped build something worth building in wellness.
+      Along the way I started building the software too.
+    </p>
+  </section>
+
+  <!-- COMPANIES -->
+  <section id="companies">
+    <p class="section-label">Companies</p>
+    <div class="companies-grid">
+
+      <a href="https://goldenruleroofing.ca" target="_blank" rel="noopener" class="company-card">
+        <span class="company-sector">Roofing · BC</span>
+        <span class="company-name">Golden Rule Roofing</span>
+        <span class="company-desc">Residential and commercial roofing across British Columbia.</span>
+      </a>
+
+      <a href="https://goldenruledevelopments.com" target="_blank" rel="noopener" class="company-card">
+        <span class="company-sector">Real Estate · BC</span>
+        <span class="company-name">Golden Rule Developments</span>
+        <span class="company-desc">Real estate development grounded in quality and long-term value.</span>
+      </a>
+
+      <a href="https://my.michelleyoga.com" target="_blank" rel="noopener" class="company-card">
+        <span class="company-sector">Wellness · BC</span>
+        <span class="company-name">Michelle Yoga</span>
+        <span class="company-desc">Custom business management software. Fully deployed.</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Contact</p>
+    <h2 class="contact-headline">Let's talk.</h2>
+    <p class="contact-sub">You know where to find me.</p>
+    <a href="mailto:sj@sjrubin.ca" class="contact-link">
+      sj@sjrubin.ca <span>→</span>
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-copy">© <span id="year"></span> S.J. Rubin</span>
+  </footer>
+
+  <script>
+    // Dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Nav blur on scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
