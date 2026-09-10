@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Two teams, one bench - U13 Rebelles and Rising Tide U11, Victoria BC." />
+  <meta name="color-scheme" content="dark" />
+<title>S.J. Rubin — Basketball</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap">
+<style>
+:root{
+  --bg:#0A0A0A; --panel:#111111; --line:#1E1E1E; --line-soft:#161616;
+  --ink:#F2F2F2; --dim:#8C8C8C; --dimmer:#5E5E5E;
+  --orange:#F0561E; --orange-soft:#3A1A0E;
+  --reb:#F0561E; --tide:#4FA8B8;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"DM Sans",system-ui,sans-serif; font-weight:300;
+  font-size:16px; line-height:1.6;
+  background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+  background-size:120px 120px;
+}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:24px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+
+/* header, matching the site lockup */
+header.top{display:flex;align-items:center;justify-content:space-between;
+  padding-block:26px;gap:20px;flex-wrap:wrap}
+.lockup{font-family:"DM Mono",monospace;font-weight:500;font-size:17px;
+  color:var(--orange);letter-spacing:.01em;text-decoration:none}
+nav.top a{font-family:"DM Mono",monospace;font-size:12.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--dim);text-decoration:none;margin-left:26px}
+nav.top a:hover,nav.top a[aria-current]{color:var(--ink)}
+
+/* hero */
+.hero{padding-block:70px 54px}
+.hero h1{font-family:Syne,sans-serif;font-weight:800;
+  font-size:clamp(52px,13vw,124px);line-height:.86;letter-spacing:-.03em;margin:0}
+.hero h1 .ghost{color:#232323;display:block}
+.hero h1 .live{color:var(--orange);display:block}
+.hero p{margin:26px 0 0;color:var(--dim);font-size:17px;max-width:48ch;line-height:1.5}
+
+/* section scaffolding */
+section{padding-block:56px;border-top:1px solid var(--line)}
+.label{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--dimmer);margin-bottom:26px}
+h2{font-family:Syne,sans-serif;font-weight:800;font-size:clamp(28px,5vw,44px);
+  line-height:1.02;letter-spacing:-.02em;margin:0 0 18px}
+
+/* next up */
+.next{display:flex;flex-wrap:wrap;gap:14px 42px;align-items:flex-end}
+.next .when{font-family:Syne,sans-serif;font-weight:800;
+  font-size:clamp(30px,6.5vw,54px);line-height:1;letter-spacing:-.02em;color:var(--orange)}
+.next .what{font-size:18px;color:var(--ink);font-weight:400}
+.next .sub{font-family:"DM Mono",monospace;font-size:13px;color:var(--dim);margin-top:6px}
+
+/* team cards, echoing the COMPANIES blocks */
+.teams{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
+@media (max-width:720px){.teams{grid-template-columns:1fr}}
+.team{background:var(--bg);padding:30px 28px}
+.team .tag{font-family:"DM Mono",monospace;font-size:11.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--dimmer)}
+.team h3{font-family:Syne,sans-serif;font-weight:700;font-size:26px;
+  letter-spacing:-.01em;margin:10px 0 4px;line-height:1.1}
+.team .who{font-family:"DM Mono",monospace;font-size:12.5px;color:var(--dim);margin-bottom:18px}
+.team.reb h3{color:var(--reb)}
+.team.tide h3{color:var(--tide)}
+.rows{display:flex;flex-direction:column;gap:9px}
+.row{display:grid;grid-template-columns:96px 1fr;gap:14px;font-size:15px;align-items:baseline}
+.row dt{font-family:"DM Mono",monospace;font-size:11.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--dimmer)}
+.row dd{margin:0;color:var(--ink);font-weight:300}
+.team .note{margin:20px 0 0;font-size:14px;color:var(--dim);line-height:1.5;
+  padding-left:13px;border-left:1px solid var(--line)}
+
+/* fixtures */
+.fxwrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--dimmer);text-align:left;font-weight:400;padding:0 16px 10px 0;
+  border-bottom:1px solid var(--line)}
+td{padding:13px 16px 13px 0;border-bottom:1px solid var(--line-soft);font-weight:300}
+td.m{font-family:"DM Mono",monospace;font-size:13.5px;white-space:nowrap;color:var(--dim)}
+td .pill{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;padding:3px 8px;border:1px solid var(--line);border-radius:2px}
+td .pill.reb{color:var(--reb);border-color:#3A1A0E}
+td .pill.tide{color:var(--tide);border-color:#123034}
+.pending{color:var(--dim);font-size:15px;max-width:62ch;line-height:1.55}
+.pending b{color:var(--ink);font-weight:500}
+
+/* drill callout */
+.drillbox{background:var(--panel);border:1px solid var(--line);padding:32px 30px;
+  display:flex;gap:28px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.drillbox h3{font-family:Syne,sans-serif;font-weight:800;font-size:30px;margin:0 0 8px;
+  letter-spacing:-.02em}
+.drillbox p{margin:0;color:var(--dim);font-size:15.5px;max-width:46ch}
+.btn{font-family:"DM Mono",monospace;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--bg);background:var(--orange);text-decoration:none;padding:14px 24px;
+  white-space:nowrap;display:inline-block}
+.btn:hover{background:#FF6A2E}
+.btn.ghost{background:none;color:var(--orange);border:1px solid var(--orange)}
+.btn.ghost:hover{background:var(--orange-soft)}
+
+/* gyms */
+.gyms{columns:2;column-gap:44px}
+@media (max-width:600px){.gyms{columns:1}}
+.gyms div{break-inside:avoid;display:flex;justify-content:space-between;gap:16px;
+  padding:9px 0;border-bottom:1px solid var(--line-soft);font-size:15px}
+.gyms span{font-family:"DM Mono",monospace;font-size:13px;color:var(--dimmer)}
+
+/* people */
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:26px 34px}
+.person .n{font-family:Syne,sans-serif;font-weight:700;font-size:17px;letter-spacing:-.01em}
+.person .r{font-family:"DM Mono",monospace;font-size:11.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--dimmer);margin-top:4px}
+.person .c{font-size:14px;color:var(--dim);margin-top:6px;word-break:break-word}
+
+footer{border-top:1px solid var(--line);padding-block:34px 60px;
+  font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--dimmer);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <a class="lockup" href="/">S.J.Rubin</a>
+  <nav class="top">
+    <a href="/#about">About</a>
+    <a href="/basketball" aria-current="page">Basketball</a>
+    <a href="/#contact">Contact</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1><span class="ghost">Two teams.</span><span class="live">One bench.</span></h1>
+  <p>Hudson with the U13 Rebelles, where I coach. Saul with Rising Tide U11, where I drive. Schedules, gyms and the coaching material, in one place.</p>
+</div>
+
+<section>
+  <div class="label">Next up</div>
+  <div class="next">
+    <div class="when" id="n-when">—</div>
+    <div>
+      <div class="what" id="n-what"></div>
+      <div class="sub" id="n-sub"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="label">The teams</div>
+  <div class="teams">
+
+    <div class="team reb">
+      <div class="tag">Coaching · U13</div>
+      <h3>Rebelles</h3>
+      <div class="who">Hudson · Rebels-Rebelles Basketball Association</div>
+      <dl class="rows">
+        <div class="row"><dt>Practice</dt><dd>Tuesdays, 7:00 pm</dd></div>
+        <div class="row"><dt>Opens</dt><dd>September 15</dd></div>
+        <div class="row"><dt>Staff</dt><dd>Ben Rutledge (head), Nav Sidhu, me</dd></div>
+        <div class="row"><dt>Admin</dt><dd>RAMP Team App</dd></div>
+      </dl>
+      <p class="note">Gym confirmed week to week. Record check through V&amp;DABA still outstanding.</p>
+    </div>
+
+    <div class="team tide">
+      <div class="tag">Parent · U11</div>
+      <h3>Rising Tide</h3>
+      <div class="who">Saul · Victoria Night League</div>
+      <dl class="rows">
+        <div class="row"><dt>Practice</dt><dd>Saturdays, 2:00 – 3:00 pm</dd></div>
+        <div class="row"><dt>Academy</dt><dd>Sundays, 11:30 – 12:45</dd></div>
+        <div class="row"><dt>Venue</dt><dd>Claremont Secondary</dd></div>
+        <div class="row"><dt>Staff</dt><dd>Lucky Walia, Jag Ludu</dd></div>
+      </dl>
+      <p class="note">Games from the week of October 13, one weeknight a week, gyms rotating across the city.</p>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="label">Fixtures</div>
+  <h2>Nothing is scheduled far ahead.</h2>
+  <p class="pending">The Night League posts each week's games on the <b>Saturday before play</b> — day, gym and tip-off change every week. The first schedule drops <b>Saturday, October 10</b>. Everything known is below.</p>
+  <div class="fxwrap" style="margin-top:28px">
+    <table>
+      <thead><tr><th>Date</th><th>Time</th><th>Team</th><th>What</th><th>Where</th></tr></thead>
+      <tbody id="fx"></tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="label">Coaching</div>
+  <div class="drillbox">
+    <div>
+      <h3>Drill Court</h3>
+      <p>Fifteen drills animated on a half court in standard notation — solid line a run, zigzag a dribble, dashed arrow a pass — with the cue to say out loud for each one. Built to open on a phone at the gym.</p>
+    </div>
+    <a class="btn" href="https://claude.ai/code/artifact/ef7e6731-e329-4746-8efb-02087e0acff5">Open Drill Court</a>
+  </div>
+
+  <div style="margin-top:34px">
+    <h2 style="font-size:26px">The shape of a practice night</h2>
+    <dl class="rows" style="margin-top:20px;gap:13px">
+      <div class="row"><dt>6:45</dt><dd>Arrive, balls out. Nobody stands in a line waiting to be told something.</dd></div>
+      <div class="row"><dt>7:00</dt><dd>Kids start, parents talk. Agreed across all three coaches.</dd></div>
+      <div class="row"><dt>7:05</dt><dd>Warm-up — something loud and moving.</dd></div>
+      <div class="row"><dt>7:15</dt><dd>Skill block. Under thirty seconds of talk per drill.</dd></div>
+      <div class="row"><dt>7:35</dt><dd>Shooting. Form work close to the rim before anything competitive.</dd></div>
+      <div class="row"><dt>7:50</dt><dd>Small-sided games. Constrain the game so the right decision is obvious.</dd></div>
+      <div class="row"><dt>8:10</dt><dd>Free throws in pairs, then one word each on what they learned.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section>
+  <div class="label">Game gyms · drive from Cordova Bay</div>
+  <div class="gyms">
+    <div>Claremont Secondary <span>5 min</span></div>
+    <div>Rogers Elementary <span>10 min</span></div>
+    <div>UVic CARSA <span>12 min</span></div>
+    <div>Glanford Middle <span>15 min</span></div>
+    <div>Lansdowne Middle <span>15 min</span></div>
+    <div>Hillcrest Elementary <span>15 min</span></div>
+    <div>Strawberry Vale Elementary <span>18 min</span></div>
+    <div>Arbutus Global Middle <span>20 min</span></div>
+    <div>Central Middle <span>22 min</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="label">Coaches</div>
+  <div class="people">
+    <div class="person"><div class="n">Ben Rutledge</div><div class="r">Head · U13</div><div class="c">ben@r-family.ca</div></div>
+    <div class="person"><div class="n">Nav Sidhu</div><div class="r">Coach · U13</div><div class="c">navsdh@gmail.com</div></div>
+    <div class="person"><div class="n">Lucky Walia</div><div class="r">Coach · U11</div><div class="c">luckywalia.11@gmail.com</div></div>
+    <div class="person"><div class="n">Jag Ludu</div><div class="r">Coach · U11</div><div class="c">jagludu@gmail.com</div></div>
+  </div>
+</section>
+
+<footer>
+  <span>Mop Kids · UVic CARSA · Feb 12, 8:00 pm</span>
+  <span>© 2026 S.J. Rubin</span>
+</footer>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+var V={"Claremont Secondary":5,"Rogers Elementary":10,"UVic CARSA":12,
+ "Glanford Middle":15,"Lansdowne Middle":15,"Hillcrest Elementary":15,
+ "Strawberry Vale Elementary":18,"Arbutus Global Middle":20,"Central Middle":22};
+
+var E=[];
+function add(d,t,team,what,venue){E.push({date:d,time:t,team:team,what:what,venue:venue||""});}
+["2026-09-12","2026-09-19","2026-10-03","2026-10-17","2026-10-24","2026-11-07",
+ "2026-11-14","2026-11-21","2026-11-28","2026-12-05","2026-12-12","2027-01-02",
+ "2027-01-09","2027-01-16","2027-01-23","2027-01-30","2027-02-06"].forEach(function(d){
+  add(d,"14:00","tide","Practice","Claremont Secondary");});
+["2026-09-13","2026-09-20","2026-09-27","2026-10-04","2026-10-11","2026-10-18",
+ "2026-10-25","2026-11-01"].forEach(function(d){
+  add(d,"11:30","tide","Academy","Claremont Secondary");});
+(function(){var d=new Date(2026,8,15),end=new Date(2027,2,31);
+ while(d<=end){add(d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+
+   String(d.getDate()).padStart(2,"0"),"19:00","reb","Practice","");d.setDate(d.getDate()+7);}})();
+add("2027-02-12","20:00","tide","Mop Kids · Vikes game","UVic CARSA");
+
+var DSH=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+var MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function fmt(t){var p=t.split(":"),h=+p[0],m=p[1],a=h>=12?"pm":"am";h=h%12;if(!h)h=12;return h+":"+m+" "+a;}
+function mins(t){var p=t.split(":");return +p[0]*60+ +p[1];}
+function hm(m){return String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0");}
+function when(e){return new Date(e.date+"T"+e.time+":00");}
+E.sort(function(a,b){return when(a)-when(b);});
+
+var now=new Date();
+var next=E.filter(function(e){return when(e)>=now;})[0];
+if(next){
+  var d=when(next);
+  var days=Math.round((new Date(next.date+"T00:00:00")-
+    new Date(now.getFullYear(),now.getMonth(),now.getDate()))/864e5);
+  document.getElementById("n-when").textContent=
+    (days===0?"Today":days===1?"Tomorrow":DSH[d.getDay()]+" "+MON[d.getMonth()]+" "+d.getDate());
+  document.getElementById("n-what").textContent=
+    (next.team==="reb"?"Rebelles":"Rising Tide")+" — "+next.what+
+    (next.venue?" at "+next.venue:", gym to confirm");
+  var drive=V[next.venue];
+  document.getElementById("n-sub").textContent=fmt(next.time)+
+    (drive?"  ·  leave home by "+fmt(hm(Math.max(0,mins(next.time)-drive-15))):"");
+}
+
+var body=document.getElementById("fx");
+E.filter(function(e){return when(e)>=now;}).slice(0,12).forEach(function(e){
+  var d=when(e),tr=document.createElement("tr");
+  function td(x,c){var n=document.createElement("td");if(c)n.className=c;n.textContent=x;return n;}
+  tr.appendChild(td(DSH[d.getDay()]+" "+MON[d.getMonth()]+" "+d.getDate(),"m"));
+  tr.appendChild(td(fmt(e.time),"m"));
+  var t=document.createElement("td");
+  var s=document.createElement("span");s.className="pill "+e.team;
+  s.textContent=e.team==="reb"?"U13":"U11";t.appendChild(s);tr.appendChild(t);
+  tr.appendChild(td(e.what));
+  tr.appendChild(td(e.venue||"to confirm","m"));
+  body.appendChild(tr);
+});
+})();
+</script>
+
+</body>
+</html>
