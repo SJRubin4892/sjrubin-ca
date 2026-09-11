@@ -279,10 +279,14 @@ drill({name:"Dribble tag", phase:"Warm-up · 4 min",
   {id:"a1",side:"off",label:"1",at:[[0,20,9],[.25,29,14],[.5,22,17],[.75,30,9],[1,24,12]]},
   {id:"a2",side:"off",label:"2",out:.66,looseTo:[7,4],
    at:[[0,30,15],[.25,21,11],[.5,29,8],[.66,24,7],[.82,13,6],[1,8,5]]},
-  {id:"a3",side:"off",label:"3",at:[[0,25,17],[.25,31,10],[.5,19,13],[.75,27,17],[1,20,10]]},
+  {id:"a3",side:"off",label:"3",at:[[0,25,17],[.25,31,10],[.5,20,12],[.66,23.5,8],[.8,27,15],[1,20,11]]},
   {id:"a4",side:"off",label:"4",out:.4,looseTo:[44,24],
    at:[[0,19,12],[.25,24,17],[.4,29,16],[.6,38,20],[1,43,23]]},
-  {id:"a5",side:"off",label:"5",at:[[0,31,8],[.25,19,15],[.5,26,10],[.75,32,16],[1,19,9]]}
+  {id:"a5",side:"off",label:"5",at:[[0,31,8],[.25,24,13],[.4,28.5,15.5],[.6,26,10],[.75,32,16],[1,19,9]]}
+ ],
+ calls:[
+  {t0:.40,t1:.54,actor:"a5",text:"OUT!"},
+  {t0:.66,t1:.80,actor:"a3",text:"OUT!"}
  ]});
 
 drill({name:"Two-line layups, called side", phase:"Warm-up · 6 min",
@@ -345,7 +349,7 @@ drill({name:"Pressure dribble", phase:"Ball handling · 4 min",
  ball:{start:"a1"}});
 
 drill({name:"Monkey in the middle, 4v1", phase:"Passing · 6 min",
- desc:"Four on the perimeter, one defender, no dribbling. Three consecutive completions wins. This is where passing decisions actually get made.",
+ desc:"Four on the perimeter, one defender, no dribbling. Count the completions out loud \u2014 three in a row and the defender swaps out. Any deflection and the count goes back to zero. This is where passing decisions actually get made.",
  cue:"Fake one way, pass the other.", dur:7500, nodrib:true,
  actors:[
   {id:"a1",side:"off",label:"1",at:[[0,15,12],[1,15,12]]},
@@ -353,6 +357,12 @@ drill({name:"Monkey in the middle, 4v1", phase:"Passing · 6 min",
   {id:"a3",side:"off",label:"3",at:[[0,35,28],[1,35,28]]},
   {id:"a4",side:"off",label:"4",at:[[0,15,28],[1,15,28]]},
   {id:"d1",side:"def",at:[[0,25,20],[.2,20,15],[.45,31,16],[.7,33,25],[1,22,26]]}
+ ],
+ calls:[
+  {t0:.23,t1:.36,actor:"a2",text:"ONE"},
+  {t0:.47,t1:.60,actor:"a3",text:"TWO"},
+  {t0:.71,t1:.84,actor:"a4",text:"THREE!"},
+  {t0:.85,t1:.99,actor:"d1",text:"SWITCH"}
  ],
  ball:{start:"a1", passes:[
    {t0:.14,t1:.22,to:"a2"},{t0:.38,t1:.46,to:"a3"},{t0:.62,t1:.70,to:"a4"},{t0:.86,t1:.94,to:"a1"}]}});
@@ -460,7 +470,7 @@ drill({name:"4v4 no dribble", phase:"Decision-making · 8 min",
  ball:{start:"a1", passes:[{t0:.2,t1:.29,to:"a2"},{t0:.46,t1:.55,to:"a4"},{t0:.72,t1:.81,to:"a3"}]}});
 
 drill({name:"Scrimmage with a constraint", phase:"Decision-making · 10 min",
- desc:"A normal game plus one rule: three passes before a shot, or every player touches it, or the first shot comes off a cut.",
+ desc:"A normal game plus one rule: three passes before a shot, or every player touches it, or the first shot comes off a cut. The receivers count out loud \u2014 hearing the count is what makes the constraint stick.",
  cue:"Three passes — count them out loud.", dur:8500,
  actors:[
   {id:"a1",side:"off",label:"1",at:[[0,25,32],[.3,22,30],[.6,17,26],[1,15,20]]},
@@ -473,6 +483,11 @@ drill({name:"Scrimmage with a constraint", phase:"Decision-making · 10 min",
   {id:"d3",side:"def",at:[[0,37,21],[.4,36,17],[.75,31,12],[1,28,10]]},
   {id:"d4",side:"def",at:[[0,21,11],[.4,17,12],[1,13,17]]},
   {id:"d5",side:"def",at:[[0,29,11],[.4,32,14],[1,35,19]]}
+ ],
+ calls:[
+  {t0:.26,t1:.38,actor:"a2",text:"ONE"},
+  {t0:.50,t1:.60,actor:"a5",text:"TWO"},
+  {t0:.72,t1:.83,actor:"a3",text:"THREE \u2014 GO!"}
  ],
  ball:{start:"a1", passes:[
    {t0:.16,t1:.25,to:"a2"},{t0:.4,t1:.49,to:"a5"},{t0:.62,t1:.71,to:"a3"}], shot:{t0:.84,t1:.97}}});
