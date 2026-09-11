@@ -286,19 +286,20 @@ drill({name:"Dribble tag", phase:"Warm-up · 4 min",
  ]});
 
 drill({name:"Two-line layups, called side", phase:"Warm-up · 6 min",
- desc:"Standard two lines, but the shooter calls “left” or “right” before the last step and has to finish on that side.",
- cue:"Tell me before you take off.", dur:6000,
+ desc:"Standard two lines, but the front of the second line calls “left” or “right” before the driver's last step — and she has to finish on that side. She can't decide on the way in.",
+ cue:"Call it late. Make her react.", dur:6500,
+ calls:[{t0:.42,t1:.72,actor:"a2",text:"RIGHT!"}],
  actors:[
-  {id:"a1",side:"off",label:"1",at:[[0,41,30],[.45,35,17],[.72,28,8],[1,24,6]]},
+  {id:"a1",side:"off",label:"1",at:[[0,41,30],[.38,36,19],[.62,31,11],[.84,28.5,7.5],[1,27.5,6.5]]},
   {id:"a2",side:"off",label:"2",at:[[0,9,30],[.5,14,22],[1,20,12]]},
   {id:"a3",side:"off",label:"3",at:[[0,43,34],[1,42,31]]},
   {id:"a4",side:"off",label:"4",at:[[0,7,34],[1,8,31]]}
  ],
- ball:{start:"a1", shot:{t0:.78,t1:.95}}});
+ ball:{start:"a1", shot:{t0:.86,t1:.99}}});
 
 drill({name:"Partner pass-and-move", phase:"Warm-up · 4 min",
  desc:"Pairs, one ball, both players moving the whole time, no dribbling. The ball leads the receiver rather than chasing her.",
- cue:"Pass where she's going.", dur:6500,
+ cue:"Pass where she's going.", dur:6500, nodrib:true,
  actors:[
   {id:"a1",side:"off",label:"1",at:[[0,18,8],[.35,19,20],[.7,17,31],[1,20,42]]},
   {id:"a2",side:"off",label:"2",at:[[0,32,11],[.35,31,23],[.7,33,34],[1,30,44]]}
@@ -341,7 +342,7 @@ drill({name:"Pressure dribble", phase:"Ball handling · 4 min",
 
 drill({name:"Monkey in the middle, 4v1", phase:"Passing · 6 min",
  desc:"Four on the perimeter, one defender, no dribbling. Three consecutive completions wins. This is where passing decisions actually get made.",
- cue:"Fake one way, pass the other.", dur:7500,
+ cue:"Fake one way, pass the other.", dur:7500, nodrib:true,
  actors:[
   {id:"a1",side:"off",label:"1",at:[[0,15,12],[1,15,12]]},
   {id:"a2",side:"off",label:"2",at:[[0,35,12],[1,35,12]]},
@@ -354,7 +355,7 @@ drill({name:"Monkey in the middle, 4v1", phase:"Passing · 6 min",
 
 drill({name:"Three-man weave", phase:"Passing · 5 min",
  desc:"Slow first, then at speed. Pass, then run behind the player you passed to — no bunching.",
- cue:"Pass and go behind.", dur:7000,
+ cue:"Pass and go behind.", dur:7000, nodrib:true,
  actors:[
   {id:"a1",side:"off",label:"1",at:[[0,25,7],[.28,13,13],[.55,8,24],[.8,16,34],[1,25,43]]},
   {id:"a2",side:"off",label:"2",at:[[0,12,7],[.28,20,15],[.55,35,24],[.8,41,33],[1,33,43]]},
@@ -365,7 +366,7 @@ drill({name:"Three-man weave", phase:"Passing · 5 min",
 
 drill({name:"Outlet and go", phase:"Passing · 5 min",
  desc:"Rebound, pivot, outlet to the wing, fill the lanes. Turn to the sideline every time — an outlet through the middle is the pass that gets stolen.",
- cue:"Turn to the sideline, never the middle.", dur:6500,
+ cue:"Turn to the sideline, never the middle.", dur:6500, nodrib:true,
  actors:[
   {id:"a1",side:"off",label:"1",at:[[0,25,7],[.3,23,9],[.7,24,20],[1,25,32]]},
   {id:"a2",side:"off",label:"2",at:[[0,11,13],[.3,9,16],[.7,8,28],[1,10,42]]},
@@ -417,7 +418,7 @@ drill({name:"3v2 continuous", phase:"Decision-making · 8 min",
 
 drill({name:"4v4 no dribble", phase:"Decision-making · 8 min",
  desc:"Full possession, passing and cutting only. Brutally effective at teaching movement off the ball — standing still stops being an option.",
- cue:"If you're standing still, you're not open.", dur:8000,
+ cue:"If you're standing still, you're not open.", dur:8000, nodrib:true,
  actors:[
   {id:"a1",side:"off",label:"1",at:[[0,25,28],[.35,20,29],[.7,14,22],[1,12,15]]},
   {id:"a2",side:"off",label:"2",at:[[0,11,20],[.35,13,26],[.7,22,29],[1,26,28]]},
@@ -572,7 +573,7 @@ function drawTrail(d, actor, t){
     var tt = t0 + (t - t0) * i / steps;
     var p = posAt(actor, tt);
     pts.push([px(p[0]), py(p[1])]);
-    dribs.push(d.multiball ? !(actor.out && tt > actor.out) : holdsAt(d, actor.id, tt));
+    dribs.push(d.nodrib ? false : (d.multiball ? !(actor.out && tt > actor.out) : holdsAt(d, actor.id, tt)));
   }
   ctx.strokeStyle = col;
   var i2;
@@ -688,6 +689,50 @@ function drawBall(d, t){
   ctx.fill();
 }
 
+function drawCalls(d, t){
+  if(!d.calls) return;
+  for(var i=0;i<d.calls.length;i++){
+    var c = d.calls[i];
+    if(t < c.t0 || t > c.t1) continue;
+    var span = c.t1 - c.t0, k = (t - c.t0) / span;
+    var a = Math.min(1, Math.min(k, 1 - k) / 0.18);   // fade in and out
+    var who = actorById(d, c.actor);
+    if(!who) continue;
+    var p = posAt(who, t);
+    var fs = Math.max(11, S * 0.95);
+    ctx.font = "500 " + fs + "px 'DM Mono', ui-monospace, monospace";
+    var w = ctx.measureText(c.text).width;
+    var padX = fs * 0.6, padY = fs * 0.45;
+    var bw = w + padX * 2, bh = fs + padY * 2;
+    var bx = px(p[0]) + S * 1.4, by = py(p[1]) - bh - S * 1.2;
+    if(bx + bw > px(CW)) bx = px(p[0]) - S * 1.4 - bw;   // flip if it would run off
+    ctx.globalAlpha = a;
+    ctx.fillStyle = tok("--panel");
+    ctx.strokeStyle = tok("--orange");
+    ctx.lineWidth = Math.max(1.2, S * 0.14);
+    var r = Math.max(3, S * 0.3);
+    ctx.beginPath();
+    ctx.moveTo(bx + r, by);
+    ctx.arcTo(bx + bw, by, bx + bw, by + bh, r);
+    ctx.arcTo(bx + bw, by + bh, bx, by + bh, r);
+    ctx.arcTo(bx, by + bh, bx, by, r);
+    ctx.arcTo(bx, by, bx + bw, by, r);
+    ctx.closePath();
+    ctx.fill(); ctx.stroke();
+    // tail back to the caller
+    ctx.beginPath();
+    ctx.moveTo(bx + bw * 0.22, by + bh);
+    ctx.lineTo(bx + bw * 0.10, by + bh + S * 0.9);
+    ctx.lineTo(bx + bw * 0.44, by + bh);
+    ctx.closePath();
+    ctx.fillStyle = tok("--panel"); ctx.fill();
+    ctx.fillStyle = tok("--orange");
+    ctx.textAlign = "left"; ctx.textBaseline = "middle";
+    ctx.fillText(c.text, bx + padX, by + bh / 2);
+    ctx.globalAlpha = 1;
+  }
+}
+
 function render(d, t){
   drawCourt();
   var i;
@@ -700,6 +745,7 @@ function render(d, t){
     ctx.globalAlpha = 1;
   }
   drawBall(d, t);
+  drawCalls(d, t);
 }
 
 /* ---------- playback ---------- */
