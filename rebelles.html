@@ -273,13 +273,15 @@ var D = [];
 function drill(o){ D.push(o); }
 
 drill({name:"Dribble tag", phase:"Warm-up · 4 min",
- desc:"Everyone dribbles inside the key, knocking out others' balls while protecting their own. Last three standing. The best energy-setter in the bank.",
+ desc:"Everyone dribbles inside the key, knocking out others' balls while protecting their own. Lose your ball and you're out \u2014 collect it and clear the key. Last three standing. The best energy-setter in the bank.",
  cue:"Head up or you're out.", dur:7000, multiball:true,
  actors:[
   {id:"a1",side:"off",label:"1",at:[[0,20,9],[.25,29,14],[.5,22,17],[.75,30,9],[1,24,12]]},
-  {id:"a2",side:"off",label:"2",at:[[0,30,15],[.25,21,11],[.5,29,8],[.75,20,16],[1,28,14]]},
+  {id:"a2",side:"off",label:"2",out:.66,looseTo:[7,4],
+   at:[[0,30,15],[.25,21,11],[.5,29,8],[.66,24,7],[.82,13,6],[1,8,5]]},
   {id:"a3",side:"off",label:"3",at:[[0,25,17],[.25,31,10],[.5,19,13],[.75,27,17],[1,20,10]]},
-  {id:"a4",side:"off",label:"4",at:[[0,19,12],[.25,24,17],[.5,31,15],[.75,23,8],[1,31,13]]},
+  {id:"a4",side:"off",label:"4",out:.4,looseTo:[44,24],
+   at:[[0,19,12],[.25,24,17],[.4,29,16],[.6,38,20],[1,43,23]]},
   {id:"a5",side:"off",label:"5",at:[[0,31,8],[.25,19,15],[.5,26,10],[.75,32,16],[1,19,9]]}
  ]});
 
@@ -564,11 +566,13 @@ function drawTrail(d, actor, t){
   var steps = 60, prev = null, segStart = null, segDrib = null;
   ctx.lineWidth = Math.max(1.6, S*0.2); ctx.lineCap = "round";
   var pts = [], dribs = [];
+  // free-for-all drills would otherwise scribble over themselves; show a recent window
+  var t0 = d.multiball ? Math.max(0, t - 0.25) : 0;
   for(var i=0;i<=steps;i++){
-    var tt = t * i / steps;
+    var tt = t0 + (t - t0) * i / steps;
     var p = posAt(actor, tt);
     pts.push([px(p[0]), py(p[1])]);
-    dribs.push(d.multiball ? true : holdsAt(d, actor.id, tt));
+    dribs.push(d.multiball ? !(actor.out && tt > actor.out) : holdsAt(d, actor.id, tt));
   }
   ctx.strokeStyle = col;
   var i2;
@@ -650,6 +654,19 @@ function drawBall(d, t){
       if(a.side !== "off") continue;
       var p = posAt(a, t);
       var r = Math.max(3, S*0.36);
+      if(a.out && t > a.out){
+        // the ball is knocked away, rolls clear, then it is gone
+        var k = (t - a.out) / 0.16;
+        if(k < 1 && a.looseTo){
+          var o = posAt(a, a.out);
+          ctx.globalAlpha = 1 - k;
+          ctx.fillStyle = col; ctx.beginPath();
+          ctx.arc(px(o[0] + (a.looseTo[0] - o[0]) * k),
+                  py(o[1] + (a.looseTo[1] - o[1]) * k), r, 0, Math.PI*2);
+          ctx.fill(); ctx.globalAlpha = 1;
+        }
+        continue;
+      }
       ctx.fillStyle = col;
       // a small alternating bounce so the two hands read as out of phase
       var ph = Math.sin(t * Math.PI * 12 + i) * S * 0.18;
@@ -678,7 +695,9 @@ function render(d, t){
   drawPasses(d, t);
   for(i=0;i<d.actors.length;i++){
     var a = d.actors[i], p = posAt(a, t);
+    if(a.out && t > a.out) ctx.globalAlpha = 0.4;
     drawActor(a, px(p[0]), py(p[1]));
+    ctx.globalAlpha = 1;
   }
   drawBall(d, t);
 }
