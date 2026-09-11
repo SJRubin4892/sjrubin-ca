@@ -304,8 +304,8 @@ drill({name:"Partner pass-and-move", phase:"Warm-up · 4 min",
  ball:{start:"a1", passes:[{t0:.18,t1:.28,to:"a2"},{t0:.48,t1:.58,to:"a1"},{t0:.78,t1:.88,to:"a2"}]}});
 
 drill({name:"Two-ball dribbling", phase:"Ball handling · 4 min",
- desc:"Same-time, then alternating. Stationary first, then walking forward. Everyone has two balls.",
- cue:"Fingertips, not palms.", dur:6000, multiball:true,
+ desc:"One ball in each hand. Same-time bounces first, then alternating. Stationary to start, then walking forward.",
+ cue:"Fingertips, not palms.", dur:6000, multiball:true, twoball:true,
  actors:[
   {id:"a1",side:"off",label:"1",at:[[0,14,14],[.45,14,14],[1,14,30]]},
   {id:"a2",side:"off",label:"2",at:[[0,22,14],[.45,22,14],[1,22,30]]},
@@ -649,8 +649,16 @@ function drawBall(d, t){
       var a = d.actors[i];
       if(a.side !== "off") continue;
       var p = posAt(a, t);
-      ctx.fillStyle = col; ctx.beginPath();
-      ctx.arc(px(p[0]) + S*1.05, py(p[1]) + S*0.75, Math.max(3, S*0.36), 0, Math.PI*2); ctx.fill();
+      var r = Math.max(3, S*0.36);
+      ctx.fillStyle = col;
+      // a small alternating bounce so the two hands read as out of phase
+      var ph = Math.sin(t * Math.PI * 12 + i) * S * 0.18;
+      ctx.beginPath();
+      ctx.arc(px(p[0]) + S*1.05, py(p[1]) + S*0.75 + ph, r, 0, Math.PI*2); ctx.fill();
+      if(d.twoball){
+        ctx.beginPath();
+        ctx.arc(px(p[0]) - S*1.05, py(p[1]) + S*0.75 - ph, r, 0, Math.PI*2); ctx.fill();
+      }
     }
     return;
   }
