@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="U13 Rebelles 2026-27 - schedule, practice plan and drill library. Rebels-Rebelles Basketball Association, Victoria BC." />
+  <meta name="color-scheme" content="dark" />
+  <title>U13 Rebelles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+:root{
+  --bg:#0A0A0A; --panel:#111111; --line:#1E1E1E; --line-soft:#161616;
+  --ink:#F0EDE8; --dim:#8C8781; --dimmer:#5E5A55;
+  --orange:#E8570A; --team:#E8570A; --cool:#5FA8B8;
+  /* court */
+  --floor:#151413; --paint:#1D1B19; --court:#6E6862;
+  --off:#E8570A; --def:#7F8C93; --ball:#F2B33D; --cone:#6E6862; --muted:#8C8781;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);
+  font-family:"DM Sans",system-ui,sans-serif;font-weight:300;font-size:16px;line-height:1.6;
+  background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+  background-size:120px 120px;}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:24px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+
+header.top{display:flex;align-items:center;justify-content:space-between;padding-block:26px;gap:20px;flex-wrap:wrap}
+.lockup{font-family:"DM Mono",monospace;font-weight:500;font-size:17px;color:var(--orange);text-decoration:none}
+nav.top a{font-family:"DM Mono",monospace;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--dim);text-decoration:none;margin-left:26px}
+nav.top a:hover,nav.top a[aria-current]{color:var(--ink)}
+
+.hero{padding-block:64px 46px}
+.hero .kicker{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--dimmer);margin-bottom:18px}
+.hero h1{font-family:Syne,sans-serif;font-weight:800;font-size:clamp(50px,12vw,116px);
+  line-height:.87;letter-spacing:-.03em}
+.hero h1 .ghost{color:#232323;display:block}
+.hero h1 .live{color:var(--team);display:block}
+.hero p{margin-top:24px;color:var(--dim);font-size:17px;max-width:52ch;line-height:1.5}
+
+section{padding-block:54px;border-top:1px solid var(--line)}
+.label{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--dimmer);margin-bottom:26px}
+h2{font-family:Syne,sans-serif;font-weight:800;font-size:clamp(26px,5vw,40px);line-height:1.03;
+  letter-spacing:-.02em;margin-bottom:18px}
+h3{font-family:Syne,sans-serif;font-weight:700;letter-spacing:-.01em}
+
+.next{display:flex;flex-wrap:wrap;gap:14px 42px;align-items:flex-end}
+.next .when{font-family:Syne,sans-serif;font-weight:800;font-size:clamp(30px,6.5vw,54px);
+  line-height:1;letter-spacing:-.02em;color:var(--team)}
+.next .what{font-size:18px;font-weight:400}
+.next .sub{font-family:"DM Mono",monospace;font-size:13px;color:var(--dim);margin-top:6px}
+
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--line)}
+.fact{background:var(--bg);padding:22px 20px}
+.fact dt{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer)}
+.fact dd{margin-top:7px;font-size:16.5px}
+
+.fxwrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--dimmer);text-align:left;font-weight:400;padding:0 16px 10px 0;border-bottom:1px solid var(--line)}
+td{padding:13px 16px 13px 0;border-bottom:1px solid var(--line-soft);font-weight:300}
+td.m{font-family:"DM Mono",monospace;font-size:13.5px;white-space:nowrap;color:var(--dim)}
+
+.rows{display:flex;flex-direction:column;gap:13px}
+.row{display:grid;grid-template-columns:84px 1fr;gap:16px;align-items:baseline}
+.row dt{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.1em;color:var(--dimmer)}
+.row dd{font-size:15.5px}
+
+/* drill court */
+.drillhead{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:24px}
+.legend{display:flex;flex-wrap:wrap;gap:9px 22px;font-family:"DM Mono",monospace;
+  font-size:11.5px;letter-spacing:.06em;color:var(--dim)}
+.legend span{display:flex;align-items:center;gap:7px}
+.drill-layout{display:grid;grid-template-columns:228px 1fr;gap:0}
+@media (max-width:860px){.drill-layout{grid-template-columns:1fr}}
+nav.drills{border-right:1px solid var(--line);padding-right:20px}
+@media (max-width:860px){nav.drills{border-right:0;border-bottom:1px solid var(--line);padding:0 0 20px;margin-bottom:22px}}
+.phase-l{margin-top:20px}
+.phase-l:first-child{margin-top:0}
+.phase-l h4{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--dimmer);font-weight:400;margin-bottom:7px}
+button.d{display:block;width:100%;text-align:left;background:none;border:0;cursor:pointer;
+  font-family:"DM Sans",sans-serif;font-weight:300;font-size:15px;color:var(--dim);
+  padding:5px 8px 5px 11px;border-left:2px solid transparent;line-height:1.3}
+button.d:hover{color:var(--ink)}
+button.d[aria-current="true"]{border-left-color:var(--orange);color:var(--ink);font-weight:500}
+.stage{padding-left:28px}
+@media (max-width:860px){.stage{padding-left:0}}
+.stage-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.stage-head h3{font-size:25px}
+.mins{font-family:"DM Mono",monospace;font-size:12px;color:var(--dimmer);white-space:nowrap}
+.desc{margin-top:10px;max-width:60ch;font-size:16px}
+.cue{font-family:"DM Mono",monospace;font-size:13.5px;color:var(--orange);margin-top:9px}
+.cue::before{content:"say  ";color:var(--dimmer);letter-spacing:.08em}
+.courtbox{margin-top:20px;background:var(--panel);border:1px solid var(--line);padding:12px}
+canvas{display:block;width:100%;height:auto;max-width:100%}
+.controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px}
+button.ctl{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--orange);color:#0A0A0A;border:0;padding:9px 17px;cursor:pointer}
+button.ctl.ghost{background:none;color:var(--dim);border:1px solid var(--line)}
+button.ctl.ghost:hover{color:var(--ink);border-color:var(--dim)}
+input[type=range]{flex:1 1 140px;min-width:110px;accent-color:var(--orange)}
+.speed{display:flex;border:1px solid var(--line)}
+.speed button{font-family:"DM Mono",monospace;font-size:11.5px;background:none;color:var(--dimmer);
+  border:0;padding:8px 11px;cursor:pointer}
+.speed button[aria-pressed="true"]{background:var(--orange);color:#0A0A0A}
+
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:24px 32px}
+.person .n{font-family:Syne,sans-serif;font-weight:700;font-size:17px}
+.person .r{font-family:"DM Mono",monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--dimmer);margin-top:4px}
+.note{color:var(--dim);font-size:15.5px;max-width:64ch}
+.note + .note{margin-top:12px}
+footer{border-top:1px solid var(--line);padding-block:32px 60px;
+  font-family:"DM Mono",monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dimmer);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <a class="lockup" href="/">S.J.Rubin</a>
+  <nav class="top">
+    <a href="/basketball">Basketball</a>
+    <a href="/rebelles" aria-current="page">Rebelles</a>
+    <a href="/#contact">Contact</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="kicker">Rebels-Rebelles Basketball Association &middot; Victoria BC</div>
+  <h1><span class="ghost">U13</span><span class="live">Rebelles.</span></h1>
+  <p>Season 2026&ndash;27. Practice schedule, how a practice night runs, and the full drill library &mdash; so every coach is working from the same plan and every family knows where to be.</p>
+</div>
+
+<section>
+  <div class="label">Next up</div>
+  <div class="next">
+    <div class="when" id="n-when">&mdash;</div>
+    <div>
+      <div class="what" id="n-what"></div>
+      <div class="sub" id="n-sub"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="label">The season</div>
+  <dl class="facts">
+    <div class="fact"><dt>Practice</dt><dd>Tuesdays, 7:00 pm</dd></div>
+    <div class="fact"><dt>First practice</dt><dd>September 15</dd></div>
+    <div class="fact"><dt>Gym</dt><dd>Confirmed weekly</dd></div>
+    <div class="fact"><dt>Team admin</dt><dd>RAMP Team App</dd></div>
+  </dl>
+  <div class="fxwrap" style="margin-top:30px">
+    <table>
+      <thead><tr><th>Date</th><th>Time</th><th>What</th><th>Gym</th></tr></thead>
+      <tbody id="fx"></tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="label">How a practice night runs</div>
+  <h2>Kids play first. Talking comes second.</h2>
+  <p class="note">Balls are out the moment they walk in. The parent conversation happens on the sideline while the players are already warming up &mdash; nobody stands in a line waiting to be told something.</p>
+  <dl class="rows" style="margin-top:26px">
+    <div class="row"><dt>6:45</dt><dd>Arrive, balls out, shooting.</dd></div>
+    <div class="row"><dt>7:00</dt><dd>Players start the warm-up. Parent talk runs alongside.</dd></div>
+    <div class="row"><dt>7:05</dt><dd>Warm-up &mdash; something loud and moving.</dd></div>
+    <div class="row"><dt>7:15</dt><dd>Skill block. Under thirty seconds of talk per drill.</dd></div>
+    <div class="row"><dt>7:35</dt><dd>Shooting. Form work close to the rim before anything competitive.</dd></div>
+    <div class="row"><dt>7:50</dt><dd>Small-sided games &mdash; constrain the game so the right decision is obvious.</dd></div>
+    <div class="row"><dt>8:10</dt><dd>Free throws in pairs, then one word each on what they learned.</dd></div>
+  </dl>
+</section>
+
+<section id="drills">
+  <div class="drillhead">
+    <div>
+      <div class="label" style="margin-bottom:12px">Drill library</div>
+      <h2 style="margin:0">Fifteen drills, drawn on the floor.</h2>
+    </div>
+    <div class="legend">
+      <span><svg width="30" height="10" aria-hidden="true"><line x1="1" y1="5" x2="21" y2="5" stroke="currentColor" stroke-width="2"/><path d="M21 1 L29 5 L21 9 Z" fill="currentColor"/></svg>run</span>
+      <span><svg width="30" height="10" aria-hidden="true"><path d="M1 5 q3 -4 6 0 q3 4 6 0 q3 -4 6 0" fill="none" stroke="currentColor" stroke-width="2"/><path d="M21 1 L29 5 L21 9 Z" fill="currentColor"/></svg>dribble</span>
+      <span><svg width="30" height="10" aria-hidden="true"><line x1="1" y1="5" x2="21" y2="5" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/><path d="M21 1 L29 5 L21 9 Z" fill="currentColor"/></svg>pass</span>
+    </div>
+  </div>
+
+  <div class="drill-layout">
+    <nav class="drills" id="list" aria-label="Drills"></nav>
+    <div class="stage">
+      <div class="stage-head">
+        <h3 id="d-name">&mdash;</h3>
+        <span class="mins" id="d-phase"></span>
+      </div>
+      <p class="desc" id="d-desc"></p>
+      <div class="cue" id="d-cue"></div>
+      <div class="courtbox">
+        <canvas id="court" width="700" height="620" aria-label="Animated drill diagram"></canvas>
+      </div>
+      <div class="controls">
+        <button class="ctl" id="play" type="button">Pause</button>
+        <button class="ctl ghost" id="restart" type="button">Restart</button>
+        <input type="range" id="scrub" min="0" max="1000" value="0" step="1" aria-label="Scrub through the drill" />
+        <div class="speed" role="group" aria-label="Playback speed">
+          <button type="button" data-s="0.5">0.5&times;</button>
+          <button type="button" data-s="1" aria-pressed="true">1&times;</button>
+          <button type="button" data-s="1.75">1.75&times;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="label">Coaching staff</div>
+  <div class="people">
+    <div class="person"><div class="n">Ben Rutledge</div><div class="r">Head coach</div></div>
+    <div class="person"><div class="n">Nav Sidhu</div><div class="r">Coach</div></div>
+    <div class="person"><div class="n">Steven Rubin</div><div class="r">Assistant coach</div></div>
+  </div>
+  <p class="note" style="margin-top:24px">Questions about schedule, gym or anything on this page &mdash; <a href="mailto:sj@sjrubin.ca">sj@sjrubin.ca</a>.</p>
+</section>
+
+<footer>
+  <span>U13 Rebelles &middot; 2026&ndash;27</span>
+  <span>&copy; 2026 S.J. Rubin</span>
+</footer>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---- schedule ---- */
+var SCH=[];
+(function(){var d=new Date(2026,8,15),end=new Date(2027,2,31);
+ while(d<=end){SCH.push({date:d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+
+   String(d.getDate()).padStart(2,"0"),time:"19:00",what:"Practice",venue:""});d.setDate(d.getDate()+7);}})();
+var DSH=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+var MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function f12(t){var p=t.split(":"),h=+p[0],m=p[1],a=h>=12?"pm":"am";h=h%12;if(!h)h=12;return h+":"+m+" "+a;}
+function when(e){return new Date(e.date+"T"+e.time+":00");}
+var now=new Date();
+var nx=SCH.filter(function(e){return when(e)>=now;})[0];
+if(nx){var d=when(nx);
+  var days=Math.round((new Date(nx.date+"T00:00:00")-new Date(now.getFullYear(),now.getMonth(),now.getDate()))/864e5);
+  document.getElementById("n-when").textContent=days===0?"Today":days===1?"Tomorrow":
+    DSH[d.getDay()]+" "+MON[d.getMonth()]+" "+d.getDate();
+  document.getElementById("n-what").textContent=nx.what+", "+f12(nx.time);
+  document.getElementById("n-sub").textContent="gym confirmed the week of";
+}
+var fxb=document.getElementById("fx");
+SCH.filter(function(e){return when(e)>=now;}).slice(0,8).forEach(function(e){
+  var d=when(e),tr=document.createElement("tr");
+  function td(x,c){var n=document.createElement("td");if(c)n.className=c;n.textContent=x;return n;}
+  tr.appendChild(td(DSH[d.getDay()]+" "+MON[d.getMonth()]+" "+d.getDate(),"m"));
+  tr.appendChild(td(f12(e.time),"m"));
+  tr.appendChild(td(e.what));
+  tr.appendChild(td(e.venue||"to confirm","m"));
+  fxb.appendChild(tr);
+});
+
+/* ---------- court geometry, in feet. (0,0) is the baseline at centre;
+   y increases away from the hoop toward half court. ---------- */
+var CW = 50, CL = 47, RIM = {x:25, y:5.25}, FT = 19, KEY = 8, ARC = 19.75;
+
+/* ---------- drills ----------
+   actor: {id, side:'off'|'def'|'coach'|'cone', label, at:[[t,x,y],...]}
+   ball:  {start:'a1', passes:[{t0,t1,to}], shot:{t0,t1} }            */
+
+var D = [];
+function drill(o){ D.push(o); }
+
+drill({name:"Dribble tag", phase:"Warm-up · 4 min",
+ desc:"Everyone dribbles inside the key, knocking out others' balls while protecting their own. Last three standing. The best energy-setter in the bank.",
+ cue:"Head up or you're out.", dur:7000, multiball:true,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,20,9],[.25,29,14],[.5,22,17],[.75,30,9],[1,24,12]]},
+  {id:"a2",side:"off",label:"2",at:[[0,30,15],[.25,21,11],[.5,29,8],[.75,20,16],[1,28,14]]},
+  {id:"a3",side:"off",label:"3",at:[[0,25,17],[.25,31,10],[.5,19,13],[.75,27,17],[1,20,10]]},
+  {id:"a4",side:"off",label:"4",at:[[0,19,12],[.25,24,17],[.5,31,15],[.75,23,8],[1,31,13]]},
+  {id:"a5",side:"off",label:"5",at:[[0,31,8],[.25,19,15],[.5,26,10],[.75,32,16],[1,19,9]]}
+ ]});
+
+drill({name:"Two-line layups, called side", phase:"Warm-up · 6 min",
+ desc:"Standard two lines, but the shooter calls “left” or “right” before the last step and has to finish on that side.",
+ cue:"Tell me before you take off.", dur:6000,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,41,30],[.45,35,17],[.72,28,8],[1,24,6]]},
+  {id:"a2",side:"off",label:"2",at:[[0,9,30],[.5,14,22],[1,20,12]]},
+  {id:"a3",side:"off",label:"3",at:[[0,43,34],[1,42,31]]},
+  {id:"a4",side:"off",label:"4",at:[[0,7,34],[1,8,31]]}
+ ],
+ ball:{start:"a1", shot:{t0:.78,t1:.95}}});
+
+drill({name:"Partner pass-and-move", phase:"Warm-up · 4 min",
+ desc:"Pairs, one ball, both players moving the whole time, no dribbling. The ball leads the receiver rather than chasing her.",
+ cue:"Pass where she's going.", dur:6500,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,18,8],[.35,19,20],[.7,17,31],[1,20,42]]},
+  {id:"a2",side:"off",label:"2",at:[[0,32,11],[.35,31,23],[.7,33,34],[1,30,44]]}
+ ],
+ ball:{start:"a1", passes:[{t0:.18,t1:.28,to:"a2"},{t0:.48,t1:.58,to:"a1"},{t0:.78,t1:.88,to:"a2"}]}});
+
+drill({name:"Two-ball dribbling", phase:"Ball handling · 4 min",
+ desc:"Same-time, then alternating. Stationary first, then walking forward. Everyone has two balls.",
+ cue:"Fingertips, not palms.", dur:6000, multiball:true,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,14,14],[.45,14,14],[1,14,30]]},
+  {id:"a2",side:"off",label:"2",at:[[0,22,14],[.45,22,14],[1,22,30]]},
+  {id:"a3",side:"off",label:"3",at:[[0,30,14],[.45,30,14],[1,30,30]]},
+  {id:"a4",side:"off",label:"4",at:[[0,38,14],[.45,38,14],[1,38,30]]},
+  {id:"c1",side:"coach",label:"C",at:[[0,26,40],[1,26,40]]}
+ ]});
+
+drill({name:"Cone weave, eyes up", phase:"Ball handling · 4 min",
+ desc:"Weave five cones. You hold up fingers at the far end and she calls the number — without slowing down.",
+ cue:"Look at me, not the ball.", dur:6500,
+ actors:[
+  {id:"k1",side:"cone",at:[[0,25,10],[1,25,10]]},
+  {id:"k2",side:"cone",at:[[0,25,17],[1,25,17]]},
+  {id:"k3",side:"cone",at:[[0,25,24],[1,25,24]]},
+  {id:"k4",side:"cone",at:[[0,25,31],[1,25,31]]},
+  {id:"k5",side:"cone",at:[[0,25,38],[1,25,38]]},
+  {id:"a1",side:"off",label:"1",at:[[0,25,5],[.16,20,12],[.32,30,19],[.48,20,26],[.64,30,33],[.8,22,39],[1,25,43]]},
+  {id:"c1",side:"coach",label:"C",at:[[0,25,45],[1,25,45]]}
+ ],
+ ball:{start:"a1"}});
+
+drill({name:"Pressure dribble", phase:"Ball handling · 4 min",
+ desc:"Partner applies light pressure while the handler keeps possession for twenty seconds, then rotate.",
+ cue:"Protect with your body, not your arm.", dur:6000,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,25,20],[.25,20,17],[.5,24,24],[.75,30,19],[1,25,20]]},
+  {id:"d1",side:"def",at:[[0,25,24],[.25,21,21],[.5,25,28],[.75,30,23],[1,25,24]]}
+ ],
+ ball:{start:"a1"}});
+
+drill({name:"Monkey in the middle, 4v1", phase:"Passing · 6 min",
+ desc:"Four on the perimeter, one defender, no dribbling. Three consecutive completions wins. This is where passing decisions actually get made.",
+ cue:"Fake one way, pass the other.", dur:7500,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,15,12],[1,15,12]]},
+  {id:"a2",side:"off",label:"2",at:[[0,35,12],[1,35,12]]},
+  {id:"a3",side:"off",label:"3",at:[[0,35,28],[1,35,28]]},
+  {id:"a4",side:"off",label:"4",at:[[0,15,28],[1,15,28]]},
+  {id:"d1",side:"def",at:[[0,25,20],[.2,20,15],[.45,31,16],[.7,33,25],[1,22,26]]}
+ ],
+ ball:{start:"a1", passes:[
+   {t0:.14,t1:.22,to:"a2"},{t0:.38,t1:.46,to:"a3"},{t0:.62,t1:.70,to:"a4"},{t0:.86,t1:.94,to:"a1"}]}});
+
+drill({name:"Three-man weave", phase:"Passing · 5 min",
+ desc:"Slow first, then at speed. Pass, then run behind the player you passed to — no bunching.",
+ cue:"Pass and go behind.", dur:7000,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,25,7],[.28,13,13],[.55,8,24],[.8,16,34],[1,25,43]]},
+  {id:"a2",side:"off",label:"2",at:[[0,12,7],[.28,20,15],[.55,35,24],[.8,41,33],[1,33,43]]},
+  {id:"a3",side:"off",label:"3",at:[[0,38,7],[.28,33,13],[.55,26,23],[.8,12,33],[1,9,43]]}
+ ],
+ ball:{start:"a1", passes:[
+   {t0:.06,t1:.16,to:"a2"},{t0:.34,t1:.44,to:"a3"},{t0:.60,t1:.70,to:"a1"},{t0:.84,t1:.93,to:"a2"}]}});
+
+drill({name:"Outlet and go", phase:"Passing · 5 min",
+ desc:"Rebound, pivot, outlet to the wing, fill the lanes. Turn to the sideline every time — an outlet through the middle is the pass that gets stolen.",
+ cue:"Turn to the sideline, never the middle.", dur:6500,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,25,7],[.3,23,9],[.7,24,20],[1,25,32]]},
+  {id:"a2",side:"off",label:"2",at:[[0,11,13],[.3,9,16],[.7,8,28],[1,10,42]]},
+  {id:"a3",side:"off",label:"3",at:[[0,39,11],[.4,42,22],[1,40,43]]}
+ ],
+ ball:{start:"a1", passes:[{t0:.28,t1:.4,to:"a2"},{t0:.66,t1:.78,to:"a3"}]}});
+
+drill({name:"Form shooting, close range", phase:"Shooting · 5 min",
+ desc:"One hand from three feet, then two hands, then step back. Fixes more than any other drill at this age.",
+ cue:"Elbow under the ball.", dur:7000,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,25,8],[.3,25,8],[.35,25,11],[.6,25,11],[.65,25,15],[.9,25,15],[1,25,19]]},
+  {id:"a2",side:"off",label:"2",at:[[0,30,7],[1,30,7]]}
+ ],
+ ball:{start:"a1", shot:{t0:.9,t1:1}}});
+
+drill({name:"Spot shooting, five spots", phase:"Shooting · 5 min",
+ desc:"Make three from a spot before moving on. Same feet every time — the footwork is the drill, the shot is the scoreboard.",
+ cue:"Same feet every time.", dur:8000,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,5,8],[.2,5,8],[.28,11,20],[.44,11,20],[.52,25,27],[.66,25,27],[.74,39,20],[.86,39,20],[1,45,8]]},
+  {id:"a2",side:"off",label:"2",at:[[0,27,7],[1,23,7]]}
+ ],
+ ball:{start:"a1"}});
+
+drill({name:"Beat the coach", phase:"Shooting · 5 min",
+ desc:"The whole team shoots against a running coach score. Competitive, loud, and a good way to end the shooting block.",
+ cue:"Next shot, not the last one.", dur:6500, multiball:true,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,7,9],[1,7,9]]},
+  {id:"a2",side:"off",label:"2",at:[[0,13,21],[1,13,21]]},
+  {id:"a3",side:"off",label:"3",at:[[0,25,27],[1,25,27]]},
+  {id:"a4",side:"off",label:"4",at:[[0,37,21],[1,37,21]]},
+  {id:"a5",side:"off",label:"5",at:[[0,43,9],[1,43,9]]},
+  {id:"c1",side:"coach",label:"C",at:[[0,25,42],[1,25,42]]}
+ ]});
+
+drill({name:"3v2 continuous", phase:"Decision-making · 8 min",
+ desc:"Three attack two; whoever loses possession sprints back. The numbers advantage forces reads rather than habits.",
+ cue:"Two defenders, three of you — go at the one in the middle.", dur:7000,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,25,42],[.4,25,28],[.7,25,24],[1,25,22]]},
+  {id:"a2",side:"off",label:"2",at:[[0,10,38],[.45,11,22],[.75,17,11],[1,22,7]]},
+  {id:"a3",side:"off",label:"3",at:[[0,40,38],[.45,39,22],[1,36,12]]},
+  {id:"d1",side:"def",at:[[0,25,16],[.4,24,18],[.7,18,15],[1,20,11]]},
+  {id:"d2",side:"def",at:[[0,25,9],[.5,25,9],[1,27,9]]}
+ ],
+ ball:{start:"a1", passes:[{t0:.5,t1:.6,to:"a2"}], shot:{t0:.82,t1:.96}}});
+
+drill({name:"4v4 no dribble", phase:"Decision-making · 8 min",
+ desc:"Full possession, passing and cutting only. Brutally effective at teaching movement off the ball — standing still stops being an option.",
+ cue:"If you're standing still, you're not open.", dur:8000,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,25,28],[.35,20,29],[.7,14,22],[1,12,15]]},
+  {id:"a2",side:"off",label:"2",at:[[0,11,20],[.35,13,26],[.7,22,29],[1,26,28]]},
+  {id:"a3",side:"off",label:"3",at:[[0,39,20],[.4,36,14],[.7,30,9],[1,33,17]]},
+  {id:"a4",side:"off",label:"4",at:[[0,20,8],[.4,28,8],[.75,34,12],[1,38,20]]},
+  {id:"d1",side:"def",at:[[0,25,24],[.35,21,25],[.7,16,20],[1,14,14]]},
+  {id:"d2",side:"def",at:[[0,14,20],[.35,16,24],[.7,23,26],[1,26,25]]},
+  {id:"d3",side:"def",at:[[0,36,19],[.4,34,15],[.7,29,12],[1,31,18]]},
+  {id:"d4",side:"def",at:[[0,22,11],[.4,29,11],[.75,33,14],[1,36,20]]}
+ ],
+ ball:{start:"a1", passes:[{t0:.2,t1:.29,to:"a2"},{t0:.46,t1:.55,to:"a4"},{t0:.72,t1:.81,to:"a3"}]}});
+
+drill({name:"Scrimmage with a constraint", phase:"Decision-making · 10 min",
+ desc:"A normal game plus one rule: three passes before a shot, or every player touches it, or the first shot comes off a cut.",
+ cue:"Three passes — count them out loud.", dur:8500,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,25,32],[.3,22,30],[.6,17,26],[1,15,20]]},
+  {id:"a2",side:"off",label:"2",at:[[0,10,22],[.35,12,27],[.7,19,28],[1,23,26]]},
+  {id:"a3",side:"off",label:"3",at:[[0,40,22],[.4,38,16],[.75,33,10],[1,29,7]]},
+  {id:"a4",side:"off",label:"4",at:[[0,19,8],[.4,15,10],[.8,11,13],[1,10,17]]},
+  {id:"a5",side:"off",label:"5",at:[[0,31,8],[.4,34,12],[1,37,18]]},
+  {id:"d1",side:"def",at:[[0,25,28],[.3,23,27],[.6,19,23],[1,17,18]]},
+  {id:"d2",side:"def",at:[[0,13,22],[.35,15,26],[.7,21,25],[1,24,23]]},
+  {id:"d3",side:"def",at:[[0,37,21],[.4,36,17],[.75,31,12],[1,28,10]]},
+  {id:"d4",side:"def",at:[[0,21,11],[.4,17,12],[1,13,17]]},
+  {id:"d5",side:"def",at:[[0,29,11],[.4,32,14],[1,35,19]]}
+ ],
+ ball:{start:"a1", passes:[
+   {t0:.16,t1:.25,to:"a2"},{t0:.4,t1:.49,to:"a5"},{t0:.62,t1:.71,to:"a3"}], shot:{t0:.84,t1:.97}}});
+
+/* ---------- geometry helpers ---------- */
+function posAt(actor, t){
+  var k = actor.at, i;
+  if(t <= k[0][0]) return [k[0][1], k[0][2]];
+  for(i = 1; i < k.length; i++){
+    if(t <= k[i][0]){
+      var a = k[i-1], b = k[i];
+      var f = (b[0] - a[0]) === 0 ? 0 : (t - a[0]) / (b[0] - a[0]);
+      f = f * f * (3 - 2 * f);
+      return [a[1] + (b[1]-a[1]) * f, a[2] + (b[2]-a[2]) * f];
+    }
+  }
+  var l = k[k.length-1];
+  return [l[1], l[2]];
+}
+function actorById(d, id){
+  for(var i=0;i<d.actors.length;i++) if(d.actors[i].id === id) return d.actors[i];
+  return null;
+}
+/* who holds the ball at time t, and is it mid-flight */
+function ballState(d, t){
+  var b = d.ball;
+  if(!b) return null;
+  if(b.shot && t >= b.shot.t0){
+    var f = Math.min(1, (t - b.shot.t0) / (b.shot.t1 - b.shot.t0));
+    var holder = b.start, i;
+    if(b.passes) for(i=0;i<b.passes.length;i++) if(b.shot.t0 >= b.passes[i].t1) holder = b.passes[i].to;
+    var from = posAt(actorById(d, holder), b.shot.t0);
+    var x = from[0] + (RIM.x - from[0]) * f;
+    var y = from[1] + (RIM.y - from[1]) * f;
+    return {x:x, y:y, lift: Math.sin(f * Math.PI) * 2.2, flying:true, holder:null};
+  }
+  var cur = b.start;
+  if(b.passes){
+    for(var j=0;j<b.passes.length;j++){
+      var p = b.passes[j];
+      if(t < p.t0) break;
+      if(t < p.t1){
+        var g = (t - p.t0) / (p.t1 - p.t0);
+        var A = posAt(actorById(d, cur), t), B = posAt(actorById(d, p.to), t);
+        return {x:A[0]+(B[0]-A[0])*g, y:A[1]+(B[1]-A[1])*g, lift:0, flying:true, holder:null};
+      }
+      cur = p.to;
+    }
+  }
+  var h = posAt(actorById(d, cur), t);
+  return {x:h[0], y:h[1], lift:0, flying:false, holder:cur};
+}
+function holdsAt(d, id, t){
+  var s = ballState(d, t);
+  return s && s.holder === id;
+}
+
+/* ---------- canvas ---------- */
+var cv = document.getElementById("court"), ctx = cv.getContext("2d");
+var S = 1, OX = 0, OY = 0, css = {w:760, h:700};
+
+function C(){ return getComputedStyle(document.documentElement); }
+function tok(n){ return C().getPropertyValue(n).trim() || "#888"; }
+
+function fit(){
+  var box = cv.parentNode.getBoundingClientRect();
+  var w = Math.max(280, box.width - 24);
+  var pad = 16;
+  var s = Math.min((w - pad*2) / CW, 560 / CL);
+  var h = CL * s + pad * 2;
+  css.w = w; css.h = h;
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  cv.style.height = h + "px";
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  S = s; OX = (w - CW * s) / 2; OY = pad;
+}
+function px(x){ return OX + x * S; }
+function py(y){ return OY + y * S; }
+
+function drawCourt(){
+  ctx.clearRect(0,0,css.w,css.h);
+  ctx.fillStyle = tok("--floor");
+  ctx.fillRect(px(0), py(0), CW*S, CL*S);
+  var ln = tok("--court");
+  ctx.strokeStyle = ln; ctx.lineWidth = Math.max(1.2, S*0.14); ctx.setLineDash([]);
+  ctx.strokeRect(px(0), py(0), CW*S, CL*S);
+  // key
+  ctx.fillStyle = tok("--paint");
+  ctx.fillRect(px(RIM.x-KEY), py(0), KEY*2*S, FT*S);
+  ctx.strokeRect(px(RIM.x-KEY), py(0), KEY*2*S, FT*S);
+  // free-throw circle
+  ctx.beginPath(); ctx.arc(px(RIM.x), py(FT), 6*S, 0, Math.PI*2); ctx.stroke();
+  // three-point line — high-school arc, meeting the baseline in the corners
+  var a3 = Math.asin(RIM.y / ARC);
+  ctx.beginPath();
+  ctx.arc(px(RIM.x), py(RIM.y), ARC*S, -a3, Math.PI + a3, false);
+  ctx.stroke();
+  // backboard + rim
+  ctx.lineWidth = Math.max(1.6, S*0.2);
+  ctx.beginPath(); ctx.moveTo(px(RIM.x-3), py(4)); ctx.lineTo(px(RIM.x+3), py(4)); ctx.stroke();
+  ctx.beginPath(); ctx.arc(px(RIM.x), py(RIM.y), 0.75*S, 0, Math.PI*2); ctx.stroke();
+  // half-court line
+  ctx.lineWidth = Math.max(1.2, S*0.14);
+  ctx.beginPath(); ctx.moveTo(px(0), py(CL)); ctx.lineTo(px(CW), py(CL)); ctx.stroke();
+}
+
+function arrow(x1,y1,x2,y2,col){
+  var a = Math.atan2(y2-y1, x2-x1), h = Math.max(6, S*0.7);
+  ctx.fillStyle = col; ctx.beginPath();
+  ctx.moveTo(x2,y2);
+  ctx.lineTo(x2 - h*Math.cos(a-0.42), y2 - h*Math.sin(a-0.42));
+  ctx.lineTo(x2 - h*Math.cos(a+0.42), y2 - h*Math.sin(a+0.42));
+  ctx.closePath(); ctx.fill();
+}
+
+/* trail: sampled path with dribble squiggle where the player has the ball */
+function drawTrail(d, actor, t){
+  var col = actor.side === "def" ? tok("--def") : tok("--off");
+  var steps = 60, prev = null, segStart = null, segDrib = null;
+  ctx.lineWidth = Math.max(1.6, S*0.2); ctx.lineCap = "round";
+  var pts = [], dribs = [];
+  for(var i=0;i<=steps;i++){
+    var tt = t * i / steps;
+    var p = posAt(actor, tt);
+    pts.push([px(p[0]), py(p[1])]);
+    dribs.push(d.multiball ? true : holdsAt(d, actor.id, tt));
+  }
+  ctx.strokeStyle = col;
+  var i2;
+  for(i2=1;i2<pts.length;i2++){
+    var A = pts[i2-1], B = pts[i2];
+    var dx = B[0]-A[0], dy = B[1]-A[1];
+    var len = Math.hypot(dx,dy);
+    if(len < 0.3) continue;
+    ctx.setLineDash([]);
+    if(dribs[i2]){
+      // squiggle perpendicular to travel
+      var nx = -dy/len, ny = dx/len;
+      var amp = Math.min(S*0.42, len*1.6);
+      var ph = (i2 % 4) < 2 ? 1 : -1;
+      ctx.beginPath();
+      ctx.moveTo(A[0], A[1]);
+      ctx.quadraticCurveTo(A[0]+dx/2 + nx*amp*ph, A[1]+dy/2 + ny*amp*ph, B[0], B[1]);
+      ctx.stroke();
+    } else {
+      ctx.beginPath(); ctx.moveTo(A[0],A[1]); ctx.lineTo(B[0],B[1]); ctx.stroke();
+    }
+  }
+  if(pts.length > 4){
+    var L = pts[pts.length-1], K = pts[Math.max(0,pts.length-5)];
+    if(Math.hypot(L[0]-K[0], L[1]-K[1]) > 4) arrow(K[0],K[1],L[0],L[1],col);
+  }
+}
+
+/* completed passes stay on the diagram as dashed arrows */
+function drawPasses(d, t){
+  if(!d.ball || !d.ball.passes) return;
+  var cur = d.ball.start, col = tok("--ball");
+  ctx.strokeStyle = col; ctx.lineWidth = Math.max(1.4, S*0.17);
+  for(var i=0;i<d.ball.passes.length;i++){
+    var p = d.ball.passes[i];
+    if(t < p.t0) break;
+    var e = Math.min(t, p.t1);
+    var A = posAt(actorById(d, cur), p.t0), B = posAt(actorById(d, p.to), e);
+    var g = (e - p.t0) / (p.t1 - p.t0);
+    var x2 = px(A[0]) + (px(B[0]) - px(A[0])) * g;
+    var y2 = py(A[1]) + (py(B[1]) - py(A[1])) * g;
+    ctx.setLineDash([Math.max(4,S*0.5), Math.max(3,S*0.42)]);
+    ctx.beginPath(); ctx.moveTo(px(A[0]), py(A[1])); ctx.lineTo(x2, y2); ctx.stroke();
+    ctx.setLineDash([]);
+    if(g > .25) arrow(px(A[0]), py(A[1]), x2, y2, col);
+    cur = p.to;
+  }
+}
+
+function drawActor(a, x, y){
+  var r = Math.max(7, S*0.85);
+  ctx.lineWidth = Math.max(1.8, S*0.22); ctx.setLineDash([]);
+  if(a.side === "cone"){
+    ctx.fillStyle = tok("--cone");
+    ctx.beginPath(); ctx.moveTo(x, y-r*0.8); ctx.lineTo(x+r*0.7, y+r*0.6); ctx.lineTo(x-r*0.7, y+r*0.6);
+    ctx.closePath(); ctx.fill(); return;
+  }
+  if(a.side === "def"){
+    ctx.strokeStyle = tok("--def");
+    ctx.beginPath();
+    ctx.moveTo(x-r*0.7,y-r*0.7); ctx.lineTo(x+r*0.7,y+r*0.7);
+    ctx.moveTo(x+r*0.7,y-r*0.7); ctx.lineTo(x-r*0.7,y+r*0.7);
+    ctx.stroke(); return;
+  }
+  var col = a.side === "coach" ? tok("--muted") : tok("--off");
+  ctx.fillStyle = tok("--floor"); ctx.strokeStyle = col;
+  ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = col;
+  ctx.font = "600 " + Math.round(r*1.15) + "px Oswald, sans-serif";
+  ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.fillText(a.label || "", x, y + r*0.06);
+}
+
+function drawBall(d, t){
+  var col = tok("--ball");
+  if(d.multiball){
+    for(var i=0;i<d.actors.length;i++){
+      var a = d.actors[i];
+      if(a.side !== "off") continue;
+      var p = posAt(a, t);
+      ctx.fillStyle = col; ctx.beginPath();
+      ctx.arc(px(p[0]) + S*1.05, py(p[1]) + S*0.75, Math.max(3, S*0.36), 0, Math.PI*2); ctx.fill();
+    }
+    return;
+  }
+  var s = ballState(d, t);
+  if(!s) return;
+  ctx.fillStyle = col;
+  var off = s.flying ? 0 : S*1.05;
+  ctx.beginPath();
+  ctx.arc(px(s.x) + off, py(s.y - (s.lift||0)) + (s.flying?0:S*0.75), Math.max(3.4, S*0.4), 0, Math.PI*2);
+  ctx.fill();
+}
+
+function render(d, t){
+  drawCourt();
+  var i;
+  for(i=0;i<d.actors.length;i++) if(d.actors[i].side !== "cone") drawTrail(d, d.actors[i], t);
+  drawPasses(d, t);
+  for(i=0;i<d.actors.length;i++){
+    var a = d.actors[i], p = posAt(a, t);
+    drawActor(a, px(p[0]), py(p[1]));
+  }
+  drawBall(d, t);
+}
+
+/* ---------- playback ---------- */
+var idx = 0, t = 0, playing = true, speed = 1, last = 0;
+var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function cur(){ return D[idx]; }
+function frame(ts){
+  if(!last) last = ts;
+  var dt = ts - last; last = ts;
+  if(playing && !reduce){
+    t += (dt / cur().dur) * speed;
+    if(t >= 1){ t = 0; }
+    document.getElementById("scrub").value = Math.round(t * 1000);
+  }
+  render(cur(), t);
+  requestAnimationFrame(frame);
+}
+
+function select(i){
+  idx = i; t = 0; last = 0;
+  var d = cur();
+  document.getElementById("d-name").textContent = d.name;
+  document.getElementById("d-phase").textContent = d.phase;
+  document.getElementById("d-desc").textContent = d.desc;
+  document.getElementById("d-cue").textContent = "“" + d.cue + "”";
+  document.getElementById("scrub").value = 0;
+  var bs = document.querySelectorAll("button.d");
+  for(var k=0;k<bs.length;k++) bs[k].setAttribute("aria-current", k === i ? "true" : "false");
+  render(d, 0);
+}
+
+function buildList(){
+  var host = document.getElementById("list"), lastPhase = null, group = null;
+  D.forEach(function(d, i){
+    var phase = d.phase.split(" · ")[0];
+    if(phase !== lastPhase){
+      group = document.createElement("div"); group.className = "phase-l";
+      var h = document.createElement("h4"); h.textContent = phase;
+      group.appendChild(h); host.appendChild(group); lastPhase = phase;
+    }
+    var b = document.createElement("button");
+    b.className = "d"; b.type = "button"; b.textContent = d.name;
+    b.addEventListener("click", function(){ select(i); playing = true; document.getElementById("play").textContent = "Pause"; });
+    group.appendChild(b);
+  });
+}
+
+document.getElementById("play").addEventListener("click", function(){
+  playing = !playing; this.textContent = playing ? "Pause" : "Play";
+});
+document.getElementById("restart").addEventListener("click", function(){
+  t = 0; playing = true; document.getElementById("play").textContent = "Pause";
+});
+document.getElementById("scrub").addEventListener("input", function(){
+  t = this.value / 1000; playing = false;
+  document.getElementById("play").textContent = "Play";
+  render(cur(), t);
+});
+Array.prototype.forEach.call(document.querySelectorAll(".speed button"), function(b){
+  b.addEventListener("click", function(){
+    speed = parseFloat(b.dataset.s);
+    Array.prototype.forEach.call(document.querySelectorAll(".speed button"), function(x){
+      x.setAttribute("aria-pressed", x === b ? "true" : "false");
+    });
+  });
+});
+window.addEventListener("resize", function(){ fit(); render(cur(), t); });
+
+buildList();
+fit();
+select(0);
+if(reduce){ playing = false; document.getElementById("play").textContent = "Play"; }
+requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>
