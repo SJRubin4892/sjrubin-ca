@@ -260,7 +260,7 @@ if(nx){var d=when(nx);
   document.getElementById("n-when").textContent=days===0?"Today":days===1?"Tomorrow":
     DSH[d.getDay()]+" "+MON[d.getMonth()]+" "+d.getDate();
   document.getElementById("n-what").textContent=nx.what+", "+f12(nx.time);
-  document.getElementById("n-sub").textContent="gym confirmed the week of";
+  document.getElementById("n-sub").textContent="gym confirmed closer to the date";
 }
 var fxb=document.getElementById("fx");
 SCH.filter(function(e){return when(e)>=now;}).slice(0,8).forEach(function(e){
