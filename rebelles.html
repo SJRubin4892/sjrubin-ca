@@ -286,16 +286,16 @@ drill({name:"Dribble tag", phase:"Warm-up · 4 min",
  ]});
 
 drill({name:"Two-line layups, called side", phase:"Warm-up · 6 min",
- desc:"Standard two lines, but the front of the second line calls “left” or “right” before the driver's last step — and she has to finish on that side. She can't decide on the way in.",
+ desc:"Standard two lines. The front of the second line calls “left” or “right” before the driver's last step and she has to finish on that side — no deciding on the way in. The caller rebounds and joins the other line.",
  cue:"Call it late. Make her react.", dur:6500,
  calls:[{t0:.42,t1:.72,actor:"a2",text:"RIGHT!"}],
  actors:[
   {id:"a1",side:"off",label:"1",at:[[0,41,30],[.38,36,19],[.62,31,11],[.84,28.5,7.5],[1,27.5,6.5]]},
-  {id:"a2",side:"off",label:"2",at:[[0,9,30],[.5,14,22],[1,20,12]]},
+  {id:"a2",side:"off",label:"2",at:[[0,9,30],[.4,13,24],[.66,18,15],[.86,23,8],[1,33,13]]},
   {id:"a3",side:"off",label:"3",at:[[0,43,34],[1,42,31]]},
   {id:"a4",side:"off",label:"4",at:[[0,7,34],[1,8,31]]}
  ],
- ball:{start:"a1", shot:{t0:.86,t1:.99}}});
+ ball:{start:"a1", shot:{t0:.78,t1:.88}, rebound:{t0:.88,t1:.95,to:"a2"}}});
 
 drill({name:"Partner pass-and-move", phase:"Warm-up · 4 min",
  desc:"Pairs, one ball, both players moving the whole time, no dribbling. The ball leads the receiver rather than chasing her.",
@@ -328,6 +328,10 @@ drill({name:"Cone weave, eyes up", phase:"Ball handling · 4 min",
   {id:"k5",side:"cone",at:[[0,25,38],[1,25,38]]},
   {id:"a1",side:"off",label:"1",at:[[0,25,5],[.16,20,12],[.32,30,19],[.48,20,26],[.64,30,33],[.8,22,39],[1,25,43]]},
   {id:"c1",side:"coach",label:"C",at:[[0,25,45],[1,25,45]]}
+ ],
+ calls:[
+  {t0:.52,t1:.80,actor:"c1",text:"3"},
+  {t0:.80,t1:.97,actor:"a1",text:"THREE!"}
  ],
  ball:{start:"a1"}});
 
@@ -372,23 +376,35 @@ drill({name:"Outlet and go", phase:"Passing · 5 min",
   {id:"a2",side:"off",label:"2",at:[[0,11,13],[.3,9,16],[.7,8,28],[1,10,42]]},
   {id:"a3",side:"off",label:"3",at:[[0,39,11],[.4,42,22],[1,40,43]]}
  ],
- ball:{start:"a1", passes:[{t0:.28,t1:.4,to:"a2"},{t0:.66,t1:.78,to:"a3"}]}});
+ ball:{start:"a1", inbound:{t0:0,t1:.16,to:"a1"},
+   passes:[{t0:.3,t1:.42,to:"a2"},{t0:.66,t1:.78,to:"a3"}]}});
 
 drill({name:"Form shooting, close range", phase:"Shooting · 5 min",
- desc:"One hand from three feet, then two hands, then step back. Fixes more than any other drill at this age.",
- cue:"Elbow under the ball.", dur:7000,
- actors:[
-  {id:"a1",side:"off",label:"1",at:[[0,25,8],[.3,25,8],[.35,25,11],[.6,25,11],[.65,25,15],[.9,25,15],[1,25,19]]},
-  {id:"a2",side:"off",label:"2",at:[[0,30,7],[1,30,7]]}
+ desc:"Shoot, step back, shoot again. One hand from three feet, then two hands, then keep stepping back \u2014 four shots, four distances. Fixes more than any other drill at this age.",
+ cue:"Elbow under the ball.", dur:8000,
+ shots:[
+  {actor:"a1",t0:.05,t1:.13},{actor:"a1",t0:.28,t1:.36},
+  {actor:"a1",t0:.52,t1:.60},{actor:"a1",t0:.78,t1:.86}
  ],
- ball:{start:"a1", shot:{t0:.9,t1:1}}});
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,25,8],[.16,25,8],[.24,25,11],[.40,25,11],[.48,25,15],[.64,25,15],[.72,25,19],[1,25,19]]},
+  {id:"a2",side:"off",label:"2",at:[[0,29,7],[.5,26,6],[1,28,7]]}
+ ],
+ ball:{start:"a1"}});
 
 drill({name:"Spot shooting, five spots", phase:"Shooting · 5 min",
- desc:"Make three from a spot before moving on. Same feet every time — the footwork is the drill, the shot is the scoreboard.",
- cue:"Same feet every time.", dur:8000,
+ desc:"Make three from a spot before moving on \u2014 corner, wing, top, wing, corner. Same feet every time: the footwork is the drill, the shot is the scoreboard. A partner rebounds and returns it.",
+ cue:"Same feet every time.", dur:10000,
+ shots:[
+  {actor:"a1",t0:.03,t1:.09},{actor:"a1",t0:.10,t1:.16},
+  {actor:"a1",t0:.23,t1:.29},{actor:"a1",t0:.30,t1:.36},
+  {actor:"a1",t0:.44,t1:.50},{actor:"a1",t0:.51,t1:.57},
+  {actor:"a1",t0:.65,t1:.71},{actor:"a1",t0:.72,t1:.78},
+  {actor:"a1",t0:.86,t1:.92},{actor:"a1",t0:.93,t1:.99}
+ ],
  actors:[
-  {id:"a1",side:"off",label:"1",at:[[0,5,8],[.2,5,8],[.28,11,20],[.44,11,20],[.52,25,27],[.66,25,27],[.74,39,20],[.86,39,20],[1,45,8]]},
-  {id:"a2",side:"off",label:"2",at:[[0,27,7],[1,23,7]]}
+  {id:"a1",side:"off",label:"1",at:[[0,5,8],[.17,5,8],[.21,11,20],[.38,11,20],[.42,25,27],[.59,25,27],[.63,39,20],[.80,39,20],[.84,45,8],[1,45,8]]},
+  {id:"a2",side:"off",label:"2",at:[[0,27,7],[.25,22,6],[.5,25,6],[.75,28,7],[1,23,6]]}
  ],
  ball:{start:"a1"}});
 
@@ -416,16 +432,17 @@ drill({name:"Beat the coach", phase:"Shooting · 5 min",
  ]});
 
 drill({name:"3v2 continuous", phase:"Decision-making · 8 min",
- desc:"Three attack two; whoever loses possession sprints back. The numbers advantage forces reads rather than habits.",
+ desc:"Three attack two. The back defender steps up to the ball and the top defender drops \u2014 watch the two of them trade jobs on the pass. Whoever loses possession sprints back, and it runs again the other way.",
  cue:"Two defenders, three of you — go at the one in the middle.", dur:7000,
  actors:[
-  {id:"a1",side:"off",label:"1",at:[[0,25,42],[.4,25,28],[.7,25,24],[1,25,22]]},
-  {id:"a2",side:"off",label:"2",at:[[0,10,38],[.45,11,22],[.75,17,11],[1,22,7]]},
-  {id:"a3",side:"off",label:"3",at:[[0,40,38],[.45,39,22],[1,36,12]]},
-  {id:"d1",side:"def",at:[[0,25,16],[.4,24,18],[.7,18,15],[1,20,11]]},
-  {id:"d2",side:"def",at:[[0,25,9],[.5,25,9],[1,27,9]]}
+  {id:"a1",side:"off",label:"1",at:[[0,25,42],[.38,25,28],[.58,25,24],[.72,25,27],[1,25,41]]},
+  {id:"a2",side:"off",label:"2",at:[[0,10,38],[.45,11,22],[.72,16,12],[1,20,8]]},
+  {id:"a3",side:"off",label:"3",at:[[0,40,38],[.45,39,22],[1,35,11]]},
+  {id:"d1",side:"def",at:[[0,25,17],[.36,25,21],[.6,25,15],[1,27,9]]},
+  {id:"d2",side:"def",at:[[0,25,9],[.5,25,9],[.72,20,12],[1,19,10]]}
  ],
- ball:{start:"a1", passes:[{t0:.5,t1:.6,to:"a2"}], shot:{t0:.82,t1:.96}}});
+ calls:[{t0:.60,t1:.78,actor:"d2",text:"BALL!"}],
+ ball:{start:"a1", passes:[{t0:.5,t1:.6,to:"a2"}], shot:{t0:.84,t1:.97}}});
 
 drill({name:"4v4 no dribble", phase:"Decision-making · 8 min",
  desc:"Full possession, passing and cutting only. Brutally effective at teaching movement off the ball — standing still stops being an option.",
@@ -483,14 +500,31 @@ function actorById(d, id){
 function ballState(d, t){
   var b = d.ball;
   if(!b) return null;
+  if(b.inbound && t <= b.inbound.t1){
+    var fi = Math.max(0, Math.min(1, (t - b.inbound.t0) / (b.inbound.t1 - b.inbound.t0)));
+    var toA = posAt(actorById(d, b.inbound.to), t);
+    return {x: RIM.x + (toA[0] - RIM.x) * fi, y: RIM.y + (toA[1] - RIM.y) * fi,
+            lift: Math.sin(fi * Math.PI) * 1.4, flying:true, holder:null};
+  }
   if(b.shot && t >= b.shot.t0){
-    var f = Math.min(1, (t - b.shot.t0) / (b.shot.t1 - b.shot.t0));
-    var holder = b.start, i;
-    if(b.passes) for(i=0;i<b.passes.length;i++) if(b.shot.t0 >= b.passes[i].t1) holder = b.passes[i].to;
-    var from = posAt(actorById(d, holder), b.shot.t0);
-    var x = from[0] + (RIM.x - from[0]) * f;
-    var y = from[1] + (RIM.y - from[1]) * f;
-    return {x:x, y:y, lift: Math.sin(f * Math.PI) * 2.2, flying:true, holder:null};
+    if(t <= b.shot.t1){
+      var f = (t - b.shot.t0) / (b.shot.t1 - b.shot.t0);
+      var holder = b.start, i;
+      if(b.passes) for(i=0;i<b.passes.length;i++) if(b.shot.t0 >= b.passes[i].t1) holder = b.passes[i].to;
+      var from = posAt(actorById(d, holder), b.shot.t0);
+      return {x: from[0] + (RIM.x - from[0]) * f, y: from[1] + (RIM.y - from[1]) * f,
+              lift: Math.sin(f * Math.PI) * 2.2, flying:true, holder:null};
+    }
+    if(b.rebound){
+      var rb = posAt(actorById(d, b.rebound.to), t);
+      if(t <= b.rebound.t1){
+        var g = Math.max(0, Math.min(1, (t - b.rebound.t0) / (b.rebound.t1 - b.rebound.t0)));
+        return {x: RIM.x + (rb[0] - RIM.x) * g, y: RIM.y + (rb[1] - RIM.y) * g,
+                lift: Math.sin(g * Math.PI) * 1.2, flying:true, holder:null};
+      }
+      return {x: rb[0], y: rb[1], lift:0, flying:false, holder:b.rebound.to};
+    }
+    return {x: RIM.x, y: RIM.y, lift:0, flying:true, holder:null};
   }
   var cur = b.start;
   if(b.passes){
@@ -660,6 +694,21 @@ function drawActor(a, x, y){
 
 function drawBall(d, t){
   var col = tok("--ball");
+  if(d.shots && !d.multiball){
+    for(var q=0;q<d.shots.length;q++){
+      var sh0 = d.shots[q];
+      if(t < sh0.t0 || t > sh0.t1) continue;
+      var sa = actorById(d, sh0.actor); if(!sa) continue;
+      var kk0 = (t - sh0.t0) / (sh0.t1 - sh0.t0);
+      var o0 = posAt(sa, sh0.t0);
+      ctx.fillStyle = col; ctx.beginPath();
+      ctx.arc(px(o0[0] + (RIM.x - o0[0]) * kk0),
+              py(o0[1] + (RIM.y - o0[1]) * kk0 - Math.sin(kk0 * Math.PI) * 3.2),
+              Math.max(3.4, S*0.4), 0, Math.PI*2);
+      ctx.fill();
+      return;
+    }
+  }
   if(d.multiball){
     for(var i=0;i<d.actors.length;i++){
       var a = d.actors[i];
