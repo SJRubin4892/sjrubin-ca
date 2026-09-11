@@ -393,8 +393,19 @@ drill({name:"Spot shooting, five spots", phase:"Shooting · 5 min",
  ball:{start:"a1"}});
 
 drill({name:"Beat the coach", phase:"Shooting · 5 min",
- desc:"The whole team shoots against a running coach score. Competitive, loud, and a good way to end the shooting block.",
- cue:"Next shot, not the last one.", dur:6500, multiball:true,
+ desc:"The coach counts a score out loud on a timer \u2014 the team has to out-score it. Nobody waits for a turn: rebound your own shot and go again. Competitive, loud, and a good way to end the shooting block.",
+ cue:"Next shot, not the last one.", dur:8000, multiball:true,
+ shots:[
+  {actor:"a3",t0:.05,t1:.19},{actor:"a1",t0:.13,t1:.27},
+  {actor:"a4",t0:.22,t1:.36},{actor:"a2",t0:.34,t1:.48},
+  {actor:"a5",t0:.44,t1:.58},{actor:"a3",t0:.56,t1:.70},
+  {actor:"a1",t0:.66,t1:.80},{actor:"a4",t0:.76,t1:.90}
+ ],
+ calls:[
+  {t0:.06,t1:.26,actor:"c1",text:"COACH 4 \u2013 TEAM 2"},
+  {t0:.36,t1:.56,actor:"c1",text:"COACH 7 \u2013 TEAM 6"},
+  {t0:.68,t1:.94,actor:"c1",text:"COACH 9 \u2013 TEAM 10"}
+ ],
  actors:[
   {id:"a1",side:"off",label:"1",at:[[0,7,9],[1,7,9]]},
   {id:"a2",side:"off",label:"2",at:[[0,13,21],[1,13,21]]},
@@ -655,6 +666,23 @@ function drawBall(d, t){
       if(a.side !== "off") continue;
       var p = posAt(a, t);
       var r = Math.max(3, S*0.36);
+      var sh = null;
+      if(d.shots){
+        for(var q=0;q<d.shots.length;q++){
+          var S2 = d.shots[q];
+          if(S2.actor === a.id && t >= S2.t0 && t <= S2.t1){ sh = S2; break; }
+        }
+      }
+      if(sh){
+        var kk = (t - sh.t0) / (sh.t1 - sh.t0);
+        var o2 = posAt(a, sh.t0);
+        var lift = Math.sin(kk * Math.PI) * 3.2;
+        ctx.fillStyle = col; ctx.beginPath();
+        ctx.arc(px(o2[0] + (RIM.x - o2[0]) * kk),
+                py(o2[1] + (RIM.y - o2[1]) * kk - lift), r, 0, Math.PI*2);
+        ctx.fill();
+        continue;
+      }
       if(a.out && t > a.out){
         // the ball is knocked away, rolls clear, then it is gone
         var k = (t - a.out) / 0.16;
