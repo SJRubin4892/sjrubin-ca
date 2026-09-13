@@ -40,12 +40,14 @@ a{color:inherit}
 .hero h1 .ghost{color:var(--purple-lift);display:block}
 .hero{border-top:3px solid var(--gold)}
 .hero h1 .live{color:var(--team);display:block}
-.nameslot{margin-top:26px;border-left:3px solid var(--gold);padding:14px 0 14px 18px;
-  display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;max-width:60ch}
-.nameslot .nl{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--dimmer)}
-.nameslot b{font-family:Syne,sans-serif;font-weight:700;font-size:19px;color:var(--gold)}
-.nameslot .nn{flex-basis:100%;font-size:14px;color:var(--dim);line-height:1.5}
+.hero h1.pending{display:flex;flex-wrap:wrap;align-items:flex-start;gap:6px 18px;line-height:.9}
+.hero h1 .tname{font:inherit;color:var(--purple-lift);
+  border-bottom:5px solid var(--purple-lift);padding-bottom:6px}
+.hero h1 .soon{font-family:"DM Mono",monospace;font-weight:400;font-size:13px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold);white-space:nowrap;align-self:flex-start;padding-top:10px}
+.subtitle{font-family:Syne,sans-serif;font-weight:800;font-size:clamp(26px,5vw,40px);
+  letter-spacing:-.02em;color:var(--gold);margin-top:20px}
+@media (max-width:520px){ .hero h1 .soon{font-size:11.5px;padding-top:4px} }
 .hero p{margin-top:24px;color:var(--dim);font-size:17px;max-width:52ch;line-height:1.5}
 
 section{padding-block:54px;border-top:1px solid var(--line)}
@@ -268,12 +270,8 @@ button.d .xtra{color:var(--gold)}
 
 <div class="hero">
   <div class="kicker">Rebels-Rebelles Basketball Association &middot; Victoria BC</div>
-  <h1><span class="ghost">U13</span><span class="live">Rebelles.</span></h1>
-  <div class="nameslot">
-    <span class="nl">Team name</span>
-    <b>Still to be chosen</b>
-    <span class="nn">&ldquo;Rebelles&rdquo; is the whole club &mdash; every U11, U13 and U15 girls team carries it. This one needs a name of its own. Send suggestions to the coaches.</span>
-  </div>
+  <h1 class="pending"><span class="tname">Team name</span><span class="soon">*coming soon</span></h1>
+  <div class="subtitle">U13 Rebelles</div>
   <p>Season 2026&ndash;27. Practice schedule, how a practice night runs, and the full games library &mdash; so every coach is working from the same plan and every family knows where to be.</p>
 </div>
 
