@@ -157,6 +157,84 @@ input[type=range]{flex:1 1 140px;min-width:110px;accent-color:var(--orange)}
 footer{border-top:1px solid var(--line);padding-block:32px 60px;
   font-family:"DM Mono",monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
   color:var(--dimmer);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+/* ---- library filters ---- */
+.filterrow{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-top:14px}
+.filterrow>.fl{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--dimmer);min-width:74px}
+
+/* ---- listen ---- */
+.headtools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+button.tool{font-family:"DM Mono",monospace;font-size:11.5px;letter-spacing:.1em;
+  text-transform:uppercase;background:none;color:var(--dim);border:1px solid var(--line);
+  padding:8px 13px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+button.tool:hover{color:var(--ink);border-color:var(--dim)}
+button.tool[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:#0A0A0A}
+button.tool.added{border-color:var(--orange);color:var(--orange)}
+button.tool svg{display:block}
+.speakbar{height:2px;background:var(--line);margin-top:14px;overflow:hidden}
+.speakbar i{display:block;height:100%;width:0;background:var(--orange);transition:width .25s linear}
+
+/* ---- practice builder ---- */
+.planlink{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dimmer);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:3px}
+.planlink:hover{color:var(--orange);border-color:var(--orange)}
+.planwrap{border:1px solid var(--line);background:var(--panel);padding:26px 24px;margin-top:30px}
+.planbar{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end;
+  padding-bottom:20px;border-bottom:1px solid var(--line)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--dimmer)}
+.field input{background:var(--bg);border:1px solid var(--line);color:var(--ink);
+  font-family:"DM Mono",monospace;font-size:14px;padding:9px 11px;width:112px}
+.planbar .grow{flex:1}
+.total{font-family:"DM Mono",monospace;font-size:13px;color:var(--dim);text-align:right;line-height:1.7}
+.total b{color:var(--ink);font-weight:500}
+.total .over{color:#D98A3D}
+.planlist{list-style:none;margin-top:6px}
+.planlist li{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line-soft)}
+.planlist .at{font-family:"DM Mono",monospace;font-size:12px;color:var(--orange);width:52px;flex:none}
+.planlist .nm{flex:1;min-width:0}
+.planlist .nm b{font-weight:500;display:block}
+.planlist .nm input.bn{width:100%;background:none;border:0;border-bottom:1px dashed var(--line);
+  color:var(--dim);font-family:"DM Sans",system-ui,sans-serif;font-size:16px;font-weight:400;
+  padding:0 0 3px;font-style:italic}
+.planlist .nm input.bn:focus{outline:none;border-bottom-color:var(--orange);color:var(--ink)}
+.planlist .nm span{font-family:"DM Mono",monospace;font-size:10.5px;color:var(--dimmer);
+  letter-spacing:.06em;display:block;margin-top:2px}
+.planlist input.m{width:56px;background:var(--bg);border:1px solid var(--line);color:var(--ink);
+  font-family:"DM Mono",monospace;font-size:13px;padding:6px 8px;text-align:center}
+.planlist .mv{display:flex;gap:4px;flex:none}
+.planlist .mv button{background:none;border:1px solid var(--line);color:var(--dim);
+  width:28px;height:28px;cursor:pointer;font-size:13px;line-height:1;padding:0}
+.planlist .mv button:hover{color:var(--ink);border-color:var(--dim)}
+.planlist .mv button.x:hover{color:var(--orange);border-color:var(--orange)}
+.planempty{color:var(--dimmer);font-size:14.5px;padding:22px 0 6px;max-width:58ch}
+.covers{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}
+.covers span{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.08em;
+  border:1px solid var(--line);color:var(--dimmer);padding:5px 9px}
+.covers span.on{border-color:var(--orange);color:var(--orange)}
+.planacts{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+
+@media (max-width:640px){
+  .planbar{gap:12px 16px}
+  .total{text-align:left;width:100%}
+  .planlist li{flex-wrap:wrap}
+  .planlist .nm{flex-basis:100%;order:2}
+  .planlist .at{order:1}
+}
+
+@media print{
+  body{background:#fff;color:#000;background-image:none}
+  .hero,#drills,footer,nav,.planbar .field,.planacts,.covers,section:not(#plan){display:none!important}
+  #plan{display:block!important}
+  .planwrap{border:0;background:none;padding:0}
+  .planlist .mv,.planlist input.m{display:none}
+  .planlist li{border-color:#ccc}
+  .planlist .at,.planlist .nm span{color:#555}
+  .planlist .nm b{color:#000}
+  .label,h2{color:#000!important}
+}
+
   </style>
 </head>
 <body>
@@ -215,8 +293,9 @@ footer{border-top:1px solid var(--line);padding-block:32px 60px;
 <section id="drills">
   <div class="drillhead">
     <div>
-      <div class="label" style="margin-bottom:12px">The games</div>
+      <div class="label" style="margin-bottom:12px">The library</div>
       <h2 style="margin:0">Eleven games, drawn on the floor.</h2>
+      <p style="margin-top:12px"><a class="planlink" href="#plan">Practice plan &middot; <span id="plan-count">0</span> games &middot; <span id="plan-mins">0</span> min</a></p>
     </div>
     <div class="legend">
       <span><svg width="30" height="10" aria-hidden="true"><line x1="1" y1="5" x2="21" y2="5" stroke="currentColor" stroke-width="2"/><path d="M21 1 L29 5 L21 9 Z" fill="currentColor"/></svg>run</span>
@@ -236,7 +315,10 @@ footer{border-top:1px solid var(--line);padding-block:32px 60px;
 
   <div class="filters">
     <input type="search" id="q" placeholder="Search games, cues, what they build\u2026" aria-label="Search the games" />
-    <div class="chips" id="chips" role="group" aria-label="Filter by focus"></div>
+    <div class="filterrow"><span class="fl">Focus</span>
+      <div class="chips" id="chips" role="group" aria-label="Filter by focus"></div></div>
+    <div class="filterrow"><span class="fl">Kit</span>
+      <div class="chips" id="chips2" role="group" aria-label="Filter by equipment"></div></div>
     <div class="hits mono" id="hits"></div>
   </div>
 
@@ -245,8 +327,15 @@ footer{border-top:1px solid var(--line);padding-block:32px 60px;
     <div class="stage">
       <div class="stage-head">
         <h3 id="d-name">&mdash;</h3>
-        <span class="mins" id="d-phase"></span>
+        <div class="headtools">
+          <span class="mins" id="d-phase"></span>
+          <button class="tool" id="listen" type="button" aria-pressed="false">
+            <svg width="11" height="12" viewBox="0 0 11 12" aria-hidden="true"><path d="M0 4h2.4L6 .8v10.4L2.4 8H0z" fill="currentColor"/><path d="M8 3.4a3.6 3.6 0 0 1 0 5.2M9.6 1.6a6 6 0 0 1 0 8.8" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+            <span id="listen-t">Listen</span></button>
+          <button class="tool" id="addplan" type="button">Add to plan</button>
+        </div>
       </div>
+      <div class="speakbar" id="speakbar" hidden><i id="speakfill"></i></div>
       <div class="stage-meta" id="d-meta"></div>
       <p class="desc" id="d-why"></p>
       <div class="beat"><span class="bl">How</span><p id="d-how"></p></div>
@@ -272,6 +361,35 @@ footer{border-top:1px solid var(--line);padding-block:32px 60px;
         <summary><span class="bl">Constraint ladder</span><span class="chev">&rsaquo;</span></summary>
         <ul id="d-ladder"></ul>
       </details>
+    </div>
+  </div>
+</section>
+
+<section id="plan">
+  <div class="label">Build a practice</div>
+  <h2>Pick the games. It does the clock.</h2>
+  <p class="note">Add games from the library above. Change the minutes, drag the order with the arrows, and it works out what time each one starts. Saved on this device, so it is still here next week.</p>
+
+  <div class="planwrap">
+    <div class="planbar">
+      <div class="field"><label for="p-start">Start</label>
+        <input type="time" id="p-start" value="19:00" /></div>
+      <div class="field"><label for="p-target">Target minutes</label>
+        <input type="number" id="p-target" value="90" min="20" max="180" step="5" /></div>
+      <div class="grow"></div>
+      <div class="total" id="p-total"></div>
+    </div>
+
+    <ul class="planlist" id="p-list"></ul>
+    <p class="planempty" id="p-empty">Nothing in the plan yet. Open a game above and hit <b>Add to plan</b> &mdash; or load the session the staff ran first, below.</p>
+
+    <div class="covers" id="p-covers" aria-label="Focus areas covered"></div>
+
+    <div class="planacts">
+      <button class="tool" type="button" id="p-preset">Load practice one</button>
+      <button class="tool" type="button" id="p-block">Add a block</button>
+      <button class="tool" type="button" id="p-print">Print</button>
+      <button class="tool" type="button" id="p-clear">Clear</button>
     </div>
   </div>
 </section>
@@ -338,7 +456,7 @@ var CW = 50, CL = 47, RIM = {x:25, y:5.25}, FT = 19, KEY = 8, ARC = 19.75;
 var D = [];
 function drill(o){ D.push(o); }
 
-drill({name:"Knee Tag", setup:"Mark two circles — cones, or just use the centre circle and the key. Pairs face each other, one pair per circle. No balls.", key:"1–4 players in pairs · C coach · dashed ring is the boundary they cannot leave", tags:["Defence","Footwork"], players:"Pairs", balls:"No ball", mins:"8", slot:"0:08", phase:"Warm-up · 8 min", dur:6000,
+drill({name:"Knee Tag", say:"Knee tag. Everyone pairs up, and each pair stands inside a circle. Use the centre circle, use the key, or just drop four cones. No balls at all. They face each other, open hand, and try to touch their partner's knees while stopping her touching theirs. Gentle. Thirty to forty-five seconds a round, then a brand new partner. Three touches is a good round. The one rule that matters is that neither girl may step outside the circle. Without it, the fast ones just back away and it stops being a stance game inside forty seconds. Say one thing only. Feet wider than your shoulders. Then let it run. Their legs will burn by round three. Tell them that is the game working, not them being unfit. And if they are standing too tall, do not say get lower. Make the circle smaller.", setup:"Mark two circles — cones, or just use the centre circle and the key. Pairs face each other, one pair per circle. No balls.", key:"1–4 players in pairs · C coach · dashed ring is the boundary they cannot leave", tags:["Defence","Footwork"], players:"Pairs", balls:"No ball", mins:"8", slot:"0:08", phase:"Warm-up · 8 min", dur:6000,
  why:"You're all standing in a gym with people you mostly don't know, and this is the fastest way to stop being weird about that. It's also the thing itself — in a game, the girl nobody can get past is the girl who can stay low and move sideways.",
  how:"Find a partner, face each other, and both of you stay inside your circle \u2014 you cannot back out of it. Open hand, gentle, touch your partner's knees and stop her touching yours. Thirty seconds. Three touches is a good round.",
  cue:"Feet wider than your shoulders.",
@@ -355,7 +473,7 @@ drill({name:"Knee Tag", setup:"Mark two circles — cones, or just use the centr
  ],
  zones:[{x:17,y:12,r:4.6},{x:33,y:12,r:4.6}]});
 
-drill({name:"Fox and Mother Goose", setup:"Groups of four, spread a few metres apart. Three link up, hands on the hips of the girl in front. The fourth stands off as the Fox. No balls.", key:"M Mother Goose at the front · 2 the middle · G the Gosling at the back · ✕ the Fox", tags:["Defence","Footwork","Communication"], players:"Groups of 4", balls:"No ball", mins:"8", slot:"0:16", phase:"Warm-up · 8 min", dur:8000,
+drill({name:"Fox and Mother Goose", say:"Fox and mother goose. Groups of four, spread a few metres apart, no balls. Three of them make a chain, each girl's hands on the hips of the girl in front. The one at the front is mother goose. The one at the very back is the gosling. The fourth girl is the fox, and she gets thirty seconds to tag the gosling. Only the gosling counts. The fox goes around the chain, never through it, never under their arms, and the chain must not come apart. Then rotate, so everyone gets a turn as fox. Your cue is: watch her hips, not her eyes. Two things will go wrong. The chain sprints, whips, and the gosling ends up on the floor, so tell them to shuffle rather than sprint. And mother goose will chase the fox, which opens up her own tail every single time.", setup:"Groups of four, spread a few metres apart. Three link up, hands on the hips of the girl in front. The fourth stands off as the Fox. No balls.", key:"M Mother Goose at the front · 2 the middle · G the Gosling at the back · ✕ the Fox", tags:["Defence","Footwork","Communication"], players:"Groups of 4", balls:"No ball", mins:"8", slot:"0:16", phase:"Warm-up · 8 min", dur:8000,
  why:"This is defence with the ball taken away. Nobody needs a single basketball skill to be the best person in the gym at this one, and a few of you are about to find out you're brilliant at it.",
  how:"Groups of four. Three make a chain, hands on the hips of the girl in front. Front is Mother Goose, the very back is the Gosling. The fourth is the Fox and she has thirty seconds to tag the Gosling — only the Gosling. The chain cannot come apart. Fox goes around, never through and never under the arms. Then rotate.",
  cue:"Watch her hips, not her eyes.",
@@ -371,7 +489,7 @@ drill({name:"Fox and Mother Goose", setup:"Groups of four, spread a few metres a
   {id:"fox",side:"def",at:[[0,25,7],[.25,32,14],[.5,25,21],[.75,18,14],[1,25,7]]}
  ]});
 
-drill({name:"Circle Tag", setup:"Groups of five. Four join hands in a circle, the fifth stands outside. You point at one girl in the circle and she is the Target. No balls.", key:"T the Target · 2–4 the rest of the circle · ✕ the Chaser, outside only", tags:["Defence","Teamwork","Communication"], players:"Groups of 5", balls:"No ball", mins:"8", slot:"0:24", phase:"Warm-up · 8 min", dur:8000,
+drill({name:"Circle Tag", say:"Circle tag. Groups of five, no balls. Four of them hold hands in a circle. The fifth stands outside as the chaser. You point at one girl in the circle. She is the target, and only she counts. The chaser works around the outside only. No reaching across, no ducking under arms. The circle's job is to rotate and keep the target on the far side. If their hands come apart, the chaser gets a free tag. Your cue is: one voice, somebody call which way. What will go wrong is that they spin in place, faster and faster, and the target gets dizzy and caught anyway, because four girls are calling four different directions. That is the whole point of the game. It forces one of them to take charge. If a group is really stuck, name the caller before the round starts.", setup:"Groups of five. Four join hands in a circle, the fifth stands outside. You point at one girl in the circle and she is the Target. No balls.", key:"T the Target · 2–4 the rest of the circle · ✕ the Chaser, outside only", tags:["Defence","Teamwork","Communication"], players:"Groups of 5", balls:"No ball", mins:"8", slot:"0:24", phase:"Warm-up · 8 min", dur:8000,
  why:"Four of you are going to keep a fifth one safe, and you're going to work out how to do it yourselves. This is the first thing tonight where the whole group has to move as one thing.",
  how:"Groups of five. Four hold hands in a circle. The fifth is the Chaser, outside. I point at one girl in the circle — she's the Target, and only she counts. Around the outside only, no reaching across, no ducking under arms. Circle, keep her on the far side. Hands come apart and the Chaser gets a free tag.",
  cue:"One voice. Somebody call which way.",
@@ -388,7 +506,7 @@ drill({name:"Circle Tag", setup:"Groups of five. Four join hands in a circle, th
   {id:"ch",side:"def",at:[[0,25,8],[.25,32,15],[.5,25,22],[.75,18,15],[1,25,8]]}
  ]});
 
-drill({name:"Everybody's It", setup:"Half court, a ball each, everyone spread out and already moving. Pick one hoop as the re-entry hoop.", key:"1–5 players — everyone is it, everyone has a ball", tags:["Ball handling","Conditioning"], players:"Whole group", balls:"One each", mins:"8", slot:"0:32", phase:"Ball handling · 8 min", dur:8000, multiball:true,
+drill({name:"Everybody's It", say:"Everybody's it. Half court, a ball each, everyone spread out and already moving. Everyone is it at the same time. They tag a shoulder, shoulders only, or knock somebody's ball away. Ninety second rounds. Here is the rule you never break. Getting tagged does not put anyone out. She goes to a hoop, takes five shots, made or missed, and comes straight back in. Five attempts, not five makes. Attempts put every girl back on the floor at roughly the same time. Makes keep the beginner out the longest, which is backwards. Your cue is: eyes on people, not on your ball. It will look completely out of control, and it is meant to. If you want it harder, shrink the space rather than adding rules. Then shrink it again every thirty seconds.", setup:"Half court, a ball each, everyone spread out and already moving. Pick one hoop as the re-entry hoop.", key:"1–5 players — everyone is it, everyone has a ball", tags:["Ball handling","Conditioning"], players:"Whole group", balls:"One each", mins:"8", slot:"0:32", phase:"Ball handling · 8 min", dur:8000, multiball:true,
  why:"You're on offence and defence at the same time. If you can dribble in this, you can dribble in a game.",
  how:"Everyone has a ball. Everyone is it. Tag a shoulder — that's the only place — or knock a ball away. Get tagged and you are NOT out: go to a hoop, five shots, made or missed, then straight back in. Ninety seconds.",
  cue:"Eyes on people, not on your ball.",
@@ -404,7 +522,7 @@ drill({name:"Everybody's It", setup:"Half court, a ball each, everyone spread ou
   {id:"a5",side:"off",label:"5",at:[[0,18,16],[.3,31,21],[.6,20,14],[1,13,20]]}
  ]});
 
-drill({name:"Pivot Tag", setup:"Everyone inside the three-point line. One ball, given to the three taggers. At least four runners or it does not work.", key:"✕ the three taggers, one ball between them · 1–4 the runners", tags:["Passing","Decision-making"], players:"Whole group", balls:"One ball", mins:"10", slot:"0:40", phase:"Passing · 10 min", dur:9000,
+drill({name:"Pivot Tag", say:"Pivot tag. Everyone inside the three point line. Three taggers, and they share one ball between them. Everybody else runs. The rule that makes the game is this: whoever is holding the ball cannot run. She can pivot, she can tag, she can pass. So the taggers have to move the ball to catch anybody. Tagged girls go to a hoop, five shots, attempts not makes, then straight back in. Change the roles every two minutes. Your cue for the taggers is: pass to where she is going, not to where she is. Expect travelling, about six times in the first minute. Do not make anything of it. Just have them stop and pivot. It feels impossible for the first thirty seconds and then it gets very fast. You need at least four runners or the game does not work.", setup:"Everyone inside the three-point line. One ball, given to the three taggers. At least four runners or it does not work.", key:"✕ the three taggers, one ball between them · 1–4 the runners", tags:["Passing","Decision-making"], players:"Whole group", balls:"One ball", mins:"10", slot:"0:40", phase:"Passing · 10 min", dur:9000,
  why:"This is where you find out you can move a ball faster than a person can run. Everything we do with passing this season is built on this game.",
  how:"Everyone inside the three-point line. Three taggers with one ball, everyone else runs. Holding the ball means you cannot run — you can pivot, you can tag, you can pass. Get tagged and you go to a hoop, five shots, then straight back in. Roles change every two minutes.",
  cue:"Taggers, pass to where she is going, not to where she is.",
@@ -423,7 +541,7 @@ drill({name:"Pivot Tag", setup:"Everyone inside the three-point line. One ball, 
  ],
  ball:{start:"t1", passes:[{t0:.20,t1:.30,to:"t2"},{t0:.50,t1:.60,to:"t3"},{t0:.78,t1:.88,to:"t2"}]}});
 
-drill({name:"Rock Paper Scissors 1v1", setup:"Pairs on the arc, one ball on the floor between each pair, one hoop per pair if you have them. Agree the line the loser has to touch before you start.", key:"W winner of the throw, attacking · ✕ the loser, defending after her baseline touch", tags:["Decision-making","Finishing","Defence"], players:"Pairs", balls:"One per pair", mins:"10", slot:"0:50", phase:"Decision-making · 10 min", dur:7000,
+drill({name:"Rock Paper Scissors 1v1", say:"Rock paper scissors, one on one. Pairs on the arc, a ball on the floor between each pair, and give each pair their own hoop if you have enough. They throw rock paper scissors. The winner grabs the ball and attacks the hoop. The loser has to run and touch the baseline first, then defend. One shot, and at most one rebound. First to three, then everybody finds a new partner. Your cue is: decide where you are going before you pick the ball up. Most of them will pick it up and only then start thinking. The baseline touch is your dial. Leave it in and the beginners get to score. If a pair is finding it too easy, have the loser defend immediately from where she is standing. Defenders will get beaten a lot tonight. Tell them that sprinting back is the actual skill.", setup:"Pairs on the arc, one ball on the floor between each pair, one hoop per pair if you have them. Agree the line the loser has to touch before you start.", key:"W winner of the throw, attacking · ✕ the loser, defending after her baseline touch", tags:["Decision-making","Finishing","Defence"], players:"Pairs", balls:"One per pair", mins:"10", slot:"0:50", phase:"Decision-making · 10 min", dur:7000,
  why:"This is the closest thing to a real basketball moment we'll do tonight.",
  how:"Partner up on the arc, ball on the floor between you. Rock paper scissors. Winner grabs the ball and attacks the hoop. Loser touches the baseline, then defends. One shot, max one rebound. First to three, then find a new partner.",
  cue:"Decide where you're going before you pick the ball up.",
@@ -437,7 +555,7 @@ drill({name:"Rock Paper Scissors 1v1", setup:"Pairs on the arc, one ball on the 
  ],
  ball:{start:"a1", shot:{t0:.84,t1:.96}}});
 
-drill({name:"Chaos Layups", setup:"Half the team at each end. Three to five girls live at a time, the rest waiting out at the arc. Two or three balls per parent under the rim.", key:"1–4 shooters · P parent under the rim, rolling balls back out", tags:["Shooting","Finishing","Conditioning"], players:"Half the team", balls:"Several", mins:"8", slot:"1:00", phase:"Shooting · 8 min", dur:9000, multiball:true,
+drill({name:"Chaos Layups", say:"Chaos layups. Split the team, half at each end. Three to five girls live at a time, the rest waiting out at the arc. You need a parent under each rim with two or three balls, feeding and rolling loose balls back out. That is the P on the diagram. The girls start at the three point line, attack the rim from wherever they are, score, grab their own ball, and clear back out to the arc to go again. The parent counts made baskets out loud, and the two ends compete against each other. Your cue is: take off from the foot furthest from the hoop. It will look disorganised, and that is deliberate, because a real game is never organised either. This is what replaces the layup line, where a girl gets four attempts from one identical angle in ten minutes and queues for the rest.", setup:"Half the team at each end. Three to five girls live at a time, the rest waiting out at the arc. Two or three balls per parent under the rim.", key:"1–4 shooters · P parent under the rim, rolling balls back out", tags:["Shooting","Finishing","Conditioning"], players:"Half the team", balls:"Several", mins:"8", slot:"1:00", phase:"Shooting · 8 min", dur:9000, multiball:true,
  why:"Lots of shots, lots of decisions. The other end of the gym is counting too.",
  how:"Half at this end, half at the other. Three to five girls live at a time. Start at the three-point line, attack, score, grab your own ball and clear back out to the arc. Parents count out loud. We're counting against the other end.",
  cue:"Take off from the foot furthest from the hoop.",
@@ -457,7 +575,7 @@ drill({name:"Chaos Layups", setup:"Half the team at each end. Three to five girl
   {id:"p1",side:"coach",label:"P",at:[[0,19,5],[1,31,5]]}
  ]});
 
-drill({name:"Three on Three", setup:"Four teams of three, two games at once on two hoops, one ball per game. Pinnies if you have them.", key:"1–3 one team · ✕ the other", tags:["Decision-making","Teamwork","Game"], players:"Teams of 3", balls:"One per game", mins:"16", slot:"1:08", phase:"Decision-making · 16 min", dur:9000,
+drill({name:"Three on Three", say:"Three on three. Four teams of three, two games running at once on two hoops, one ball per game. Pinnies if you have them. There is one constraint, and it is the most important one in this whole library. Every player on the team has to touch the ball before anyone shoots. Every basket counts one. Score it and you keep it. Four minute games, then rotate. They sort out their own out of bounds. Your cue is: if you have not got the ball, move. Do not blow a whistle. If something is genuinely unfair, hands up. Here is why the touch rule matters. Without it, your two strongest girls play two on three, and the beginner stands in a corner on her first night, works out she is not really part of this, and decides on the drive home. With it, they have to go and find her.", setup:"Four teams of three, two games at once on two hoops, one ball per game. Pinnies if you have them.", key:"1–3 one team · ✕ the other", tags:["Decision-making","Teamwork","Game"], players:"Teams of 3", balls:"One per game", mins:"16", slot:"1:08", phase:"Decision-making · 16 min", dur:9000,
  why:"This is the thing. Everything we did tonight was for this, and it's what your parents came to watch.",
  how:"Four teams of three, two games at once. Every player on your team has to touch the ball before anyone shoots. Every basket is one. Score it and you keep it. Four minutes, then rotate. Out of bounds — sort it out between you.",
  cue:"If you haven't got the ball, move.",
@@ -479,7 +597,7 @@ drill({name:"Three on Three", setup:"Four teams of three, two games at once on t
  ],
  ball:{start:"a1", passes:[{t0:.16,t1:.25,to:"a2"},{t0:.40,t1:.49,to:"a3"},{t0:.62,t1:.71,to:"a1"}], shot:{t0:.84,t1:.96}}});
 
-drill({name:"Protector Tag", setup:"Groups of three inside a marked area — half the key is about right. No balls.", key:"R the runner · P the protector, stationary once she sets · ✕ the chaser", tags:["Defence","Screening"], players:"Groups of 3", balls:"No ball", mins:"8", reserve:true, phase:"In reserve · Wednesday", dur:7000,
+drill({name:"Protector Tag", say:"Protector tag. Groups of three inside a marked area. Half the key is about right. No balls. One chaser, one runner, one protector. The protector's only job is to be in the chaser's way. No holding, no pushing. She just stands there and exists. The chaser has to go around her. Thirty second rounds, and when the runner gets tagged they swap roles on the spot, so everyone does all three jobs. Your cue for the runner is: go so close to your protector you could touch her. Two things will go wrong. Runners sprint away from their protector, when she is the safe place, not the thing to avoid. And protectors will want to help by chasing. Standing still is the entire job, and it will feel wrong to them for about a minute. Keep the space small, or the runner just outruns the problem and never uses her protector at all.", setup:"Groups of three inside a marked area — half the key is about right. No balls.", key:"R the runner · P the protector, stationary once she sets · ✕ the chaser", tags:["Defence","Screening"], players:"Groups of 3", balls:"No ball", mins:"8", reserve:true, phase:"In reserve · Wednesday", dur:7000,
  why:"You're about to work out how to use a teammate to get free. That is basically the whole game of basketball in one sentence.",
  how:"Groups of three. One chaser, one runner, one protector. Protector, your only job is to be in the chaser's way — no holding, no pushing, you just stand there and exist. Chaser has to go around you. Get tagged and you swap roles on the spot. Thirty seconds a round.",
  cue:"Runner, go so close to your protector you could touch her.",
@@ -493,7 +611,7 @@ drill({name:"Protector Tag", setup:"Groups of three inside a marked area — hal
   {id:"ch",side:"def",at:[[0,20,18],[.3,21,15],[.55,23,17],[.8,27,19],[1,25,21]]}
  ]});
 
-drill({name:"Arc Race and Shadow", setup:"Single file on the three-point line, arm's length apart. No balls to start with.", key:"L the leader setting the pace · 2–5 the line holding the gap", tags:["Footwork","Conditioning","Defence"], players:"Whole group", balls:"No ball", mins:"8", reserve:true, phase:"In reserve · Wednesday", dur:8000,
+drill({name:"Arc Race and Shadow", say:"Arc race. Single file on the three point line, about an arm's length apart, no balls to start. The leader sets the pace and can change speed whenever she likes. Everyone behind her holds the same gap. The girl at the very back is trying to catch the leader with a tag. Two laps, then the leader goes to the back and the next one leads. Your cue is: match the person directly in front of you, not the person at the front. The line will stretch and snap. When it does, the leader slows down. This is a team thing, not a race between them. Then run the shadow version in pairs. One girl free runs inside the arc, changing speed whenever she likes, and her partner stays within arm's reach without touching her. That is containment and closeout footwork, with no technical instruction at all.", setup:"Single file on the three-point line, arm's length apart. No balls to start with.", key:"L the leader setting the pace · 2–5 the line holding the gap", tags:["Footwork","Conditioning","Defence"], players:"Whole group", balls:"No ball", mins:"8", reserve:true, phase:"In reserve · Wednesday", dur:8000,
  why:"Nobody in a basketball game ever runs in a straight line. This is what real cutting actually feels like.",
  how:"Single file on the three-point line, arm's length apart. Leader sets the pace and can change speed whenever she likes. Everyone else holds the same gap. Back person is trying to catch the leader with a tag. Two laps, then the leader goes to the back.",
  cue:"Match the person directly in front of you, not the person at the front.",
@@ -508,7 +626,7 @@ drill({name:"Arc Race and Shadow", setup:"Single file on the three-point line, a
   {id:"a5",side:"off",label:"5",at:[[0,14,1],[.25,6,5],[.5,6,15],[.75,15,24],[1,29,25]]}
  ]});
 
-drill({name:"Signals", setup:"Everyone dribbling in one half, a ball each. The signaller stands at one end where everyone can see her.", key:"1–4 players dribbling · C the signaller — a parent can do this job", tags:["Ball handling","Communication"], players:"Whole group", balls:"One each", mins:"6", reserve:true, phase:"In reserve · Wednesday", dur:8000, multiball:true,
+drill({name:"Signals", say:"Signals. Everyone dribbling in one half, a ball each. One person stands at an end where they can all see her, and a parent can do this job. Every number is a direction. One is forwards, two is backwards, three is right, four is left, five is swap hands. Run it in three stages. Stage one, she calls the number out and holds up the fingers, and the girls shout the number back before they move. Stage two, fingers only, no voice. This is the stage that actually does the work. Stage three, she stays silent and walks around the space, so they have to keep finding her. Your cue is: ball low, eyes high. If you only ever call the numbers out loud, a girl can stare at the floor for six minutes and score full marks, and you have taught her nothing.", setup:"Everyone dribbling in one half, a ball each. The signaller stands at one end where everyone can see her.", key:"1–4 players dribbling · C the signaller — a parent can do this job", tags:["Ball handling","Communication"], players:"Whole group", balls:"One each", mins:"6", reserve:true, phase:"In reserve · Wednesday", dur:8000, multiball:true,
  why:"You cannot play basketball looking at the floor. This fixes it in six minutes.",
  how:"Everyone dribbling, stay in this half. Every number is a direction. One forwards, two backwards, three right, four left, five swap hands. Shout the number back before you do it. Stage one: voice and fingers. Stage two: fingers only, no voice. Stage three: the silent signaller walks around the space.",
  cue:"Ball low, eyes high.",
@@ -925,7 +1043,10 @@ function select(i){
   idx = i; t = 0; last = 0;
   var d = cur();
   document.getElementById("d-name").textContent = d.name;
-  document.getElementById("d-phase").textContent = d.phase;
+  document.getElementById("d-phase").textContent =
+    (d.mins ? d.mins + " min" : "") + (d.balls ? "  \u00b7  " + d.balls : "");
+  stopSpeech();
+  syncAdd();
   var mt = document.getElementById("d-meta");
   mt.innerHTML = "";
   [d.players, d.balls ? d.balls === "No ball" ? "No ball" : d.balls + " ball" : "",
@@ -973,33 +1094,62 @@ function select(i){
   render(d, 0);
 }
 
-var query = "", activeTag = "";
+var query = "", activeTag = "", activeKit = "";
+
+var FOCUS_ORDER = ["Defence","Footwork","Ball handling","Passing","Shooting",
+                   "Finishing","Decision-making","Teamwork","Communication",
+                   "Screening","Conditioning","Game"];
+function primary(d){
+  var tg = d.tags || [];
+  for(var k=0;k<FOCUS_ORDER.length;k++) if(tg.indexOf(FOCUS_ORDER[k])>-1) return FOCUS_ORDER[k];
+  return tg[0] || "Other";
+}
+function kitOf(d){
+  if(d.balls === "No ball") return "No ball";
+  if(d.balls === "One each") return "Ball each";
+  return "Shared ball";
+}
+function order(){
+  var ix = D.map(function(_,i){ return i; });
+  ix.sort(function(x,y){
+    var a = FOCUS_ORDER.indexOf(primary(D[x])), b = FOCUS_ORDER.indexOf(primary(D[y]));
+    if(a<0) a = 99; if(b<0) b = 99;
+    return a - b || D[x].name.localeCompare(D[y].name);
+  });
+  return ix;
+}
 
 function haystack(d){
-  return [d.name, d.why, d.how, d.cue, d.wrong, d.builds, d.players, d.balls]
+  return [d.name, d.why, d.how, d.cue, d.wrong, d.builds, d.players, d.balls, d.setup]
     .concat(d.tags || []).concat(d.ladder || []).join(" ").toLowerCase();
 }
 function matches(d){
   if(activeTag && (d.tags || []).indexOf(activeTag) === -1) return false;
+  if(activeKit && kitOf(d) !== activeKit) return false;
   if(query && haystack(d).indexOf(query) === -1) return false;
   return true;
 }
 
-function buildChips(){
-  var host = document.getElementById("chips"), seen = {}, all = [];
-  D.forEach(function(d){ (d.tags||[]).forEach(function(t){ if(!seen[t]){ seen[t]=1; all.push(t); } }); });
-  all.sort();
+function chipRow(host, values, current, onPick){
   host.innerHTML = "";
-  [""].concat(all).forEach(function(t){
+  [""].concat(values).forEach(function(v){
     var b = document.createElement("button");
     b.type = "button";
-    b.textContent = t || "All";
-    b.setAttribute("aria-pressed", activeTag === t ? "true" : "false");
-    b.addEventListener("click", function(){
-      activeTag = (activeTag === t) ? "" : t;
-      buildChips(); buildList();
-    });
+    b.textContent = v || "All";
+    b.setAttribute("aria-pressed", current === v ? "true" : "false");
+    b.addEventListener("click", function(){ onPick(current === v ? "" : v); });
     host.appendChild(b);
+  });
+}
+function buildChips(){
+  var seen = {}, all = [];
+  D.forEach(function(d){ (d.tags||[]).forEach(function(t){ if(!seen[t]){ seen[t]=1; all.push(t); } }); });
+  all.sort();
+  chipRow(document.getElementById("chips"), all, activeTag, function(v){
+    activeTag = v; buildChips(); buildList();
+  });
+  chipRow(document.getElementById("chips2"), ["No ball","Ball each","Shared ball"], activeKit, function(v){
+    activeKit = v; buildChips(); buildList();
   });
 }
 
@@ -1007,12 +1157,11 @@ function buildList(){
   var host = document.getElementById("list");
   host.innerHTML = "";
   var lastGroup = null, group = null, shown = 0, firstIdx = -1;
-  var filtering = !!(query || activeTag);
-  D.forEach(function(d, i){
+  order().forEach(function(i){
+    var d = D[i];
     if(!matches(d)) return;
     shown++; if(firstIdx < 0) firstIdx = i;
-    var gname = filtering ? "Matching games"
-              : d.reserve ? "In reserve \u2014 Wednesday" : "Practice one \u00b7 run sheet";
+    var gname = primary(d);
     if(gname !== lastGroup){
       group = document.createElement("div"); group.className = "phase-l";
       var h = document.createElement("h4"); h.textContent = gname;
@@ -1021,17 +1170,11 @@ function buildList(){
     var b = document.createElement("button");
     b.className = "d"; b.type = "button";
     b.setAttribute("aria-current", i === idx ? "true" : "false");
-    if(d.slot && !filtering){
-      var tm = document.createElement("span"); tm.className = "slot"; tm.textContent = d.slot;
-      b.appendChild(tm);
-    }
     b.appendChild(document.createTextNode(d.name));
-    if(filtering){
-      var mm = document.createElement("span"); mm.className = "gmeta";
-      mm.style.paddingLeft = "0";
-      mm.textContent = (d.tags||[]).join(" \u00b7 ") + "  \u2014  " + d.mins + " min";
-      b.appendChild(mm);
-    }
+    var mm = document.createElement("span"); mm.className = "gmeta";
+    mm.style.paddingLeft = "0";
+    mm.textContent = d.mins + " min  ·  " + d.players + "  ·  " + d.balls;
+    b.appendChild(mm);
     b.addEventListener("click", function(){
       select(i); playing = true; document.getElementById("play").textContent = "Pause";
     });
@@ -1042,6 +1185,7 @@ function buildList(){
     n.textContent = "Nothing matches that. Try clearing the filter.";
     host.appendChild(n);
   }
+  var filtering = !!(query || activeTag || activeKit);
   document.getElementById("hits").textContent =
     filtering ? shown + " of " + D.length + " games" : D.length + " games";
   if(shown && !matches(D[idx]) && firstIdx >= 0) select(firstIdx);
@@ -1067,6 +1211,226 @@ Array.prototype.forEach.call(document.querySelectorAll(".speed button"), functio
   });
 });
 window.addEventListener("resize", function(){ fit(); render(cur(), t); });
+
+/* ---- spoken explainer ---- */
+var synth = window.speechSynthesis, voice = null, speaking = false, queue = [], qi = 0, keepAlive = null;
+
+function pickVoice(){
+  if(!synth || !synth.getVoices) return;
+  var vs = synth.getVoices() || [], i, j;
+  var pref = ["Samantha","Karen","Serena","Moira","Tessa","Daniel",
+              "Google UK English Female","Google US English","Microsoft Aria","Microsoft Jenny"];
+  for(i=0;i<pref.length;i++)
+    for(j=0;j<vs.length;j++) if(vs[j].name.indexOf(pref[i]) === 0){ voice = vs[j]; return; }
+  for(j=0;j<vs.length;j++) if(/^en/i.test(vs[j].lang) && vs[j].localService){ voice = vs[j]; return; }
+  for(j=0;j<vs.length;j++) if(/^en/i.test(vs[j].lang)){ voice = vs[j]; return; }
+}
+if(synth){ pickVoice(); if("onvoiceschanged" in synth) synth.onvoiceschanged = pickVoice; }
+
+function speakUI(){
+  var btn = document.getElementById("listen");
+  if(!btn) return;
+  btn.setAttribute("aria-pressed", speaking ? "true" : "false");
+  document.getElementById("listen-t").textContent = speaking ? "Stop" : "Listen";
+  var bar = document.getElementById("speakbar");
+  bar.hidden = !speaking;
+  document.getElementById("speakfill").style.width =
+    (speaking && queue.length ? Math.round(qi / queue.length * 100) : 0) + "%";
+}
+function stopSpeech(){
+  if(!synth) return;
+  speaking = false; queue = []; qi = 0;
+  if(keepAlive){ clearInterval(keepAlive); keepAlive = null; }
+  try{ synth.cancel(); }catch(e){}
+  speakUI();
+}
+function sayNext(){
+  if(!speaking || qi >= queue.length){ if(speaking){ speaking = false; } stopSpeech(); return; }
+  var u = new SpeechSynthesisUtterance(queue[qi]);
+  if(voice) u.voice = voice;
+  u.lang = (voice && voice.lang) || "en-CA";
+  u.rate = 0.96; u.pitch = 1; u.volume = 1;
+  u.onend = function(){ qi++; speakUI(); sayNext(); };
+  u.onerror = function(){ qi++; sayNext(); };
+  synth.speak(u);
+  speakUI();
+}
+function speakDrill(d){
+  if(!synth || !d || !d.say) return;
+  stopSpeech();
+  var parts = d.say.match(/[^.!?]+[.!?]+/g) || [d.say], merged = [];
+  parts.forEach(function(x){
+    x = x.trim(); if(!x) return;
+    if(merged.length && (merged[merged.length-1].length + x.length) < 110)
+      merged[merged.length-1] += " " + x;
+    else merged.push(x);
+  });
+  queue = merged; qi = 0; speaking = true;
+  keepAlive = setInterval(function(){
+    if(!speaking){ clearInterval(keepAlive); keepAlive = null; return; }
+    try{ synth.resume(); }catch(e){}
+  }, 9000);
+  sayNext();
+}
+if(!synth){ var lb = document.getElementById("listen"); if(lb) lb.hidden = true; }
+document.getElementById("listen").addEventListener("click", function(){
+  if(speaking) stopSpeech(); else speakDrill(cur());
+});
+window.addEventListener("beforeunload", stopSpeech);
+
+/* ---- practice builder ---- */
+var PLAN_KEY = "reb-plan-v1";
+var CORE = ["Defence","Ball handling","Passing","Shooting","Decision-making","Game"];
+var PRESET = [["Arrive, balls out, shooting",8,1],["Knee Tag",8],["Fox and Mother Goose",8],
+              ["Circle Tag",8],["Everybody's It",8],["Pivot Tag",10],["Rock Paper Scissors 1v1",10],
+              ["Chaos Layups",8],["Three on Three",16],["Closing circle, every name",6,1]];
+var plan = [];
+
+function planLoad(){
+  try{
+    var raw = localStorage.getItem(PLAN_KEY);
+    if(raw){ var v = JSON.parse(raw); if(v && v.length) plan = v; }
+  }catch(e){}
+}
+function planSave(){ try{ localStorage.setItem(PLAN_KEY, JSON.stringify(plan)); }catch(e){} }
+function byName(n){ for(var i=0;i<D.length;i++) if(D[i].name === n) return D[i]; return null; }
+function planMins(){ var t=0; plan.forEach(function(r){ t += (+r.m || 0); }); return t; }
+
+function clock(mins){
+  var h = Math.floor(mins/60) % 24, m = mins % 60, a = h >= 12 ? "pm" : "am";
+  h = h % 12; if(!h) h = 12;
+  return h + ":" + String(m).padStart(2,"0") + " " + a;
+}
+function startMins(){
+  var v = (document.getElementById("p-start").value || "19:00").split(":");
+  return (+v[0]) * 60 + (+v[1] || 0);
+}
+function syncAdd(){
+  var btn = document.getElementById("addplan"), d = cur(), inPlan = false;
+  plan.forEach(function(r){ if(r.n === d.name) inPlan = true; });
+  btn.textContent = inPlan ? "In the plan" : "Add to plan";
+  btn.className = "tool" + (inPlan ? " added" : "");
+}
+function planRender(){
+  var host = document.getElementById("p-list");
+  host.innerHTML = "";
+  var at = startMins();
+  plan.forEach(function(r, i){
+    var d = byName(r.n);
+    var li = document.createElement("li");
+
+    var tm = document.createElement("span"); tm.className = "at";
+    tm.textContent = clock(at); li.appendChild(tm);
+    at += (+r.m || 0);
+
+    var nm = document.createElement("div"); nm.className = "nm";
+    if(r.b){
+      var ed = document.createElement("input");
+      ed.type = "text"; ed.className = "bn"; ed.value = r.n;
+      ed.setAttribute("aria-label", "Name of this block");
+      ed.addEventListener("input", function(){ plan[i].n = this.value; planSave(); });
+      nm.appendChild(ed);
+    } else {
+      var bb = document.createElement("b"); bb.textContent = r.n; nm.appendChild(bb);
+    }
+    var sub = document.createElement("span");
+    sub.textContent = r.b ? "Not a game \u2014 your own block"
+      : d ? ((d.tags||[]).join(" \u00b7 ") + "  \u2014  " + d.players + ", " + d.balls)
+          : "no longer in the library";
+    nm.appendChild(sub); li.appendChild(nm);
+
+    var inp = document.createElement("input");
+    inp.type = "number"; inp.className = "m"; inp.min = "2"; inp.max = "40"; inp.step = "1";
+    inp.value = r.m; inp.setAttribute("aria-label", "Minutes for " + r.n);
+    inp.addEventListener("input", function(){
+      plan[i].m = Math.max(1, Math.min(60, +this.value || 1)); planSave(); planRender();
+    });
+    li.appendChild(inp);
+
+    var mv = document.createElement("div"); mv.className = "mv";
+    [["↑", -1], ["↓", 1]].forEach(function(pair){
+      var b = document.createElement("button"); b.type = "button";
+      b.textContent = pair[0];
+      b.setAttribute("aria-label", (pair[1] < 0 ? "Move up: " : "Move down: ") + r.n);
+      b.disabled = (i + pair[1] < 0) || (i + pair[1] >= plan.length);
+      b.addEventListener("click", function(){
+        var t2 = plan[i]; plan[i] = plan[i + pair[1]]; plan[i + pair[1]] = t2;
+        planSave(); planRender();
+      });
+      mv.appendChild(b);
+    });
+    var x = document.createElement("button");
+    x.type = "button"; x.className = "x"; x.textContent = "×";
+    x.setAttribute("aria-label", "Remove " + r.n);
+    x.addEventListener("click", function(){ plan.splice(i,1); planSave(); planRender(); syncAdd(); });
+    mv.appendChild(x);
+    li.appendChild(mv);
+
+    host.appendChild(li);
+  });
+
+  document.getElementById("p-empty").hidden = plan.length > 0;
+
+  var mins = planMins(), target = +document.getElementById("p-target").value || 90;
+  var tot = document.getElementById("p-total");
+  tot.innerHTML = "";
+  if(plan.length){
+    var l1 = document.createElement("div");
+    var ng = 0, nb = 0;
+    plan.forEach(function(r){ if(r.b) nb++; else ng++; });
+    l1.innerHTML = "<b>" + ng + "</b> game" + (ng===1?"":"s") +
+      (nb ? "  +  " + nb + " block" + (nb===1?"":"s") : "") +
+      "  \u00b7  <b>" + mins + "</b> min";
+    var l2 = document.createElement("div");
+    l2.textContent = "Finishes " + clock(startMins() + mins);
+    tot.appendChild(l1); tot.appendChild(l2);
+    var diff = mins - target;
+    if(Math.abs(diff) >= 3){
+      var l3 = document.createElement("div");
+      l3.className = "over";
+      l3.textContent = diff > 0 ? diff + " min over target" : Math.abs(diff) + " min short";
+      tot.appendChild(l3);
+    }
+  }
+
+  var have = {};
+  plan.forEach(function(r){ var d = byName(r.n); if(d) (d.tags||[]).forEach(function(t){ have[t]=1; }); });
+  var cov = document.getElementById("p-covers");
+  cov.innerHTML = "";
+  CORE.forEach(function(t){
+    var sp = document.createElement("span");
+    sp.textContent = (have[t] ? "✓ " : "— ") + t;
+    if(have[t]) sp.className = "on";
+    cov.appendChild(sp);
+  });
+
+  document.getElementById("plan-count").textContent = plan.length;
+  document.getElementById("plan-mins").textContent = mins;
+}
+function planAdd(d){
+  for(var i=0;i<plan.length;i++) if(plan[i].n === d.name){ plan.splice(i,1); planSave(); planRender(); syncAdd(); return; }
+  plan.push({ n: d.name, m: +d.mins || 8 });
+  planSave(); planRender(); syncAdd();
+}
+document.getElementById("addplan").addEventListener("click", function(){ planAdd(cur()); });
+document.getElementById("p-start").addEventListener("input", planRender);
+document.getElementById("p-target").addEventListener("input", planRender);
+document.getElementById("p-block").addEventListener("click", function(){
+  plan.push({ n: "Water and reset", m: 5, b: 1 }); planSave(); planRender();
+  var f = document.querySelectorAll("#p-list input.bn");
+  if(f.length){ f[f.length-1].focus(); f[f.length-1].select(); }
+});
+document.getElementById("p-print").addEventListener("click", function(){ window.print(); });
+document.getElementById("p-clear").addEventListener("click", function(){
+  plan = []; planSave(); planRender(); syncAdd();
+});
+document.getElementById("p-preset").addEventListener("click", function(){
+  plan = PRESET.filter(function(r){ return r[2] || !!byName(r[0]); })
+               .map(function(r){ return r[2] ? { n: r[0], m: r[1], b: 1 } : { n: r[0], m: r[1] }; });
+  planSave(); planRender(); syncAdd();
+});
+planLoad();
+planRender();
 
 buildChips();
 buildList();
