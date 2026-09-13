@@ -40,6 +40,12 @@ a{color:inherit}
 .hero h1 .ghost{color:var(--purple-lift);display:block}
 .hero{border-top:3px solid var(--gold)}
 .hero h1 .live{color:var(--team);display:block}
+.nameslot{margin-top:26px;border-left:3px solid var(--gold);padding:14px 0 14px 18px;
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;max-width:60ch}
+.nameslot .nl{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--dimmer)}
+.nameslot b{font-family:Syne,sans-serif;font-weight:700;font-size:19px;color:var(--gold)}
+.nameslot .nn{flex-basis:100%;font-size:14px;color:var(--dim);line-height:1.5}
 .hero p{margin-top:24px;color:var(--dim);font-size:17px;max-width:52ch;line-height:1.5}
 
 section{padding-block:54px;border-top:1px solid var(--line)}
@@ -187,6 +193,11 @@ button.tool svg{display:block}
 .facts a,.rows a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(253,185,39,.35);
   padding-bottom:1px}
 .facts a:hover,.rows a:hover{border-bottom-color:var(--gold)}
+.srcnote{color:var(--dim);font-size:14.5px;max-width:62ch;margin-top:14px;line-height:1.5}
+.srcnote b{color:var(--gold);font-weight:400}
+.srcbadge{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  border:1px solid var(--gold);color:var(--gold);padding:4px 8px;white-space:nowrap}
+button.d .xtra{color:var(--gold)}
 .planlink{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
   color:var(--dimmer);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:3px}
 .planlink:hover{color:var(--orange);border-color:var(--orange)}
@@ -258,6 +269,11 @@ button.tool svg{display:block}
 <div class="hero">
   <div class="kicker">Rebels-Rebelles Basketball Association &middot; Victoria BC</div>
   <h1><span class="ghost">U13</span><span class="live">Rebelles.</span></h1>
+  <div class="nameslot">
+    <span class="nl">Team name</span>
+    <b>Still to be chosen</b>
+    <span class="nn">&ldquo;Rebelles&rdquo; is the whole club &mdash; every U11, U13 and U15 girls team carries it. This one needs a name of its own. Send suggestions to the coaches.</span>
+  </div>
   <p>Season 2026&ndash;27. Practice schedule, how a practice night runs, and the full games library &mdash; so every coach is working from the same plan and every family knows where to be.</p>
 </div>
 
@@ -275,6 +291,7 @@ button.tool svg{display:block}
 <section>
   <div class="label">The season</div>
   <dl class="facts">
+    <div class="fact"><dt>Team name</dt><dd>To be chosen</dd></div>
     <div class="fact"><dt>Practice</dt><dd>Tuesdays, 7:00 &ndash; 8:30 pm</dd></div>
     <div class="fact"><dt>First practice</dt><dd>September 15</dd></div>
     <div class="fact"><dt>Gym</dt><dd>Prospect Lake Elementary</dd></div>
@@ -314,6 +331,7 @@ button.tool svg{display:block}
     <div>
       <div class="label" style="margin-bottom:12px">The library</div>
       <h2 style="margin:0">Eleven games, drawn on the floor.</h2>
+      <p class="srcnote">Eleven games come from the coaching staff&rsquo;s own document. Fifteen more were written for this page and are marked <b>extra</b> &mdash; useful, but not the staff plan.</p>
       <p style="margin-top:12px"><a class="planlink" href="#plan">Practice plan &middot; <span id="plan-count">0</span> games &middot; <span id="plan-mins">0</span> min</a></p>
     </div>
     <div class="legend">
@@ -338,6 +356,8 @@ button.tool svg{display:block}
       <div class="chips" id="chips" role="group" aria-label="Filter by focus"></div></div>
     <div class="filterrow"><span class="fl">Kit</span>
       <div class="chips" id="chips2" role="group" aria-label="Filter by equipment"></div></div>
+    <div class="filterrow"><span class="fl">Source</span>
+      <div class="chips" id="chips3" role="group" aria-label="Filter by source"></div></div>
     <div class="hits mono" id="hits"></div>
   </div>
 
@@ -347,6 +367,7 @@ button.tool svg{display:block}
       <div class="stage-head">
         <h3 id="d-name">&mdash;</h3>
         <div class="headtools">
+          <span class="srcbadge" id="d-src" hidden>Extra</span>
           <span class="mins" id="d-phase"></span>
           <button class="tool" id="listen" type="button" aria-pressed="false">
             <svg width="11" height="12" viewBox="0 0 11 12" aria-hidden="true"><path d="M0 4h2.4L6 .8v10.4L2.4 8H0z" fill="currentColor"/><path d="M8 3.4a3.6 3.6 0 0 1 0 5.2M9.6 1.6a6 6 0 0 1 0 8.8" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
@@ -785,6 +806,361 @@ function holdsAt(d, id, t){
 }
 
 /* ---------- canvas ---------- */
+
+/* ---- extras: written for this page, not from the staff document ---- */
+
+drill({name:"Dribble tag", own:1, say:"Dribble tag. Everyone inside the key with a ball. They dribble, and they try to knock other people's balls away while protecting their own. The important part: losing your ball does not put anyone out. She collects it, goes to a hoop, takes five shots, and comes straight back in. Nobody sits. Your cue is: head up. They will watch their own ball and lose it in about four seconds. Shrink the space every ninety seconds rather than adding rules — a smaller key does all the coaching for you. This is close to Everybody's It, so pick one of the two for a given night.", setup:"Everyone inside the key with a ball. If the key lines are not obvious, drop four cones. Pick the re-entry hoop before you start.", key:"1–5 players, each with a ball · a knocked-away ball leaves the key with its owner", tags:["Ball handling", "Defence", "Conditioning"], players:"Whole group", balls:"One each", mins:"6", phase:"Extra \u00b7 not from Ben's plan",
+ why:"Protecting the ball while somebody is actively trying to take it, in a space that keeps getting smaller.",
+ how:"Everyone dribbles inside the key, knocking other balls away while protecting their own. Lose your ball and you are NOT out — collect it, five shots at the hoop, straight back in. Shrink the area every ninety seconds.",
+ wrong:"They watch their own ball and lose it in about four seconds. It gets loud. That is the drill working, not a discipline problem.",
+ builds:"Off-arm protection, a low dribble, and scanning while the ball is live. Very close in effect to Everybody's It — run one or the other on a night, not both.",
+ ladder:["Easier: bigger area, tag only, no knocking balls away", "Standard: inside the key, five shots to re-enter, shrink the area every 90 seconds", "Harder: weak hand only", "Harder: shrink to the paint only", "Note: the original version of this game ended with last three standing. That eliminates players, which the staff do not do, so re-entry replaces it."],
+ cue:"Head up or you're out.", dur:7000, multiball:true,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,20,9],[.25,29,14],[.5,22,17],[.75,30,9],[1,24,12]]},
+  {id:"a2",side:"off",label:"2",out:.66,looseTo:[7,4],
+   at:[[0,30,15],[.25,21,11],[.5,29,8],[.66,24,7],[.82,13,6],[1,8,5]]},
+  {id:"a3",side:"off",label:"3",at:[[0,25,17],[.25,31,10],[.5,20,12],[.66,23.5,8],[.8,27,15],[1,20,11]]},
+  {id:"a4",side:"off",label:"4",out:.4,looseTo:[44,24],
+   at:[[0,19,12],[.25,24,17],[.4,29,16],[.6,38,20],[1,43,23]]},
+  {id:"a5",side:"off",label:"5",at:[[0,31,8],[.25,24,13],[.4,28.5,15.5],[.6,26,10],[.75,32,16],[1,19,9]]}
+ ],
+ calls:[
+  {t0:.40,t1:.54,actor:"a5",text:"OUT!"},
+  {t0:.66,t1:.80,actor:"a3",text:"OUT!"}
+ ]});
+
+drill({name:"Two-line layups, called side", own:1, say:"Two line layups with a called side. Two lines at the top of the key, balls in one of them. The driver goes, and the girl at the front of the other line shouts left or right before the driver's last step. She has to finish on the side she is told. The caller then rebounds and joins the other line. Your cue is: call it late, make her react. The mistake is calling too early, because then she plans it and the decision disappears. One honest note. This is the layup line that Chaos Layups was designed to replace. In the same eight minutes Chaos Layups gets every girl about four times the attempts. Keep this one for a night when you want the gym calm.", setup:"Two lines, one either side of the top of the key. Balls with the driving line.", key:"1 the driver · 2 the caller, who rebounds · 3–4 waiting in the two lines", tags:["Shooting", "Finishing", "Decision-making"], players:"Whole group", balls:"Several", mins:"6", phase:"Extra \u00b7 not from Ben's plan",
+ why:"A layup line with one decision bolted on, so it is not purely a queue.",
+ how:"Standard two lines. The front of the second line calls left or right before the driver's last step, and she has to finish on that side — no deciding on the way in. The caller rebounds and joins the other line.",
+ wrong:"The call comes too early and she has time to plan it, which removes the whole point. Late calls, every time.",
+ builds:"Finishing on both sides off a signal rather than a plan. Be honest about the limits: Chaos Layups exists to replace this, and gives roughly four times the attempts in the same minutes. Keep this for a night when you want the room calm and predictable.",
+ ladder:["Easier: call it early, both lines walk through it once", "Standard: call it late, caller rebounds and swaps lines", "Harder: the caller may call the far hand as well as the side", "Harder: the caller closes out as a token defender after she calls", "Better: run Chaos Layups instead and get everybody shooting at once"],
+ cue:"Call it late. Make her react.", dur:6500,
+ calls:[{t0:.42,t1:.72,actor:"a2",text:"RIGHT!"}],
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,41,30],[.38,36,19],[.62,31,11],[.84,28.5,7.5],[1,27.5,6.5]]},
+  {id:"a2",side:"off",label:"2",at:[[0,9,30],[.4,13,24],[.66,18,15],[.86,23,8],[1,33,13]]},
+  {id:"a3",side:"off",label:"3",at:[[0,43,34],[1,42,31]]},
+  {id:"a4",side:"off",label:"4",at:[[0,7,34],[1,8,31]]}
+ ],
+ ball:{start:"a1", shot:{t0:.78,t1:.88}, rebound:{t0:.88,t1:.95,to:"a2"}}});
+
+drill({name:"Partner pass-and-move", own:1, say:"Partner pass and move. Pairs, one ball each pair, spread out along the floor. No dribbling at all, and both girls have to keep moving the whole way. They travel down the floor and back, passing as they go. Your cue is: pass where she is going, not where she is. What will happen is the pass lands behind her, and then one of them stops running to make it easier. That is the moment to say something — the no dribble rule is what makes this work, so do not let it slip. If it is too hard at first, have them walk it once, then jog it.", setup:"Pairs spread across the length of the floor, one ball each pair. No dribbling at all.", key:"1 and 2 a pair, both moving the whole time", tags:["Passing", "Footwork"], players:"Pairs", balls:"One per pair", mins:"4", phase:"Extra \u00b7 not from Ben's plan",
+ why:"Passing to where somebody is going, which is the pass nobody makes by accident.",
+ how:"Pairs, one ball, both players moving the whole time, no dribbling. They travel the length of the floor and back. The ball leads the receiver rather than chasing her.",
+ wrong:"They pass to where she is and it lands behind her. Then one of them stops moving to make it easier, which is the thing to correct.",
+ builds:"Leading a moving target, catching on the move, and keeping feet going after the pass. The no-dribble rule is doing all the work — do not relax it.",
+ ladder:["Easier: walk it, then jog", "Standard: full length, no dribble, both players moving", "Harder: bounce passes only", "Harder: add a third player as a passive defender", "Harder: they must finish with a layup at the far end"],
+ cue:"Pass where she's going.", dur:6500, nodrib:true,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,18,8],[.35,19,20],[.7,17,31],[1,20,42]]},
+  {id:"a2",side:"off",label:"2",at:[[0,32,11],[.35,31,23],[.7,33,34],[1,30,44]]}
+ ],
+ ball:{start:"a1", passes:[{t0:.18,t1:.28,to:"a2"},{t0:.48,t1:.58,to:"a1"},{t0:.78,t1:.88,to:"a2"}]}});
+
+drill({name:"Two-ball dribbling", own:1, say:"Two ball dribbling. Every girl needs two balls for this one, so count them before you plan it. A ball in each hand. Start with both bouncing at the same time, standing still. Then alternate them, left, right, left, right. Then have them walk forwards while they do it. Your cue is: fingertips, not palms. The weak-hand ball is going to drift away and die, and that is exactly what the drill is for, so let it happen rather than stopping to fix it. Four minutes is plenty. Past that it stops being interesting.", setup:"Everyone spread out with two balls each. You need twice the balls — check before you plan this one.", key:"1–4 players, a ball in each hand · C coach setting the pattern", tags:["Ball handling"], players:"Whole group", balls:"Two each", mins:"4", phase:"Extra \u00b7 not from Ben's plan",
+ why:"Both hands working at once, which exposes the weak hand immediately.",
+ how:"One ball in each hand. Same-time bounces first, then alternating. Stationary to start, then walking forward.",
+ wrong:"The weak-hand ball drifts away or dies. That is the point of the drill, so let it happen rather than slowing everything down.",
+ builds:"Weak-hand control and rhythm under a double load. Short and sharp is right — four minutes is plenty before it becomes tedious.",
+ ladder:["Easier: same-time bounces only, standing still", "Standard: same-time, then alternating, then walking", "Harder: one high and one low", "Harder: walking backwards, then sideways", "Harder: call a number and they change pattern without stopping"],
+ cue:"Fingertips, not palms.", dur:6000, multiball:true, twoball:true,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,14,14],[.45,14,14],[1,14,30]]},
+  {id:"a2",side:"off",label:"2",at:[[0,22,14],[.45,22,14],[1,22,30]]},
+  {id:"a3",side:"off",label:"3",at:[[0,30,14],[.45,30,14],[1,30,30]]},
+  {id:"a4",side:"off",label:"4",at:[[0,38,14],[.45,38,14],[1,38,30]]},
+  {id:"c1",side:"coach",label:"C",at:[[0,26,40],[1,26,40]]}
+ ]});
+
+drill({name:"Cone weave, eyes up", own:1, say:"Cone weave with eyes up. Five cones in a line, a few paces apart. Each girl weaves through them dribbling. Here is the part that matters: you stand at the far end and hold up fingers, and she has to call the number out loud without slowing down. Your cue is: look at me, not the ball. She will slow down to look up, or look up and lose the ball. Both are normal for the first couple of goes. Without the number to call, this is just a cone drill, and she can stare at the floor the whole way and still look like she did it well. The number is the whole drill.", setup:"Five cones in a line, a few paces apart. You stand at the far end where the weaving girl can see you.", key:"1 the dribbler · C you at the far end holding up fingers · triangles are the cones", tags:["Ball handling"], players:"Whole group", balls:"One each", mins:"4", phase:"Extra \u00b7 not from Ben's plan",
+ why:"Making the eyes go up while the hands are busy — you cannot achieve that by asking for it.",
+ how:"Weave five cones. You hold up fingers at the far end and she calls the number, without slowing down.",
+ wrong:"She slows down to look up, or looks up and stops dribbling. Both are normal for the first two goes.",
+ builds:"Head-up dribbling with a real reason to look up. Without the number to call, this is just a cone drill and she can stare at the floor for four minutes and score full marks.",
+ ladder:["Easier: three cones, wider apart, walk it", "Standard: five cones, call the number without slowing", "Harder: weak hand only", "Harder: change the number halfway down", "Harder: two dribblers on the same line, chasing"],
+ cue:"Look at me, not the ball.", dur:6500,
+ actors:[
+  {id:"k1",side:"cone",at:[[0,25,10],[1,25,10]]},
+  {id:"k2",side:"cone",at:[[0,25,17],[1,25,17]]},
+  {id:"k3",side:"cone",at:[[0,25,24],[1,25,24]]},
+  {id:"k4",side:"cone",at:[[0,25,31],[1,25,31]]},
+  {id:"k5",side:"cone",at:[[0,25,38],[1,25,38]]},
+  {id:"a1",side:"off",label:"1",at:[[0,25,5],[.16,20,12],[.32,30,19],[.48,20,26],[.64,30,33],[.8,22,39],[1,25,43]]},
+  {id:"c1",side:"coach",label:"C",at:[[0,25,45],[1,25,45]]}
+ ],
+ calls:[
+  {t0:.52,t1:.80,actor:"c1",text:"3"},
+  {t0:.80,t1:.97,actor:"a1",text:"THREE!"}
+ ],
+ ball:{start:"a1"}});
+
+drill({name:"Pressure dribble", own:1, say:"Pressure dribble. Pairs, one ball, and give each pair a small square — half the key is about right. One girl dribbles and keeps possession for twenty seconds. Her partner applies light pressure with her hands, reaching for the ball. No bodychecking. Then they swap. Your cue is: protect with your body, not your arm. Two things go wrong. The defender stands off and does nothing, or she fouls constantly. Say once what light pressure means and then leave it alone. If a pair finds it easy, make their square smaller — that is a better fix than telling them to try harder.", setup:"Pairs, one ball, a small marked square each — half the key is about right.", key:"1 the handler · ✕ her partner applying pressure", tags:["Ball handling", "Defence"], players:"Pairs", balls:"One per pair", mins:"5", phase:"Extra \u00b7 not from Ben's plan",
+ why:"Keeping the ball with somebody actually reaching for it, rather than against nobody.",
+ how:"Partner applies light pressure while the handler keeps possession for twenty seconds, then rotate. Hands only, no bodychecking.",
+ wrong:"The defender either stands off and does nothing or fouls constantly. Say what light pressure means once, then let it settle.",
+ builds:"Body-between-defender-and-ball, a low protected dribble, and change of direction under contact. Turns into real on-ball defence for the partner without her being told she is practising defence.",
+ ladder:["Easier: defender may only shadow, no hands", "Standard: twenty seconds, light hands, rotate", "Harder: shrink the square", "Harder: weak hand only", "Harder: two defenders on one handler"],
+ cue:"Protect with your body, not your arm.", dur:6000,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,25,20],[.25,20,17],[.5,24,24],[.75,30,19],[1,25,20]]},
+  {id:"d1",side:"def",at:[[0,25,24],[.25,21,21],[.5,25,28],[.75,30,23],[1,25,24]]}
+ ],
+ ball:{start:"a1"}});
+
+drill({name:"Monkey in the middle, 4v1", own:1, say:"Monkey in the middle, four on one. Groups of five. Four girls spread out on a perimeter, one in the middle as the defender. One ball, and no dribbling at all. They count completed passes out loud. Three in a row and the defender swaps out with whoever last threw it. Any deflection and the count goes back to zero. Your cue is: fake one way, pass the other. The thing to watch for is passing around the outside in a circle, which is safe and teaches nothing. When that starts, make the space smaller. If a defender is stuck in there too long, add a second defender rather than letting her drown.", setup:"Groups of five. Four spread on a perimeter, one in the middle. One ball. No dribbling.", key:"1–4 the passers on the outside · ✕ the defender in the middle", tags:["Passing", "Decision-making"], players:"Groups of 5", balls:"One ball", mins:"6", phase:"Extra \u00b7 not from Ben's plan",
+ why:"Passing decisions with somebody in the way, which is the only place passing decisions exist.",
+ how:"Four on the perimeter, one defender, no dribbling. Count the completions out loud — three in a row and the defender swaps out. Any deflection and the count goes back to zero.",
+ wrong:"They pass around the outside in a circle, which is safe and teaches nothing. Watch for it and tighten the space when it starts.",
+ builds:"Pass fakes, reading a defender's feet, and finding the receiver the defender is not covering. The out-loud count is what makes them care.",
+ ladder:["Easier: five passers, one defender, bigger space", "Standard: four passers, three in a row to swap out, deflections reset the count", "Harder: no pass to the girl who just passed to you", "Harder: two defenders", "Harder: bounce passes only"],
+ cue:"Fake one way, pass the other.", dur:7500, nodrib:true,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,15,12],[1,15,12]]},
+  {id:"a2",side:"off",label:"2",at:[[0,35,12],[1,35,12]]},
+  {id:"a3",side:"off",label:"3",at:[[0,35,28],[1,35,28]]},
+  {id:"a4",side:"off",label:"4",at:[[0,15,28],[1,15,28]]},
+  {id:"d1",side:"def",at:[[0,25,20],[.2,20,15],[.45,31,16],[.7,33,25],[1,22,26]]}
+ ],
+ calls:[
+  {t0:.23,t1:.36,actor:"a2",text:"ONE"},
+  {t0:.47,t1:.60,actor:"a3",text:"TWO"},
+  {t0:.71,t1:.84,actor:"a4",text:"THREE!"},
+  {t0:.85,t1:.99,actor:"d1",text:"SWITCH"}
+ ],
+ ball:{start:"a1", passes:[
+   {t0:.14,t1:.22,to:"a2"},{t0:.38,t1:.46,to:"a3"},{t0:.62,t1:.70,to:"a4"},{t0:.86,t1:.94,to:"a1"}]}});
+
+drill({name:"Three-man weave", own:1, say:"Three man weave. Groups of three across the baseline, ball in the middle. She passes to one side and then runs behind the girl she passed to. That girl does the same in the other direction. They work the length of the floor and finish with a layup. Your cue is: pass and go behind. What goes wrong is that everyone drifts into the middle and it becomes three girls jogging in a line. Let me be straight about this one. There is no defender and no decision in it, so it teaches a pattern rather than a skill. It is a decent conditioning finisher. If what you actually want is passing, monkey in the middle does far more in the same five minutes.", setup:"Groups of three across the baseline, one ball with the middle girl.", key:"1–3 the three in the weave, ball starting in the middle", tags:["Passing", "Conditioning"], players:"Groups of 3", balls:"One ball", mins:"5", phase:"Extra \u00b7 not from Ben's plan",
+ why:"A classic. Worth knowing, but be clear-eyed about what it does and does not build.",
+ how:"Slow first, then at speed. Pass, then run behind the player you passed to. No bunching — they should finish the length of the floor spread across it.",
+ wrong:"Everyone drifts into the middle and it turns into three girls jogging in a line. Also expect a lot of dropped balls at speed, which is fine.",
+ builds:"Passing on the move and lane discipline. Honestly: it has no defender and no decision, so it teaches a pattern rather than a skill. Good as a conditioning finisher, weak as a passing drill — Monkey in the Middle does far more for passing in the same five minutes.",
+ ladder:["Easier: walk it", "Standard: length of the floor, finish with a layup", "Harder: at speed, two balls going at once", "Harder: add two defenders at the far end so it becomes 3v2", "Better: if you want passing, run Monkey in the Middle instead"],
+ cue:"Pass and go behind.", dur:7000, nodrib:true,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,25,7],[.28,13,13],[.55,8,24],[.8,16,34],[1,25,43]]},
+  {id:"a2",side:"off",label:"2",at:[[0,12,7],[.28,20,15],[.55,35,24],[.8,41,33],[1,33,43]]},
+  {id:"a3",side:"off",label:"3",at:[[0,38,7],[.28,33,13],[.55,26,23],[.8,12,33],[1,9,43]]}
+ ],
+ ball:{start:"a1", passes:[
+   {t0:.06,t1:.16,to:"a2"},{t0:.34,t1:.44,to:"a3"},{t0:.60,t1:.70,to:"a1"},{t0:.84,t1:.93,to:"a2"}]}});
+
+drill({name:"Outlet and go", own:1, say:"Outlet and go. One girl under the rim to rebound, two more filling the wings. You or a parent puts a ball on the rim so there is a real rebound to get. She grabs it, pivots, and outlets to a wing, and then all three run the floor filling the lanes. The rule that matters: she turns to the sideline, never through the middle. An outlet through the middle is the pass that gets picked off and turned into two points the other way. Your cue is exactly that — turn to the sideline. Every girl will turn into the middle at least twice out of habit. This one pairs well with pivot tag, which is where the pivot itself gets built.", setup:"One girl under the rim to rebound, two wings. You or a parent puts the ball on the rim.", key:"1 the rebounder · 2 and 3 filling the wings", tags:["Passing", "Conditioning"], players:"Whole group", balls:"Several", mins:"6", phase:"Extra \u00b7 not from Ben's plan",
+ why:"The first pass after a rebound is the one that starts every fast break and the one that gets stolen.",
+ how:"Rebound, pivot, outlet to the wing, fill the lanes. Turn to the sideline every time — an outlet through the middle is the pass that gets picked off.",
+ wrong:"She turns into the middle out of habit. Every single one of them will do it at least twice.",
+ builds:"Rebound, pivot to the outside, and an accurate first pass under fatigue. Pairs naturally with Pivot Tag, which builds the pivot itself.",
+ ladder:["Easier: no rebound, hand her the ball on the block", "Standard: live rebound, outlet to the sideline, fill the lanes", "Harder: a defender contests the outlet", "Harder: finish it as a 2v1 at the far end", "Harder: call which wing only after she has the ball"],
+ cue:"Turn to the sideline, never the middle.", dur:6500, nodrib:true,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,25,7],[.3,23,9],[.7,24,20],[1,25,32]]},
+  {id:"a2",side:"off",label:"2",at:[[0,11,13],[.3,9,16],[.7,8,28],[1,10,42]]},
+  {id:"a3",side:"off",label:"3",at:[[0,39,11],[.4,42,22],[1,40,43]]}
+ ],
+ ball:{start:"a1", inbound:{t0:0,t1:.16,to:"a1"},
+   passes:[{t0:.3,t1:.42,to:"a2"},{t0:.66,t1:.78,to:"a3"}]}});
+
+drill({name:"Form shooting, close range", own:1, say:"Form shooting, close range. Pairs at a hoop with one ball. She starts about three feet out, almost under the rim. One hand only for the first shots, then two hands, then she steps back and shoots again. Four shots, four distances. Her partner rebounds and passes it straight back. Your cue is: elbow under the ball. The mistake is stepping back too quickly, and then the form falls apart and you have wasted the drill. Here is the useful rule. If her elbow is flying out to the side, she is too far from the hoop. Move her in. The distance is your dial, and it works better than any explanation you can give her.", setup:"Pairs at a hoop, one ball. Start three feet out, almost under the rim.", key:"1 the shooter · 2 her partner rebounding and returning it", tags:["Shooting"], players:"Pairs", balls:"One per pair", mins:"5", phase:"Extra \u00b7 not from Ben's plan",
+ why:"At this age this fixes more shooting problems than anything else, because it removes distance as an excuse.",
+ how:"Shoot, step back, shoot again. One hand from three feet, then two hands, then keep stepping back — four shots, four distances. Partner rebounds and returns.",
+ wrong:"They step back too fast and the form falls apart, which defeats the whole thing. If the elbow flies out, she has gone too far back — move her in.",
+ builds:"Elbow under the ball, a consistent release point, and follow-through. The distance is the dial: if the shot looks wrong, the answer is always closer, never a longer explanation.",
+ ladder:["Easier: one hand from directly under the rim, no distance at all", "Standard: four shots, four distances, step back only after a clean one", "Harder: step back only after two clean in a row", "Harder: shoot from a catch rather than from standing still", "Harder: partner gives a token closeout"],
+ cue:"Elbow under the ball.", dur:8000,
+ shots:[
+  {actor:"a1",t0:.05,t1:.13},{actor:"a1",t0:.28,t1:.36},
+  {actor:"a1",t0:.52,t1:.60},{actor:"a1",t0:.78,t1:.86}
+ ],
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,25,8],[.16,25,8],[.24,25,11],[.40,25,11],[.48,25,15],[.64,25,15],[.72,25,19],[1,25,19]]},
+  {id:"a2",side:"off",label:"2",at:[[0,29,7],[.5,26,6],[1,28,7]]}
+ ],
+ ball:{start:"a1"}});
+
+drill({name:"Spot shooting, five spots", own:1, say:"Spot shooting, five spots. Mark five spots around the arc: corner, wing, top, wing, corner. Pairs share a hoop and a ball. She shoots from a spot until she makes three, then moves to the next one, while her partner rebounds and returns the ball. Your cue is: same feet every time. The footwork is the drill, the shot is just the scoreboard. Now, a real warning about this one. Three makes to move on is a makes target, and makes targets keep your least confident girl stuck at the first spot for the entire block while your best player finishes early and stands around. If you see that, switch it to three attempts per spot. Same drill, and everybody moves.", setup:"Five spots marked around the arc: corner, wing, top, wing, corner. Pairs share a hoop and a ball.", key:"1 the shooter working round the spots · 2 rebounding and returning", tags:["Shooting", "Footwork"], players:"Pairs", balls:"One per pair", mins:"6", phase:"Extra \u00b7 not from Ben's plan",
+ why:"Repeatable footwork, with the shot as the scoreboard rather than the subject.",
+ how:"Make three from a spot before moving on — corner, wing, top, wing, corner. Same feet every time: the footwork is the drill, the shot is the scoreboard. Partner rebounds and returns.",
+ wrong:"Some girls will be stuck at the first spot for the whole six minutes. That is the flaw in this drill and you should watch for it.",
+ builds:"Consistent footwork into a catch-and-shoot from five angles. One warning: three makes to move on is a makes target, and makes targets keep the least confident girl at one spot all block while the best player finishes early. Switch to three attempts per spot if you see that happening.",
+ ladder:["Easier: three attempts per spot, not three makes — use this by default with a mixed group", "Standard: three makes per spot, five spots", "Harder: shoot off a pass rather than from standing", "Harder: sprint to touch the baseline between spots", "Harder: partner closes out"],
+ cue:"Same feet every time.", dur:10000,
+ shots:[
+  {actor:"a1",t0:.03,t1:.09},{actor:"a1",t0:.10,t1:.16},
+  {actor:"a1",t0:.23,t1:.29},{actor:"a1",t0:.30,t1:.36},
+  {actor:"a1",t0:.44,t1:.50},{actor:"a1",t0:.51,t1:.57},
+  {actor:"a1",t0:.65,t1:.71},{actor:"a1",t0:.72,t1:.78},
+  {actor:"a1",t0:.86,t1:.92},{actor:"a1",t0:.93,t1:.99}
+ ],
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,5,8],[.17,5,8],[.21,11,20],[.38,11,20],[.42,25,27],[.59,25,27],[.63,39,20],[.80,39,20],[.84,45,8],[1,45,8]]},
+  {id:"a2",side:"off",label:"2",at:[[0,27,7],[.25,22,6],[.5,25,6],[.75,28,7],[1,23,6]]}
+ ],
+ ball:{start:"a1"}});
+
+drill({name:"Beat the coach", own:1, say:"Beat the coach. Everyone at one end with as many balls as you have. You set a target score and count it out loud on a timer, and the team has to beat it. Nobody waits for a turn — every girl shoots, rebounds her own ball, and goes again. Your cue is: next shot, not the last one. It gets loud and slightly out of hand, and that is the point. Pick the target so they beat it about two out of three times. A target they can never reach stops being motivating after a single round, and you will feel the room go flat.", setup:"Everyone at one end with as many balls as you have. You keep the coach's score out loud on a timer.", key:"1–5 the shooters, rebounding their own · C you, calling the score to beat", tags:["Shooting", "Conditioning"], players:"Whole group", balls:"Several", mins:"5", phase:"Extra \u00b7 not from Ben's plan",
+ why:"A shooting block that ends loud, with a target nobody has to wait their turn for.",
+ how:"You count a score out loud on a timer and the team has to out-score it. Nobody waits for a turn — rebound your own shot and go again.",
+ wrong:"It gets very loud and slightly out of hand. That is the intended state. Expect a lot of missed shots and keep the clock running.",
+ builds:"Volume shooting under a clock, and rebounding your own miss without being told. Set the target so they beat it about two thirds of the time — a target they never reach stops being motivating after one round.",
+ ladder:["Easier: lower the target, count all attempts rather than makes", "Standard: makes only, one minute, you call the running score", "Harder: raise the target each round", "Harder: layups do not count, only shots from outside the paint", "Harder: split into two teams shooting at the two ends"],
+ cue:"Next shot, not the last one.", dur:8000, multiball:true,
+ shots:[
+  {actor:"a3",t0:.05,t1:.19},{actor:"a1",t0:.13,t1:.27},
+  {actor:"a4",t0:.22,t1:.36},{actor:"a2",t0:.34,t1:.48},
+  {actor:"a5",t0:.44,t1:.58},{actor:"a3",t0:.56,t1:.70},
+  {actor:"a1",t0:.66,t1:.80},{actor:"a4",t0:.76,t1:.90}
+ ],
+ calls:[
+  {t0:.06,t1:.26,actor:"c1",text:"COACH 4 \u2013 TEAM 2"},
+  {t0:.36,t1:.56,actor:"c1",text:"COACH 7 \u2013 TEAM 6"},
+  {t0:.68,t1:.94,actor:"c1",text:"COACH 9 \u2013 TEAM 10"}
+ ],
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,7,9],[1,7,9]]},
+  {id:"a2",side:"off",label:"2",at:[[0,13,21],[1,13,21]]},
+  {id:"a3",side:"off",label:"3",at:[[0,25,27],[1,25,27]]},
+  {id:"a4",side:"off",label:"4",at:[[0,37,21],[1,37,21]]},
+  {id:"a5",side:"off",label:"5",at:[[0,43,9],[1,43,9]]},
+  {id:"c1",side:"coach",label:"C",at:[[0,25,42],[1,25,42]]}
+ ]});
+
+drill({name:"3v2 continuous", own:1, say:"Three on two, continuous. Three attackers go at two defenders. The rule that makes it work is on the defensive side: the back defender steps up to the ball and the top defender drops in behind her, and they keep trading those two jobs every time the ball moves. Whoever loses possession sprints back and it runs again the other way, with the next three coming in. Your cue for the attackers: there are two of them and three of you, so go at the one in the middle. What goes wrong is the three attacking in a straight line, which two defenders cover easily. Spread them wide before the first rep and it sorts itself out. This is one of the best things on this page for teaching real defensive rotation.", setup:"Three attackers at one end, two defenders waiting. Everyone else in a line on the baseline to come in.", key:"1–3 the attackers · ✕ the two defenders trading jobs", tags:["Decision-making", "Teamwork", "Conditioning"], players:"Whole group", balls:"One ball", mins:"10", phase:"Extra \u00b7 not from Ben's plan",
+ why:"Attacking with a spare player, which is what a fast break actually is.",
+ how:"Three attack two. The back defender steps up to the ball and the top defender drops — watch the two of them trade jobs on the pass. Whoever loses possession sprints back, and it runs again the other way.",
+ wrong:"The three attack in a straight line and the two defenders cover it easily. Spread them wide before the first rep and it fixes itself.",
+ builds:"Reading and using an advantage, and — for the defenders — covering two players with one body, which is where real defensive rotation comes from. Almost nothing at this age teaches that better.",
+ ladder:["Easier: 3v1", "Standard: 3v2, continuous both ways", "Harder: 3v2 into 2v1 coming back", "Harder: two passes minimum before a shot", "Harder: 4v3"],
+ cue:"Two defenders, three of you — go at the one in the middle.", dur:7000,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,25,42],[.38,25,28],[.58,25,24],[.72,25,27],[1,25,41]]},
+  {id:"a2",side:"off",label:"2",at:[[0,10,38],[.45,11,22],[.72,16,12],[1,20,8]]},
+  {id:"a3",side:"off",label:"3",at:[[0,40,38],[.45,39,22],[1,35,11]]},
+  {id:"d1",side:"def",at:[[0,25,17],[.36,25,21],[.6,25,15],[1,27,9]]},
+  {id:"d2",side:"def",at:[[0,25,9],[.5,25,9],[.72,20,12],[1,19,10]]}
+ ],
+ calls:[{t0:.60,t1:.78,actor:"d2",text:"BALL!"}],
+ ball:{start:"a1", passes:[{t0:.5,t1:.6,to:"a2"}], shot:{t0:.84,t1:.97}}});
+
+drill({name:"4v4 no dribble", own:1, say:"Four on four, no dribble. Two teams of four, half court, one ball, pinnies if you have them. Normal possession, except nobody may dribble at all. Passing and cutting only. Your cue is: if you are standing still, you are not open. The first minute will be ugly and everyone will stand around looking at each other. Do not explain more. Wait. Somebody will cut, get the ball, and score, and from that moment the whole thing changes. That is the drill teaching itself. This is really a harder version of Ben's three on three, so it slots naturally after it rather than instead of it.", setup:"Two teams of four, half court, one ball, pinnies if you have them.", key:"1–4 the team in possession · ✕ the defence", tags:["Passing", "Decision-making", "Teamwork"], players:"Teams of 4", balls:"One ball", mins:"10", phase:"Extra \u00b7 not from Ben's plan",
+ why:"Movement without the ball, which is the hardest thing to teach and the thing this makes unavoidable.",
+ how:"Full possession, passing and cutting only, no dribbles at all. Standing still stops being an option.",
+ wrong:"The first minute is ugly and everyone stands. Then somebody cuts, gets the ball, and the whole thing changes. Wait it out rather than explaining more.",
+ builds:"Cutting, timing, and reading where the space is. Brutally effective, because the no-dribble rule removes the escape route rather than telling anyone off for using it. Sits naturally as a harder rung of Ben's Three on Three.",
+ ladder:["Easier: one dribble allowed per possession", "Standard: no dribbles, half court, make it and keep it", "Harder: every player must touch it before a shot", "Harder: full court", "Harder: a five-second shot clock counted out loud by the waiting team"],
+ cue:"If you're standing still, you're not open.", dur:8000, nodrib:true,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,25,28],[.35,20,29],[.7,14,22],[1,12,15]]},
+  {id:"a2",side:"off",label:"2",at:[[0,11,20],[.35,13,26],[.7,22,29],[1,26,28]]},
+  {id:"a3",side:"off",label:"3",at:[[0,39,20],[.4,36,14],[.7,30,9],[1,33,17]]},
+  {id:"a4",side:"off",label:"4",at:[[0,20,8],[.4,28,8],[.75,34,12],[1,38,20]]},
+  {id:"d1",side:"def",at:[[0,25,24],[.35,21,25],[.7,16,20],[1,14,14]]},
+  {id:"d2",side:"def",at:[[0,14,20],[.35,16,24],[.7,23,26],[1,26,25]]},
+  {id:"d3",side:"def",at:[[0,36,19],[.4,34,15],[.7,29,12],[1,31,18]]},
+  {id:"d4",side:"def",at:[[0,22,11],[.4,29,11],[.75,33,14],[1,36,20]]}
+ ],
+ ball:{start:"a1", passes:[{t0:.2,t1:.29,to:"a2"},{t0:.46,t1:.55,to:"a4"},{t0:.72,t1:.81,to:"a3"}]}});
+
+drill({name:"Scrimmage with a constraint", own:1, say:"Scrimmage with a constraint. A normal game, plus exactly one extra rule. Three passes before anyone shoots, or every player has to touch it, or the first shot has to come off a cut. Pick one, say it once, and start. The trick that makes it stick: have the receivers count out loud. Hearing the count is what keeps everybody honest, and it saves you refereeing it. Your cue is the count itself — three passes, count them out loud. The mistake is two rules at once, and then nobody follows either. And change the dial every two or three minutes. A game they have solved has stopped teaching them anything. This is really the general shape of everything the staff run.", setup:"Normal teams, normal game. Pick one rule before you start and say it once.", key:"1–5 one team · ✕ the other", tags:["Game", "Decision-making", "Teamwork"], players:"Whole group", balls:"One ball", mins:"12", phase:"Extra \u00b7 not from Ben's plan",
+ why:"A real game, with one dial turned to make one thing happen more often.",
+ how:"A normal game plus one rule: three passes before a shot, or every player touches it, or the first shot comes off a cut. The receivers count out loud — hearing the count is what makes the constraint stick.",
+ wrong:"Two rules at once and nobody follows either. One rule. If it stops teaching after three minutes, change it rather than adding to it.",
+ builds:"Whatever the constraint points at, inside a real game rather than a drill. This is the general form of what the staff run all night — the eleven games are all a version of this idea with a specific dial.",
+ ladder:["Three passes before a shot — the default, and the easiest to hear", "Every player touches it before a shot — the one that includes the beginner", "First shot must come off a cut", "No dribbles at all for one possession in three", "A score in the paint is one, outside the paint is two", "Change the dial every two to three minutes. A solved game stops teaching."],
+ cue:"Three passes — count them out loud.", dur:8500,
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,25,32],[.3,22,30],[.6,17,26],[1,15,20]]},
+  {id:"a2",side:"off",label:"2",at:[[0,10,22],[.35,12,27],[.7,19,28],[1,23,26]]},
+  {id:"a3",side:"off",label:"3",at:[[0,40,22],[.4,38,16],[.75,33,10],[1,29,7]]},
+  {id:"a4",side:"off",label:"4",at:[[0,19,8],[.4,15,10],[.8,11,13],[1,10,17]]},
+  {id:"a5",side:"off",label:"5",at:[[0,31,8],[.4,34,12],[1,37,18]]},
+  {id:"d1",side:"def",at:[[0,25,28],[.3,23,27],[.6,19,23],[1,17,18]]},
+  {id:"d2",side:"def",at:[[0,13,22],[.35,15,26],[.7,21,25],[1,24,23]]},
+  {id:"d3",side:"def",at:[[0,37,21],[.4,36,17],[.75,31,12],[1,28,10]]},
+  {id:"d4",side:"def",at:[[0,21,11],[.4,17,12],[1,13,17]]},
+  {id:"d5",side:"def",at:[[0,29,11],[.4,32,14],[1,35,19]]}
+ ],
+ calls:[
+  {t0:.26,t1:.38,actor:"a2",text:"ONE"},
+  {t0:.50,t1:.60,actor:"a5",text:"TWO"},
+  {t0:.72,t1:.83,actor:"a3",text:"THREE \u2014 GO!"}
+ ],
+ ball:{start:"a1", passes:[
+   {t0:.16,t1:.25,to:"a2"},{t0:.4,t1:.49,to:"a5"},{t0:.62,t1:.71,to:"a3"}], shot:{t0:.84,t1:.97}}});
+
+/* ---------- geometry helpers ---------- */
+function posAt(actor, t){
+  var k = actor.at, i;
+  if(t <= k[0][0]) return [k[0][1], k[0][2]];
+  for(i = 1; i < k.length; i++){
+    if(t <= k[i][0]){
+      var a = k[i-1], b = k[i];
+      var f = (b[0] - a[0]) === 0 ? 0 : (t - a[0]) / (b[0] - a[0]);
+      f = f * f * (3 - 2 * f);
+      return [a[1] + (b[1]-a[1]) * f, a[2] + (b[2]-a[2]) * f];
+    }
+  }
+  var l = k[k.length-1];
+  return [l[1], l[2]];
+}
+function actorById(d, id){
+  for(var i=0;i<d.actors.length;i++) if(d.actors[i].id === id) return d.actors[i];
+  return null;
+}
+/* who holds the ball at time t, and is it mid-flight */
+function ballState(d, t){
+  var b = d.ball;
+  if(!b) return null;
+  if(b.inbound && t <= b.inbound.t1){
+    var fi = Math.max(0, Math.min(1, (t - b.inbound.t0) / (b.inbound.t1 - b.inbound.t0)));
+    var toA = posAt(actorById(d, b.inbound.to), t);
+    return {x: RIM.x + (toA[0] - RIM.x) * fi, y: RIM.y + (toA[1] - RIM.y) * fi,
+            lift: Math.sin(fi * Math.PI) * 1.4, flying:true, holder:null};
+  }
+  if(b.shot && t >= b.shot.t0){
+    if(t <= b.shot.t1){
+      var f = (t - b.shot.t0) / (b.shot.t1 - b.shot.t0);
+      var holder = b.start, i;
+      if(b.passes) for(i=0;i<b.passes.length;i++) if(b.shot.t0 >= b.passes[i].t1) holder = b.passes[i].to;
+      var from = posAt(actorById(d, holder), b.shot.t0);
+      return {x: from[0] + (RIM.x - from[0]) * f, y: from[1] + (RIM.y - from[1]) * f,
+              lift: Math.sin(f * Math.PI) * 2.2, flying:true, holder:null};
+    }
+    if(b.rebound){
+      var rb = posAt(actorById(d, b.rebound.to), t);
+      if(t <= b.rebound.t1){
+        var g = Math.max(0, Math.min(1, (t - b.rebound.t0) / (b.rebound.t1 - b.rebound.t0)));
+        return {x: RIM.x + (rb[0] - RIM.x) * g, y: RIM.y + (rb[1] - RIM.y) * g,
+                lift: Math.sin(g * Math.PI) * 1.2, flying:true, holder:null};
+      }
+      return {x: rb[0], y: rb[1], lift:0, flying:false, holder:b.rebound.to};
+    }
+    return {x: RIM.x, y: RIM.y, lift:0, flying:true, holder:null};
+  }
+  var cur = b.start;
+  if(b.passes){
+    for(var j=0;j<b.passes.length;j++){
+      var p = b.passes[j];
+      if(t < p.t0) break;
+      if(t < p.t1){
+        var g = (t - p.t0) / (p.t1 - p.t0);
+        var A = posAt(actorById(d, cur), t), B = posAt(actorById(d, p.to), t);
+        return {x:A[0]+(B[0]-A[0])*g, y:A[1]+(B[1]-A[1])*g, lift:0, flying:true, holder:null};
+      }
+      cur = p.to;
+    }
+  }
+  var h = posAt(actorById(d, cur), t);
+  return {x:h[0], y:h[1], lift:0, flying:false, holder:cur};
+}
+function holdsAt(d, id, t){
+  var s = ballState(d, t);
+  return s && s.holder === id;
+}
+
+/* ---------- canvas ---------- */
+
 var cv = document.getElementById("court"), ctx = cv.getContext("2d");
 var S = 1, OX = 0, OY = 0, css = {w:760, h:700};
 
@@ -1114,6 +1490,7 @@ function select(i){
   document.getElementById("d-name").textContent = d.name;
   document.getElementById("d-phase").textContent =
     (d.mins ? d.mins + " min" : "") + (d.balls ? "  \u00b7  " + d.balls : "");
+  document.getElementById("d-src").hidden = !d.own;
   stopSpeech();
   syncAdd();
   var mt = document.getElementById("d-meta");
@@ -1163,7 +1540,7 @@ function select(i){
   render(d, 0);
 }
 
-var query = "", activeTag = "", activeKit = "";
+var query = "", activeTag = "", activeKit = "", activeSrc = "";
 
 var FOCUS_ORDER = ["Defence","Footwork","Ball handling","Passing","Shooting",
                    "Finishing","Decision-making","Teamwork","Communication",
@@ -1195,6 +1572,8 @@ function haystack(d){
 function matches(d){
   if(activeTag && (d.tags || []).indexOf(activeTag) === -1) return false;
   if(activeKit && kitOf(d) !== activeKit) return false;
+  if(activeSrc === "Ben's plan" && d.own) return false;
+  if(activeSrc === "Extras" && !d.own) return false;
   if(query && haystack(d).indexOf(query) === -1) return false;
   return true;
 }
@@ -1220,6 +1599,9 @@ function buildChips(){
   chipRow(document.getElementById("chips2"), ["No ball","Ball each","Shared ball"], activeKit, function(v){
     activeKit = v; buildChips(); buildList();
   });
+  chipRow(document.getElementById("chips3"), ["Ben's plan","Extras"], activeSrc, function(v){
+    activeSrc = v; buildChips(); buildList();
+  });
 }
 
 function buildList(){
@@ -1243,7 +1625,11 @@ function buildList(){
     var mm = document.createElement("span"); mm.className = "gmeta";
     mm.style.paddingLeft = "0";
     mm.textContent = d.mins + " min  ·  " + d.players + "  ·  " + d.balls;
-    b.appendChild(mm);
+if(d.own){
+      var xt = document.createElement("span"); xt.className = "xtra";
+      xt.textContent = "  \u00b7  extra"; mm.appendChild(xt);
+    }
+        b.appendChild(mm);
     b.addEventListener("click", function(){
       select(i); playing = true; document.getElementById("play").textContent = "Pause";
     });
@@ -1254,7 +1640,7 @@ function buildList(){
     n.textContent = "Nothing matches that. Try clearing the filter.";
     host.appendChild(n);
   }
-  var filtering = !!(query || activeTag || activeKit);
+  var filtering = !!(query || activeTag || activeKit || activeSrc);
   document.getElementById("hits").textContent =
     filtering ? shown + " of " + D.length + " games" : D.length + " games";
   if(shown && !matches(D[idx]) && firstIdx >= 0) select(firstIdx);
