@@ -1296,6 +1296,46 @@ function pickVoice(){
 }
 if(synth){ pickVoice(); if("onvoiceschanged" in synth) synth.onvoiceschanged = pickVoice; }
 
+/* iOS routes Web Speech audio to the earpiece unless a media element has
+   already opened a playback audio session. Looping a silent WAV for the
+   duration of the speech keeps the route on the loudspeaker. */
+var keeper = null, keeperUrl = null;
+function silentWavUrl(){
+  if(keeperUrl) return keeperUrl;
+  var sr = 8000, n = 1600, buf = new ArrayBuffer(44 + n), v = new DataView(buf), i;
+  function str(off, x){ for(var k=0;k<x.length;k++) v.setUint8(off+k, x.charCodeAt(k)); }
+  str(0,"RIFF"); v.setUint32(4, 36+n, true); str(8,"WAVEfmt ");
+  v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+  v.setUint32(24,sr,true); v.setUint32(28,sr,true); v.setUint16(32,1,true); v.setUint16(34,8,true);
+  str(36,"data"); v.setUint32(40,n,true);
+  for(i=0;i<n;i++) v.setUint8(44+i, 128);          /* 8-bit unsigned silence */
+  keeperUrl = URL.createObjectURL(new Blob([buf], { type: "audio/wav" }));
+  return keeperUrl;
+}
+function openSpeaker(){
+  /* must run inside the click handler, before speak(), or iOS ignores it */
+  try{
+    if(!keeper){
+      keeper = new Audio(silentWavUrl());
+      keeper.setAttribute("playsinline", "");
+      keeper.loop = true;
+      keeper.volume = 0.01;
+    }
+    var pr = keeper.play();
+    if(pr && pr.catch) pr.catch(function(){});
+  }catch(e){}
+  try{
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if(AC){
+      if(!window.__ac) window.__ac = new AC();
+      if(window.__ac.state === "suspended") window.__ac.resume();
+    }
+  }catch(e){}
+}
+function closeSpeaker(){
+  try{ if(keeper){ keeper.pause(); keeper.currentTime = 0; } }catch(e){}
+}
+
 function speakUI(){
   var btn = document.getElementById("listen");
   if(!btn) return;
@@ -1311,6 +1351,7 @@ function stopSpeech(){
   speaking = false; queue = []; qi = 0;
   if(keepAlive){ clearInterval(keepAlive); keepAlive = null; }
   try{ synth.cancel(); }catch(e){}
+  closeSpeaker();
   speakUI();
 }
 function sayNext(){
@@ -1343,7 +1384,9 @@ function speakDrill(d){
 }
 if(!synth){ var lb = document.getElementById("listen"); if(lb) lb.hidden = true; }
 document.getElementById("listen").addEventListener("click", function(){
-  if(speaking) stopSpeech(); else speakDrill(cur());
+  if(speaking){ stopSpeech(); return; }
+  openSpeaker();
+  speakDrill(cur());
 });
 window.addEventListener("beforeunload", stopSpeech);
 
