@@ -11,12 +11,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
 :root{
-  --bg:#0A0A0A; --panel:#111111; --line:#1E1E1E; --line-soft:#161616;
-  --ink:#F0EDE8; --dim:#8C8781; --dimmer:#5E5A55;
-  --orange:#E8570A; --team:#E8570A; --cool:#5FA8B8;
+  /* Rebels-Rebelles: purple #290045, gold #FDB927 */
+  --bg:#0B0616; --panel:#190A2E; --line:#2A1345; --line-soft:#1A0E2E;
+  --purple:#290045; --purple-lift:#3A0C5E; --gold:#FDB927;
+  --ink:#F5F1EA; --dim:#9B8FB0; --dimmer:#6B5F80;
+  --orange:#FDB927; --team:#FDB927; --cool:#6FC7DA;
   /* court */
-  --floor:#151413; --paint:#1D1B19; --court:#6E6862;
-  --off:#E8570A; --def:#7F8C93; --ball:#F2B33D; --cone:#6E6862; --muted:#8C8781;
+  --floor:#150C24; --paint:#1E1136; --court:#7A6A93;
+  --off:#FDB927; --def:#8E9AA6; --ball:#FF6B2C; --cone:#7A6A93; --muted:#9B8FB0;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -35,18 +37,20 @@ a{color:inherit}
   color:var(--dimmer);margin-bottom:18px}
 .hero h1{font-family:Syne,sans-serif;font-weight:800;font-size:clamp(50px,12vw,116px);
   line-height:.87;letter-spacing:-.03em}
-.hero h1 .ghost{color:#232323;display:block}
+.hero h1 .ghost{color:var(--purple-lift);display:block}
+.hero{border-top:3px solid var(--gold)}
 .hero h1 .live{color:var(--team);display:block}
 .hero p{margin-top:24px;color:var(--dim);font-size:17px;max-width:52ch;line-height:1.5}
 
 section{padding-block:54px;border-top:1px solid var(--line)}
 .label{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--dimmer);margin-bottom:26px}
+  color:var(--gold);margin-bottom:26px}
 h2{font-family:Syne,sans-serif;font-weight:800;font-size:clamp(26px,5vw,40px);line-height:1.03;
   letter-spacing:-.02em;margin-bottom:18px}
 h3{font-family:Syne,sans-serif;font-weight:700;letter-spacing:-.01em}
 
-.next{display:flex;flex-wrap:wrap;gap:14px 42px;align-items:flex-end}
+.next{display:flex;flex-wrap:wrap;gap:14px 42px;align-items:flex-end;
+  background:var(--purple);border-left:4px solid var(--gold);padding:26px 28px}
 .next .when{font-family:Syne,sans-serif;font-weight:800;font-size:clamp(30px,6.5vw,54px);
   line-height:1;letter-spacing:-.02em;color:var(--team)}
 .next .what{font-size:18px;font-weight:400}
@@ -58,6 +62,11 @@ h3{font-family:Syne,sans-serif;font-weight:700;letter-spacing:-.01em}
 .fact dd{margin-top:7px;font-size:16.5px}
 
 .fxwrap{overflow-x:auto}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+button.addcal{background:none;border:1px solid var(--line);color:var(--dimmer);cursor:pointer;
+  width:30px;height:30px;padding:0;line-height:1;font-size:15px;font-family:"DM Mono",monospace}
+button.addcal:hover{color:var(--gold);border-color:var(--gold)}
+td.cal{padding-right:0;text-align:right}
 table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
 th{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--dimmer);text-align:left;font-weight:400;padding:0 16px 10px 0;border-bottom:1px solid var(--line)}
@@ -85,7 +94,7 @@ td.m{font-family:"DM Mono",monospace;font-size:13.5px;white-space:nowrap;color:v
   background:none;border:1px solid var(--line);color:var(--dim);
   padding:6px 12px;border-radius:2px;cursor:pointer}
 .chips button:hover{color:var(--ink);border-color:var(--dim)}
-.chips button[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:#0A0A0A}
+.chips button[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:#0B0616}
 .hits{font-size:11.5px;color:var(--dimmer);margin-top:12px;letter-spacing:.06em}
 .gmeta{font-family:"DM Mono",monospace;font-size:10.5px;color:var(--dimmer);
   display:block;margin-top:2px;padding-left:34px}
@@ -139,14 +148,14 @@ button.d[aria-current="true"] .slot{color:var(--orange)}
 canvas{display:block;width:100%;height:auto;max-width:100%}
 .controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px}
 button.ctl{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
-  background:var(--orange);color:#0A0A0A;border:0;padding:9px 17px;cursor:pointer}
+  background:var(--orange);color:#0B0616;border:0;padding:9px 17px;cursor:pointer}
 button.ctl.ghost{background:none;color:var(--dim);border:1px solid var(--line)}
 button.ctl.ghost:hover{color:var(--ink);border-color:var(--dim)}
 input[type=range]{flex:1 1 140px;min-width:110px;accent-color:var(--orange)}
 .speed{display:flex;border:1px solid var(--line)}
 .speed button{font-family:"DM Mono",monospace;font-size:11.5px;background:none;color:var(--dimmer);
   border:0;padding:8px 11px;cursor:pointer}
-.speed button[aria-pressed="true"]{background:var(--orange);color:#0A0A0A}
+.speed button[aria-pressed="true"]{background:var(--orange);color:#0B0616}
 
 .people{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:24px 32px}
 .person .n{font-family:Syne,sans-serif;font-weight:700;font-size:17px}
@@ -168,13 +177,16 @@ button.tool{font-family:"DM Mono",monospace;font-size:11.5px;letter-spacing:.1em
   text-transform:uppercase;background:none;color:var(--dim);border:1px solid var(--line);
   padding:8px 13px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
 button.tool:hover{color:var(--ink);border-color:var(--dim)}
-button.tool[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:#0A0A0A}
+button.tool[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:#0B0616}
 button.tool.added{border-color:var(--orange);color:var(--orange)}
 button.tool svg{display:block}
 .speakbar{height:2px;background:var(--line);margin-top:14px;overflow:hidden}
 .speakbar i{display:block;height:100%;width:0;background:var(--orange);transition:width .25s linear}
 
 /* ---- practice builder ---- */
+.facts a,.rows a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(253,185,39,.35);
+  padding-bottom:1px}
+.facts a:hover,.rows a:hover{border-bottom-color:var(--gold)}
 .planlink{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
   color:var(--dimmer);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:3px}
 .planlink:hover{color:var(--orange);border-color:var(--orange)}
@@ -189,7 +201,7 @@ button.tool svg{display:block}
 .planbar .grow{flex:1}
 .total{font-family:"DM Mono",monospace;font-size:13px;color:var(--dim);text-align:right;line-height:1.7}
 .total b{color:var(--ink);font-weight:500}
-.total .over{color:#D98A3D}
+.total .over{color:#FF9B4A}
 .planlist{list-style:none;margin-top:6px}
 .planlist li{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line-soft)}
 .planlist .at{font-family:"DM Mono",monospace;font-size:12px;color:var(--orange);width:52px;flex:none}
@@ -214,6 +226,7 @@ button.tool svg{display:block}
   border:1px solid var(--line);color:var(--dimmer);padding:5px 9px}
 .covers span.on{border-color:var(--orange);color:var(--orange)}
 .planacts{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+@media (max-width:520px){button.tool{white-space:normal;text-align:left}}
 
 @media (max-width:640px){
   .planbar{gap:12px 16px}
@@ -265,14 +278,20 @@ button.tool svg{display:block}
     <div class="fact"><dt>Practice</dt><dd>Tuesdays, 7:00 &ndash; 8:30 pm</dd></div>
     <div class="fact"><dt>First practice</dt><dd>September 15</dd></div>
     <div class="fact"><dt>Gym</dt><dd>Prospect Lake Elementary</dd></div>
-    <div class="fact"><dt>Team admin</dt><dd>RAMP Team App</dd></div>
+    <div class="fact"><dt>Team admin</dt><dd><a href="https://www.rampinteractive.com/team-app" target="_blank" rel="noopener">RAMP Team App</a></dd></div>
   </dl>
   <div class="fxwrap" style="margin-top:30px">
     <table>
-      <thead><tr><th>Date</th><th>Time</th><th>What</th><th>Gym</th></tr></thead>
+      <thead><tr><th>Date</th><th>Time</th><th>What</th><th>Gym</th><th><span class="vh">Calendar</span></th></tr></thead>
       <tbody id="fx"></tbody>
     </table>
   </div>
+  <div class="planacts" style="margin-top:22px">
+    <button class="tool" type="button" id="ics-all">
+      <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect x=".6" y="1.6" width="10.8" height="9.8" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M.6 4.4h10.8M3.4.6v2M8.6.6v2" stroke="currentColor" stroke-width="1.2"/></svg>
+      Add every practice</button>
+  </div>
+  <p class="note" style="margin-top:12px">Downloads one calendar file. Open it and your phone offers to add the lot &mdash; each with a reminder 45 minutes before, which is when you need to be leaving Cordova Bay.</p>
 </section>
 
 <section>
@@ -304,17 +323,17 @@ button.tool svg{display:block}
       <span><svg width="26" height="10" aria-hidden="true"><line x1="2" y1="5" x2="24" y2="5" stroke="currentColor" stroke-width="3" opacity=".55"/></svg>chain</span>
       <span><svg width="22" height="14" aria-hidden="true"><circle cx="11" cy="7" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 2.5"/></svg>boundary</span>
       <div class="markers">
-        <span><svg width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="#E8570A" stroke-width="2"/></svg>player</span>
-        <span><svg width="16" height="16" aria-hidden="true"><path d="M3 3 L13 13 M13 3 L3 13" stroke="#7F8C93" stroke-width="2"/></svg>tagger or defender</span>
-        <span><svg width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="#8C8781" stroke-width="2"/></svg>coach or parent</span>
-        <span><svg width="16" height="16" aria-hidden="true"><path d="M8 2 L14 13 L2 13 Z" fill="#6E6862"/></svg>cone</span>
-        <span><svg width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="4" fill="#F2B33D"/></svg>ball</span>
+        <span><svg width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="#FDB927" stroke-width="2"/></svg>player</span>
+        <span><svg width="16" height="16" aria-hidden="true"><path d="M3 3 L13 13 M13 3 L3 13" stroke="#8E9AA6" stroke-width="2"/></svg>tagger or defender</span>
+        <span><svg width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="#9B8FB0" stroke-width="2"/></svg>coach or parent</span>
+        <span><svg width="16" height="16" aria-hidden="true"><path d="M8 2 L14 13 L2 13 Z" fill="#7A6A93"/></svg>cone</span>
+        <span><svg width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="4" fill="#FF6B2C"/></svg>ball</span>
       </div>
     </div>
   </div>
 
   <div class="filters">
-    <input type="search" id="q" placeholder="Search games, cues, what they build\u2026" aria-label="Search the games" />
+    <input type="search" id="q" placeholder="Search games, cues, what they build…" aria-label="Search the games" />
     <div class="filterrow"><span class="fl">Focus</span>
       <div class="chips" id="chips" role="group" aria-label="Filter by focus"></div></div>
     <div class="filterrow"><span class="fl">Kit</span>
@@ -434,15 +453,65 @@ if(nx){var d=when(nx);
   document.getElementById("n-what").textContent=nx.what+", "+f12(nx.time);
   document.getElementById("n-sub").textContent=nx.venue?nx.venue+"  \u00b7  leave Cordova Bay by 6:25":"gym confirmed closer to the date";
 }
-var fxb=document.getElementById("fx");
-SCH.filter(function(e){return when(e)>=now;}).slice(0,8).forEach(function(e){
-  var d=when(e),tr=document.createElement("tr");
-  function td(x,c){var n=document.createElement("td");if(c)n.className=c;n.textContent=x;return n;}
-  tr.appendChild(td(DSH[d.getDay()]+" "+MON[d.getMonth()]+" "+d.getDate(),"m"));
-  tr.appendChild(td(f12(e.time),"m"));
+/* ---- calendar export ---- */
+var PRACTICE_MINS = 90, ALARM_MINS = 45;
+
+function pad(n){ return String(n).padStart(2, "0"); }
+function stamp(dateStr, timeStr, addMins){
+  /* floating local time — no timezone, so it is 7pm wherever the phone is */
+  var d = new Date(dateStr + "T" + timeStr + ":00");
+  if(addMins) d = new Date(d.getTime() + addMins * 60000);
+  return d.getFullYear() + pad(d.getMonth()+1) + pad(d.getDate()) + "T" +
+         pad(d.getHours()) + pad(d.getMinutes()) + "00";
+}
+function esc(x){ return String(x).replace(/([,;\\])/g, "\\$1").replace(/\n/g, "\\n"); }
+function vevent(e){
+  var uid = "reb-" + e.date + "@sjrubin.ca";
+  return ["BEGIN:VEVENT",
+    "UID:" + uid,
+    "DTSTAMP:" + stamp(e.date, e.time) + "Z",
+    "DTSTART:" + stamp(e.date, e.time),
+    "DTEND:" + stamp(e.date, e.time, PRACTICE_MINS),
+    "SUMMARY:" + esc("U13 Rebelles " + e.what.toLowerCase()),
+    "LOCATION:" + esc(e.venue || "Gym to be confirmed"),
+    "DESCRIPTION:" + esc((e.venue ? "" : "Ben confirms the gym in the week before. ") +
+      "Games library and practice plan: https://sjrubin.ca/rebelles"),
+    "BEGIN:VALARM","ACTION:DISPLAY",
+    "DESCRIPTION:" + esc("Leave for " + (e.venue || "practice")),
+    "TRIGGER:-PT" + ALARM_MINS + "M","END:VALARM",
+    "END:VEVENT"].join("\r\n");
+}
+function download(events, filename){
+  var ics = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//sjrubin.ca//U13 Rebelles//EN",
+             "CALSCALE:GREGORIAN","METHOD:PUBLISH","X-WR-CALNAME:U13 Rebelles"]
+            .concat(events.map(vevent)).concat(["END:VCALENDAR"]).join("\r\n");
+  var url = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
+  var a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+}
+
+var upcoming = SCH.filter(function(e){ return when(e) >= now; });
+var fxb = document.getElementById("fx");
+upcoming.slice(0, 8).forEach(function(e){
+  var d = when(e), tr = document.createElement("tr");
+  function td(x, c){ var n = document.createElement("td"); if(c) n.className = c; n.textContent = x; return n; }
+  tr.appendChild(td(DSH[d.getDay()] + " " + MON[d.getMonth()] + " " + d.getDate(), "m"));
+  tr.appendChild(td(f12(e.time), "m"));
   tr.appendChild(td(e.what));
-  tr.appendChild(td(e.venue||"to confirm","m"));
+  tr.appendChild(td(e.venue || "to confirm", "m"));
+  var cal = document.createElement("td"); cal.className = "cal";
+  var b = document.createElement("button");
+  b.type = "button"; b.className = "addcal"; b.textContent = "+";
+  b.title = "Add this one to my calendar";
+  b.setAttribute("aria-label", "Add " + e.what + " on " + e.date + " to my calendar");
+  b.addEventListener("click", function(){ download([e], "rebelles-" + e.date + ".ics"); });
+  cal.appendChild(b); tr.appendChild(cal);
   fxb.appendChild(tr);
+});
+document.getElementById("ics-all").addEventListener("click", function(){
+  download(upcoming, "rebelles-practices.ics");
 });
 
 /* ---------- court geometry, in feet. (0,0) is the baseline at centre;
