@@ -165,12 +165,12 @@ footer{border-top:1px solid var(--line);padding-block:34px 60px;
       <h3>Rebelles</h3>
       <div class="who">Hudson · Rebels-Rebelles Basketball Association</div>
       <dl class="rows">
-        <div class="row"><dt>Practice</dt><dd>Tuesdays, 7:00 pm</dd></div>
-        <div class="row"><dt>Opens</dt><dd>September 15</dd></div>
+        <div class="row"><dt>Practice</dt><dd>Tuesdays, 7:00 &ndash; 8:30 pm</dd></div>
+        <div class="row"><dt>Opens</dt><dd>September 15 &middot; Prospect Lake Elementary</dd></div>
         <div class="row"><dt>Staff</dt><dd>Ben Rutledge (head), Nav Sidhu, me</dd></div>
         <div class="row"><dt>Admin</dt><dd>RAMP Team App</dd></div>
       </dl>
-      <p class="note">Gym confirmed week to week. Record check through V&amp;DABA still outstanding.</p>
+      <p class="note">First practice is at Prospect Lake Elementary. Ben confirms the gym week to week after that. Record check through V&amp;DABA still outstanding.</p>
     </div>
 
     <div class="team tide">
@@ -229,6 +229,7 @@ footer{border-top:1px solid var(--line);padding-block:34px 60px;
   <div class="label">Game gyms · drive from Cordova Bay</div>
   <div class="gyms">
     <div>Claremont Secondary <span>5 min</span></div>
+    <div>Prospect Lake Elementary <span>18 min</span></div>
     <div>Rogers Elementary <span>10 min</span></div>
     <div>UVic CARSA <span>12 min</span></div>
     <div>Glanford Middle <span>15 min</span></div>
@@ -260,7 +261,7 @@ footer{border-top:1px solid var(--line);padding-block:34px 60px;
 <script>
 (function(){
 "use strict";
-var V={"Claremont Secondary":5,"Rogers Elementary":10,"UVic CARSA":12,
+var V={"Claremont Secondary":5,"Prospect Lake Elementary":18,"Rogers Elementary":10,"UVic CARSA":12,
  "Glanford Middle":15,"Lansdowne Middle":15,"Hillcrest Elementary":15,
  "Strawberry Vale Elementary":18,"Arbutus Global Middle":20,"Central Middle":22};
 
@@ -275,7 +276,8 @@ function add(d,t,team,what,venue){E.push({date:d,time:t,team:team,what:what,venu
   add(d,"11:30","tide","Academy","Claremont Secondary");});
 (function(){var d=new Date(2026,8,15),end=new Date(2027,2,31);
  while(d<=end){add(d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+
-   String(d.getDate()).padStart(2,"0"),"19:00","reb","Practice","");d.setDate(d.getDate()+7);}})();
+   String(d.getDate()).padStart(2,"0"),"19:00","reb","Practice",
+   d.getTime()===new Date(2026,8,15).getTime()?"Prospect Lake Elementary":"");d.setDate(d.getDate()+7);}})();
 add("2027-02-12","20:00","tide","Mop Kids · Vikes game","UVic CARSA");
 
 var DSH=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];

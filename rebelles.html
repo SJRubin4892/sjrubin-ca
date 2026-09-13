@@ -184,9 +184,9 @@ footer{border-top:1px solid var(--line);padding-block:32px 60px;
 <section>
   <div class="label">The season</div>
   <dl class="facts">
-    <div class="fact"><dt>Practice</dt><dd>Tuesdays, 7:00 pm</dd></div>
+    <div class="fact"><dt>Practice</dt><dd>Tuesdays, 7:00 &ndash; 8:30 pm</dd></div>
     <div class="fact"><dt>First practice</dt><dd>September 15</dd></div>
-    <div class="fact"><dt>Gym</dt><dd>Confirmed weekly</dd></div>
+    <div class="fact"><dt>Gym</dt><dd>Prospect Lake Elementary</dd></div>
     <div class="fact"><dt>Team admin</dt><dd>RAMP Team App</dd></div>
   </dl>
   <div class="fxwrap" style="margin-top:30px">
@@ -301,7 +301,8 @@ footer{border-top:1px solid var(--line);padding-block:32px 60px;
 var SCH=[];
 (function(){var d=new Date(2026,8,15),end=new Date(2027,2,31);
  while(d<=end){SCH.push({date:d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+
-   String(d.getDate()).padStart(2,"0"),time:"19:00",what:"Practice",venue:""});d.setDate(d.getDate()+7);}})();
+   String(d.getDate()).padStart(2,"0"),time:"19:00",what:"Practice",
+   venue:d.getTime()===new Date(2026,8,15).getTime()?"Prospect Lake Elementary":""});d.setDate(d.getDate()+7);}})();
 var DSH=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 var MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 function f12(t){var p=t.split(":"),h=+p[0],m=p[1],a=h>=12?"pm":"am";h=h%12;if(!h)h=12;return h+":"+m+" "+a;}
@@ -313,7 +314,7 @@ if(nx){var d=when(nx);
   document.getElementById("n-when").textContent=days===0?"Today":days===1?"Tomorrow":
     DSH[d.getDay()]+" "+MON[d.getMonth()]+" "+d.getDate();
   document.getElementById("n-what").textContent=nx.what+", "+f12(nx.time);
-  document.getElementById("n-sub").textContent="gym confirmed closer to the date";
+  document.getElementById("n-sub").textContent=nx.venue?nx.venue+"  \u00b7  leave Cordova Bay by 6:25":"gym confirmed closer to the date";
 }
 var fxb=document.getElementById("fx");
 SCH.filter(function(e){return when(e)>=now;}).slice(0,8).forEach(function(e){
