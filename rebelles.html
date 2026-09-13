@@ -87,6 +87,9 @@ button.d{display:block;width:100%;text-align:left;background:none;border:0;curso
   padding:5px 8px 5px 11px;border-left:2px solid transparent;line-height:1.3}
 button.d:hover{color:var(--ink)}
 button.d[aria-current="true"]{border-left-color:var(--orange);color:var(--ink);font-weight:500}
+.slot{font-family:"DM Mono",monospace;font-size:11px;color:var(--dimmer);
+  display:inline-block;width:34px}
+button.d[aria-current="true"] .slot{color:var(--orange)}
 .stage{padding-left:28px}
 @media (max-width:860px){.stage{padding-left:0}}
 .stage-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
@@ -293,7 +296,7 @@ var CW = 50, CL = 47, RIM = {x:25, y:5.25}, FT = 19, KEY = 8, ARC = 19.75;
 var D = [];
 function drill(o){ D.push(o); }
 
-drill({name:"Knee Tag", phase:"Warm-up · 8 min", dur:6000,
+drill({name:"Knee Tag", slot:"0:08", phase:"Warm-up · 8 min", dur:6000,
  why:"You're all standing in a gym with people you mostly don't know, and this is the fastest way to stop being weird about that. It's also the thing itself — in a game, the girl nobody can get past is the girl who can stay low and move sideways.",
  how:"Find a partner, face each other, both stay inside the circle. Open hand, gentle, touch your partner's knees and stop her touching yours. Thirty seconds. Three touches is a good round.",
  cue:"Feet wider than your shoulders.",
@@ -309,7 +312,7 @@ drill({name:"Knee Tag", phase:"Warm-up · 8 min", dur:6000,
   {id:"c1",side:"coach",label:"C",at:[[0,38,20],[1,38,20]]}
  ]});
 
-drill({name:"Fox and Mother Goose", phase:"Warm-up · 8 min", dur:8000,
+drill({name:"Fox and Mother Goose", slot:"0:16", phase:"Warm-up · 8 min", dur:8000,
  why:"This is defence with the ball taken away. Nobody needs a single basketball skill to be the best person in the gym at this one, and a few of you are about to find out you're brilliant at it.",
  how:"Groups of four. Three make a chain, hands on the hips of the girl in front. Front is Mother Goose, the very back is the Gosling. The fourth is the Fox and she has thirty seconds to tag the Gosling — only the Gosling. The chain cannot come apart. Fox goes around, never through and never under the arms. Then rotate.",
  cue:"Watch her hips, not her eyes.",
@@ -325,7 +328,7 @@ drill({name:"Fox and Mother Goose", phase:"Warm-up · 8 min", dur:8000,
   {id:"fox",side:"def",at:[[0,25,7],[.25,32,14],[.5,25,21],[.75,18,14],[1,25,7]]}
  ]});
 
-drill({name:"Circle Tag", phase:"Warm-up · 8 min", dur:8000,
+drill({name:"Circle Tag", slot:"0:24", phase:"Warm-up · 8 min", dur:8000,
  why:"Four of you are going to keep a fifth one safe, and you're going to work out how to do it yourselves. This is the first thing tonight where the whole group has to move as one thing.",
  how:"Groups of five. Four hold hands in a circle. The fifth is the Chaser, outside. I point at one girl in the circle — she's the Target, and only she counts. Around the outside only, no reaching across, no ducking under arms. Circle, keep her on the far side. Hands come apart and the Chaser gets a free tag.",
  cue:"One voice. Somebody call which way.",
@@ -342,7 +345,7 @@ drill({name:"Circle Tag", phase:"Warm-up · 8 min", dur:8000,
   {id:"ch",side:"def",at:[[0,25,8],[.25,32,15],[.5,25,22],[.75,18,15],[1,25,8]]}
  ]});
 
-drill({name:"Everybody's It", phase:"Ball handling · 8 min", dur:8000, multiball:true,
+drill({name:"Everybody's It", slot:"0:32", phase:"Ball handling · 8 min", dur:8000, multiball:true,
  why:"You're on offence and defence at the same time. If you can dribble in this, you can dribble in a game.",
  how:"Everyone has a ball. Everyone is it. Tag a shoulder — that's the only place — or knock a ball away. Get tagged and you are NOT out: go to a hoop, five shots, made or missed, then straight back in. Ninety seconds.",
  cue:"Eyes on people, not on your ball.",
@@ -358,7 +361,7 @@ drill({name:"Everybody's It", phase:"Ball handling · 8 min", dur:8000, multibal
   {id:"a5",side:"off",label:"5",at:[[0,18,16],[.3,31,21],[.6,20,14],[1,13,20]]}
  ]});
 
-drill({name:"Pivot Tag", phase:"Passing · 10 min", dur:9000,
+drill({name:"Pivot Tag", slot:"0:40", phase:"Passing · 10 min", dur:9000,
  why:"This is where you find out you can move a ball faster than a person can run. Everything we do with passing this season is built on this game.",
  how:"Everyone inside the three-point line. Three taggers with one ball, everyone else runs. Holding the ball means you cannot run — you can pivot, you can tag, you can pass. Get tagged and you go to a hoop, five shots, then straight back in. Roles change every two minutes.",
  cue:"Taggers, pass to where she is going, not to where she is.",
@@ -377,7 +380,7 @@ drill({name:"Pivot Tag", phase:"Passing · 10 min", dur:9000,
  ],
  ball:{start:"t1", passes:[{t0:.20,t1:.30,to:"t2"},{t0:.50,t1:.60,to:"t3"},{t0:.78,t1:.88,to:"t2"}]}});
 
-drill({name:"Rock Paper Scissors 1v1", phase:"Decision-making · 10 min", dur:7000,
+drill({name:"Rock Paper Scissors 1v1", slot:"0:50", phase:"Decision-making · 10 min", dur:7000,
  why:"This is the closest thing to a real basketball moment we'll do tonight.",
  how:"Partner up on the arc, ball on the floor between you. Rock paper scissors. Winner grabs the ball and attacks the hoop. Loser touches the baseline, then defends. One shot, max one rebound. First to three, then find a new partner.",
  cue:"Decide where you're going before you pick the ball up.",
@@ -391,7 +394,7 @@ drill({name:"Rock Paper Scissors 1v1", phase:"Decision-making · 10 min", dur:70
  ],
  ball:{start:"a1", shot:{t0:.84,t1:.96}}});
 
-drill({name:"Chaos Layups", phase:"Shooting · 8 min", dur:9000, multiball:true,
+drill({name:"Chaos Layups", slot:"1:00", phase:"Shooting · 8 min", dur:9000, multiball:true,
  why:"Lots of shots, lots of decisions. The other end of the gym is counting too.",
  how:"Half at this end, half at the other. Three to five girls live at a time. Start at the three-point line, attack, score, grab your own ball and clear back out to the arc. Parents count out loud. We're counting against the other end.",
  cue:"Take off from the foot furthest from the hoop.",
@@ -411,7 +414,7 @@ drill({name:"Chaos Layups", phase:"Shooting · 8 min", dur:9000, multiball:true,
   {id:"p1",side:"coach",label:"P",at:[[0,19,5],[1,31,5]]}
  ]});
 
-drill({name:"Three on Three", phase:"Decision-making · 16 min", dur:9000,
+drill({name:"Three on Three", slot:"1:08", phase:"Decision-making · 16 min", dur:9000,
  why:"This is the thing. Everything we did tonight was for this, and it's what your parents came to watch.",
  how:"Four teams of three, two games at once. Every player on your team has to touch the ball before anyone shoots. Every basket is one. Score it and you keep it. Four minutes, then rotate. Out of bounds — sort it out between you.",
  cue:"If you haven't got the ball, move.",
@@ -433,7 +436,7 @@ drill({name:"Three on Three", phase:"Decision-making · 16 min", dur:9000,
  ],
  ball:{start:"a1", passes:[{t0:.16,t1:.25,to:"a2"},{t0:.40,t1:.49,to:"a3"},{t0:.62,t1:.71,to:"a1"}], shot:{t0:.84,t1:.96}}});
 
-drill({name:"Protector Tag", phase:"In reserve · Wednesday", dur:7000,
+drill({name:"Protector Tag", reserve:true, phase:"In reserve · Wednesday", dur:7000,
  why:"You're about to work out how to use a teammate to get free. That is basically the whole game of basketball in one sentence.",
  how:"Groups of three. One chaser, one runner, one protector. Protector, your only job is to be in the chaser's way — no holding, no pushing, you just stand there and exist. Chaser has to go around you. Get tagged and you swap roles on the spot. Thirty seconds a round.",
  cue:"Runner, go so close to your protector you could touch her.",
@@ -447,7 +450,7 @@ drill({name:"Protector Tag", phase:"In reserve · Wednesday", dur:7000,
   {id:"ch",side:"def",at:[[0,20,18],[.3,21,15],[.55,23,17],[.8,27,19],[1,25,21]]}
  ]});
 
-drill({name:"Arc Race and Shadow", phase:"In reserve · Wednesday", dur:8000,
+drill({name:"Arc Race and Shadow", reserve:true, phase:"In reserve · Wednesday", dur:8000,
  why:"Nobody in a basketball game ever runs in a straight line. This is what real cutting actually feels like.",
  how:"Single file on the three-point line, arm's length apart. Leader sets the pace and can change speed whenever she likes. Everyone else holds the same gap. Back person is trying to catch the leader with a tag. Two laps, then the leader goes to the back.",
  cue:"Match the person directly in front of you, not the person at the front.",
@@ -462,7 +465,7 @@ drill({name:"Arc Race and Shadow", phase:"In reserve · Wednesday", dur:8000,
   {id:"a5",side:"off",label:"5",at:[[0,14,1],[.25,6,5],[.5,6,15],[.75,15,24],[1,29,25]]}
  ]});
 
-drill({name:"Signals", phase:"In reserve · Wednesday", dur:8000, multiball:true,
+drill({name:"Signals", reserve:true, phase:"In reserve · Wednesday", dur:8000, multiball:true,
  why:"You cannot play basketball looking at the floor. This fixes it in six minutes.",
  how:"Everyone dribbling, stay in this half. Every number is a direction. One forwards, two backwards, three right, four left, five swap hands. Shout the number back before you do it. Stage one: voice and fingers. Stage two: fingers only, no voice. Stage three: the silent signaller walks around the space.",
  cue:"Ball low, eyes high.",
@@ -892,14 +895,19 @@ function select(i){
 function buildList(){
   var host = document.getElementById("list"), lastPhase = null, group = null;
   D.forEach(function(d, i){
-    var phase = d.phase.split(" · ")[0];
+    var phase = d.reserve ? "In reserve \u2014 Wednesday" : "Practice one \u00b7 run sheet";
     if(phase !== lastPhase){
       group = document.createElement("div"); group.className = "phase-l";
       var h = document.createElement("h4"); h.textContent = phase;
       group.appendChild(h); host.appendChild(group); lastPhase = phase;
     }
     var b = document.createElement("button");
-    b.className = "d"; b.type = "button"; b.textContent = d.name;
+    b.className = "d"; b.type = "button";
+    if(d.slot){
+      var tm = document.createElement("span"); tm.className = "slot"; tm.textContent = d.slot;
+      b.appendChild(tm);
+    }
+    b.appendChild(document.createTextNode(d.name));
     b.addEventListener("click", function(){ select(i); playing = true; document.getElementById("play").textContent = "Pause"; });
     group.appendChild(b);
   });
