@@ -218,6 +218,7 @@ footer{border-top:1px solid var(--line);padding-block:32px 60px;
       <span><svg width="30" height="10" aria-hidden="true"><path d="M1 5 q3 -4 6 0 q3 4 6 0 q3 -4 6 0" fill="none" stroke="currentColor" stroke-width="2"/><path d="M21 1 L29 5 L21 9 Z" fill="currentColor"/></svg>dribble</span>
       <span><svg width="30" height="10" aria-hidden="true"><line x1="1" y1="5" x2="21" y2="5" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/><path d="M21 1 L29 5 L21 9 Z" fill="currentColor"/></svg>pass</span>
       <span><svg width="26" height="10" aria-hidden="true"><line x1="2" y1="5" x2="24" y2="5" stroke="currentColor" stroke-width="3" opacity=".55"/></svg>chain</span>
+      <span><svg width="22" height="14" aria-hidden="true"><circle cx="11" cy="7" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 2.5"/></svg>boundary</span>
     </div>
   </div>
 
@@ -324,19 +325,20 @@ function drill(o){ D.push(o); }
 
 drill({name:"Knee Tag", tags:["Defence","Footwork"], players:"Pairs", balls:"No ball", mins:"8", slot:"0:08", phase:"Warm-up · 8 min", dur:6000,
  why:"You're all standing in a gym with people you mostly don't know, and this is the fastest way to stop being weird about that. It's also the thing itself — in a game, the girl nobody can get past is the girl who can stay low and move sideways.",
- how:"Find a partner, face each other, both stay inside the circle. Open hand, gentle, touch your partner's knees and stop her touching yours. Thirty seconds. Three touches is a good round.",
+ how:"Find a partner, face each other, and both of you stay inside your circle \u2014 you cannot back out of it. Open hand, gentle, touch your partner's knees and stop her touching yours. Thirty seconds. Three touches is a good round.",
  cue:"Feet wider than your shoulders.",
- wrong:"Stand up straight and you get tagged every time. Your legs will burn by round three. That's the game working, not you being unfit.",
+ wrong:"Stand up straight and you get tagged every time. You cannot retreat out of the circle either, so there is nowhere to hide. Your legs will burn by round three \u2014 that's the game working, not you being unfit.",
  builds:"Defensive stance and a wide athletic base, hip hinge under load, lateral shuffling, hands live and in front. Nobody hears the words “defensive stance” — they get two minutes of live stance work in their first ten minutes of basketball.",
- ladder:["Easier: bigger area, two hands, longer slower rounds","Standard: 30–45s rounds, one hand, both feet inside the circle or key, brand new partner every round","Harder: non-dominant hand only","Harder: toe tag instead of knee tag","Harder: one player dribbles throughout","Harder: both players dribble — a long way from rung one, don't jump to it","Format: ladder scoring. First to three wins, winner moves one hoop up, loser one hoop down. The group sorts itself by ability without anyone being labelled."],
+ ladder:["Easier: bigger area, two hands, longer slower rounds","Standard: 30–45s rounds, one hand, both feet inside the circle or key, brand new partner every round","Keep the boundary: without a circle or a key to stay inside, your quickest girls simply retreat out of range and it stops being a stance game inside forty seconds. The boundary is what makes standing tall expensive.","Harder: non-dominant hand only","Harder: toe tag instead of knee tag","Harder: one player dribbles throughout","Harder: both players dribble — a long way from rung one, don't jump to it","Format: ladder scoring. First to three wins, winner moves one hoop up, loser one hoop down. The group sorts itself by ability without anyone being labelled."],
  calls:[{t0:.30,t1:.55,actor:"c1",text:"FEET WIDER"}],
  actors:[
-  {id:"a1",side:"off",label:"1",at:[[0,19,9],[.25,22,11],[.5,19,13],[.75,22,11],[1,19,9]]},
-  {id:"a2",side:"off",label:"2",at:[[0,22,9],[.25,25,11],[.5,22,13],[.75,25,11],[1,22,9]]},
-  {id:"a3",side:"off",label:"3",at:[[0,29,9],[.25,26,12],[.5,29,15],[.75,26,12],[1,29,9]]},
-  {id:"a4",side:"off",label:"4",at:[[0,32,9],[.25,29,12],[.5,32,15],[.75,29,12],[1,32,9]]},
-  {id:"c1",side:"coach",label:"C",at:[[0,38,20],[1,38,20]]}
- ]});
+  {id:"a1",side:"off",label:"1",at:[[0,15,10],[.25,18,13],[.5,15,15],[.75,14,12],[1,15,10]]},
+  {id:"a2",side:"off",label:"2",at:[[0,19,13],[.25,15,14],[.5,19,10],[.75,20,13],[1,19,13]]},
+  {id:"a3",side:"off",label:"3",at:[[0,31,10],[.25,34,13],[.5,31,15],[.75,30,12],[1,31,10]]},
+  {id:"a4",side:"off",label:"4",at:[[0,35,13],[.25,31,14],[.5,35,10],[.75,36,13],[1,35,13]]},
+  {id:"c1",side:"coach",label:"C",at:[[0,25,22],[1,25,22]]}
+ ],
+ zones:[{x:17,y:12,r:4.6},{x:33,y:12,r:4.6}]});
 
 drill({name:"Fox and Mother Goose", tags:["Defence","Footwork","Communication"], players:"Groups of 4", balls:"No ball", mins:"8", slot:"0:16", phase:"Warm-up · 8 min", dur:8000,
  why:"This is defence with the ball taken away. Nobody needs a single basketball skill to be the best person in the gym at this one, and a few of you are about to find out you're brilliant at it.",
@@ -858,8 +860,21 @@ function drawLinks(d, t){
   ctx.globalAlpha = 1;
 }
 
+function drawZones(d){
+  if(!d.zones) return;
+  ctx.strokeStyle = tok("--court");
+  ctx.lineWidth = Math.max(1.4, S*0.17);
+  ctx.setLineDash([Math.max(5, S*0.62), Math.max(4, S*0.46)]);
+  for(var i=0;i<d.zones.length;i++){
+    var z = d.zones[i];
+    ctx.beginPath(); ctx.arc(px(z.x), py(z.y), z.r * S, 0, Math.PI*2); ctx.stroke();
+  }
+  ctx.setLineDash([]);
+}
+
 function render(d, t){
   drawCourt();
+  drawZones(d);
   var i;
   for(i=0;i<d.actors.length;i++) if(d.actors[i].side !== "cone") drawTrail(d, d.actors[i], t);
   drawPasses(d, t);
