@@ -189,6 +189,15 @@ button.tool[aria-pressed="true"]{background:var(--orange);border-color:var(--ora
 button.tool.added{border-color:var(--orange);color:var(--orange)}
 button.tool svg{display:block}
 .speakbar{height:2px;background:var(--line);margin-top:14px;overflow:hidden}
+.voicerow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-top:12px}
+.voicerow label{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--dimmer)}
+.voicerow select{background:var(--bg);border:1px solid var(--line);color:var(--ink);
+  font-family:"DM Mono",monospace;font-size:12.5px;padding:7px 9px;max-width:260px}
+.voicerow .vtest{background:none;border:1px solid var(--line);color:var(--dim);cursor:pointer;
+  font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:7px 11px}
+.voicerow .vtest:hover{color:var(--gold);border-color:var(--gold)}
+.vhint{flex-basis:100%;font-size:12.5px;color:var(--dimmer);line-height:1.5}
 .speakbar i{display:block;height:100%;width:0;background:var(--orange);transition:width .25s linear}
 
 /* ---- library quick-add + sticky total ---- */
@@ -416,6 +425,12 @@ button.d .xtra{color:var(--gold)}
         </div>
       </div>
       <div class="speakbar" id="speakbar" hidden><i id="speakfill"></i></div>
+      <div class="voicerow" id="voicerow" hidden>
+        <label for="voicepick">Voice</label>
+        <select id="voicepick"></select>
+        <button type="button" class="vtest" id="voicetest">Test</button>
+        <span class="vhint" id="voicehint"></span>
+      </div>
       <div class="stage-meta" id="d-meta"></div>
       <p class="desc" id="d-why"></p>
       <div class="beat"><span class="bl">How</span><p id="d-how"></p></div>
@@ -1508,17 +1523,63 @@ window.addEventListener("resize", function(){ fit(); render(cur(), t); });
 /* ---- spoken explainer ---- */
 var synth = window.speechSynthesis, voice = null, speaking = false, queue = [], qi = 0, keepAlive = null;
 
-function pickVoice(){
-  if(!synth || !synth.getVoices) return;
-  var vs = synth.getVoices() || [], i, j;
-  var pref = ["Samantha","Karen","Serena","Moira","Tessa","Daniel",
-              "Google UK English Female","Google US English","Microsoft Aria","Microsoft Jenny"];
-  for(i=0;i<pref.length;i++)
-    for(j=0;j<vs.length;j++) if(vs[j].name.indexOf(pref[i]) === 0){ voice = vs[j]; return; }
-  for(j=0;j<vs.length;j++) if(/^en/i.test(vs[j].lang) && vs[j].localService){ voice = vs[j]; return; }
-  for(j=0;j<vs.length;j++) if(/^en/i.test(vs[j].lang)){ voice = vs[j]; return; }
+var VOICE_KEY = "reb-voice";
+function englishVoices(){
+  if(!synth || !synth.getVoices) return [];
+  return (synth.getVoices() || []).filter(function(v){ return /^en/i.test(v.lang); });
 }
-if(synth){ pickVoice(); if("onvoiceschanged" in synth) synth.onvoiceschanged = pickVoice; }
+function voiceScore(v){
+  var n = v.name, s2 = 0;
+  if(/premium/i.test(n)) s2 += 100;          /* macOS + iOS download these separately */
+  if(/enhanced/i.test(n)) s2 += 70;
+  if(/neural|natural/i.test(n)) s2 += 60;    /* Edge and Chrome name them this way */
+  if(/^Google/.test(n)) s2 += 30;
+  if(/compact/i.test(n)) s2 -= 40;
+  if(/en[-_]CA/i.test(v.lang)) s2 += 8;
+  if(/en[-_]GB|en[-_]US/i.test(v.lang)) s2 += 4;
+  if(v.localService) s2 += 3;
+  return s2;
+}
+function pickVoice(){
+  var vs = englishVoices();
+  if(!vs.length) return;
+  var saved = null;
+  try{ saved = localStorage.getItem(VOICE_KEY); }catch(e){}
+  if(saved){
+    for(var i=0;i<vs.length;i++) if(vs[i].name === saved){ voice = vs[i]; buildVoicePicker(); return; }
+  }
+  vs.slice().sort(function(a,b){ return voiceScore(b) - voiceScore(a); });
+  var best = vs[0], bs = voiceScore(vs[0]);
+  vs.forEach(function(v){ var sc = voiceScore(v); if(sc > bs){ bs = sc; best = v; } });
+  voice = best;
+  buildVoicePicker();
+}
+function buildVoicePicker(){
+  var row = document.getElementById("voicerow"), sel = document.getElementById("voicepick");
+  if(!row || !sel) return;
+  var vs = englishVoices();
+  if(vs.length < 2){ row.hidden = true; return; }
+  row.hidden = false;
+  if(sel.options.length !== vs.length){
+    sel.innerHTML = "";
+    vs.slice().sort(function(a,b){ return voiceScore(b) - voiceScore(a); }).forEach(function(v){
+      var o = document.createElement("option");
+      o.value = v.name; o.textContent = v.name + "  (" + v.lang + ")";
+      sel.appendChild(o);
+    });
+  }
+  if(voice) sel.value = voice.name;
+  var hint = document.getElementById("voicehint");
+  var anyGood = vs.some(function(v){ return /premium|enhanced|neural|natural/i.test(v.name); });
+  hint.textContent = anyGood
+    ? "Saved on this device."
+    : "These are the basic system voices. On a Mac, System Settings \u203a Accessibility \u203a Spoken Content \u203a System Voice \u203a Manage Voices downloads the Premium ones \u2014 Siri\u2019s voice is a separate setting and browsers cannot use it. On iPhone it is Accessibility \u203a Spoken Content \u203a Voices.";
+}
+if(synth){
+  pickVoice();
+  if("onvoiceschanged" in synth) synth.onvoiceschanged = pickVoice;
+  setTimeout(pickVoice, 600);   /* Safari populates the list late */
+}
 
 /* iOS routes Web Speech audio to the earpiece unless a media element has
    already opened a playback audio session. Looping a silent WAV for the
@@ -1608,6 +1669,16 @@ function speakText(txt){
   sayNext();
 }
 if(!synth){ var lb = document.getElementById("listen"); if(lb) lb.hidden = true; }
+document.getElementById("voicepick").addEventListener("change", function(){
+  var vs = englishVoices();
+  for(var i=0;i<vs.length;i++) if(vs[i].name === this.value){ voice = vs[i]; break; }
+  try{ localStorage.setItem(VOICE_KEY, this.value); }catch(e){}
+  document.getElementById("voicehint").textContent = "Saved on this device.";
+});
+document.getElementById("voicetest").addEventListener("click", function(){
+  openSpeaker();
+  speakText("Feet wider than your shoulders. Thirty seconds, then a brand new partner.");
+});
 document.getElementById("listen").addEventListener("click", function(){
   if(speaking){ stopSpeech(); return; }
   openSpeaker();
