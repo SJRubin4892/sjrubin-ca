@@ -227,6 +227,23 @@ button.quickadd:hover{color:var(--gold);border-color:var(--gold)}
 .facts a:hover,.rows a:hover{border-bottom-color:var(--gold)}
 .srcnote{color:var(--dim);font-size:14.5px;max-width:62ch;margin-top:14px;line-height:1.5}
 .srcnote b{color:var(--gold);font-weight:400}
+.shapebox{border:1px solid var(--line);border-left:3px solid var(--cool);
+  background:rgba(111,199,218,.045);padding:22px 20px;margin:26px 0}
+.sh-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px;margin-bottom:12px}
+.sh-tag{font-family:"DM Mono",monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:#0B0616;background:var(--cool);padding:3px 7px}
+.sh-head b{font-family:Syne,sans-serif;font-weight:800;font-size:19px}
+.sh-min{font-family:"DM Mono",monospace;font-size:11.5px;color:var(--dimmer)}
+.sh-lead{color:var(--ink);font-size:15.5px;margin-bottom:12px}
+.shapebox ul{margin:0 0 14px 18px;color:var(--dim);font-size:14.5px;line-height:1.55}
+.shapebox ul li{margin-bottom:6px}
+.sh-img{color:var(--dim);font-size:14.5px;font-style:italic;margin-bottom:12px;line-height:1.55}
+.sh-rule{border-left:2px solid var(--gold);padding-left:14px;color:var(--ink);
+  font-size:15px;margin-bottom:16px;line-height:1.55}
+.sh-cues{margin-bottom:14px}
+.sh-cues ol{margin:8px 0 0 20px;color:var(--gold);font-size:15px;line-height:1.7}
+.sh-note{font-size:13.5px;color:var(--dimmer);line-height:1.5}
+.shapemark{color:var(--cool)}
 .srcbadge{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
   border:1px solid var(--gold);color:var(--gold);padding:4px 8px;white-space:nowrap}
 button.d .xtra{color:var(--gold)}
@@ -297,6 +314,8 @@ button.d .xtra{color:var(--gold)}
   .gc-item{border-bottom:1px solid #bbb;padding:9pt 0;page-break-inside:avoid}
   .gc-t{font-family:"DM Mono",monospace;font-size:9.5pt;color:#444;letter-spacing:.06em}
   .gc-n{font-family:Syne,sans-serif;font-weight:800;font-size:15pt;line-height:1.15;margin-top:1pt}
+  .gc-shape{font-family:"DM Mono",monospace;font-size:8.5pt;letter-spacing:.04em;color:#000;
+    border-left:2pt solid #000;padding-left:7pt;margin:5pt 0;line-height:1.5}
   .gc-cue{font-size:13pt;font-weight:600;font-style:italic;margin:4pt 0 5pt}
   .gc-s{font-family:"DM Mono",monospace;font-size:8.5pt;color:#333;line-height:1.5;margin-bottom:4pt}
   .gc-h{font-size:10pt;line-height:1.45}
@@ -371,7 +390,7 @@ button.d .xtra{color:var(--gold)}
   <div class="drillhead">
     <div>
       <div class="label" style="margin-bottom:12px">The library</div>
-      <h2 style="margin:0">Nineteen games, drawn on the floor.</h2>
+      <h2 style="margin:0">Twenty-two games, drawn on the floor.</h2>
       <p style="margin-top:12px"><a class="planlink" href="#plan">Practice plan &middot; <span id="plan-count">0</span> games &middot; <span id="plan-mins">0</span> min</a></p>
     </div>
     <div class="legend">
@@ -386,6 +405,7 @@ button.d .xtra{color:var(--gold)}
         <span><svg width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="#9B8FB0" stroke-width="2"/></svg>coach or parent</span>
         <span><svg width="16" height="16" aria-hidden="true"><path d="M8 2 L14 13 L2 13 Z" fill="#7A6A93"/></svg>cone</span>
         <span><svg width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="4" fill="#FF6B2C"/></svg>ball</span>
+        <span><svg width="16" height="18" aria-hidden="true"><ellipse cx="8" cy="7" rx="4.6" ry="6" fill="none" stroke="#6FC7DA" stroke-width="1.6"/><line x1="8" y1="13" x2="8" y2="17" stroke="#6FC7DA" stroke-width="1.6"/></svg>balloon</span>
       </div>
     </div>
   </div>
@@ -429,6 +449,18 @@ button.d .xtra{color:var(--gold)}
       <p class="desc" id="d-why"></p>
       <div class="beat"><span class="bl">How</span><p id="d-how"></p></div>
       <div class="cue" id="d-cue"></div>
+      <div class="shapebox" id="d-shape" hidden>
+        <div class="sh-head"><span class="sh-tag">Teaching block</span>
+          <b id="sh-name"></b><span class="sh-min" id="sh-min"></span></div>
+        <p class="sh-lead" id="sh-lead"></p>
+        <ul class="sh-pts" id="sh-pts"></ul>
+        <p class="sh-img" id="sh-img"></p>
+        <p class="sh-rule" id="sh-rule"></p>
+        <div class="sh-cues"><span class="bl">One cue per round, never stacked</span>
+          <ol id="sh-cues"></ol></div>
+        <ul class="sh-wrong" id="sh-wrong"></ul>
+        <p class="sh-note" id="sh-note"></p>
+      </div>
       <div class="beat"><span class="bl">Set this up</span><p id="d-setup"></p></div>
       <div class="courtbox">
         <canvas id="court" width="700" height="620" aria-label="Animated drill diagram"></canvas>
@@ -467,6 +499,8 @@ button.d .xtra{color:var(--gold)}
         <input type="number" id="p-target" value="90" min="20" max="180" step="5" /></div>
       <div class="field"><label for="p-girls">Girls</label>
         <input type="number" id="p-girls" value="12" min="3" max="30" step="1" /></div>
+      <div class="field"><label for="p-regroup">Regroup</label>
+        <input type="number" id="p-regroup" value="1" min="0" max="5" step="1" /></div>
       <div class="grow"></div>
       <div class="total" id="p-total"></div>
     </div>
@@ -556,7 +590,7 @@ function vevent(e){
     "SUMMARY:" + esc("Rockets " + e.what.toLowerCase()),
     "LOCATION:" + esc(e.venue || "Gym to be confirmed"),
     "DESCRIPTION:" + esc((e.venue ? "" : "Ben confirms the gym in the week before. ") +
-      "Games library and practice plan: https://sjrubin.ca/rebelles"),
+      "Games library and practice plan: https://sjrubin.ca/rockets"),
     "BEGIN:VALARM","ACTION:DISPLAY",
     "DESCRIPTION:" + esc("Leave for " + (e.venue || "practice")),
     "TRIGGER:-PT" + ALARM_MINS + "M","END:VALARM",
@@ -605,6 +639,10 @@ var CW = 50, CL = 47, RIM = {x:25, y:5.25}, FT = 19, KEY = 8, ARC = 19.75;
 
 var D = [];
 function drill(o){ D.push(o); }
+
+var SHAPE_SHOOT = {"name": "Shooting shape", "mins": 3, "lead": "No hoop. Ninety seconds of shape, ten reps straight up over your own head, then the balls go to the arc.", "points": ["Hand down at your side holding the ball, arm straight out in front of you.", "Lift the hand, turn the palm away from your face, ball resting on top of it.", "Wrist cocked back, most of the way to a right angle.", "Eyes over the top of the ball, at the spot you want it to go.", "Push from the floor, through the top of your hand, over your head. Finish high, straight arm, wrist flopping over so the ball spins backwards.", "Elbow directly under your hand, hand in line with the hoop.", "Shoot on the way up in the jump, not at the top of it.", "Get set before you go. Set means not moving — a girl who is moving is the same thing as a hoop that is moving.", "The rep that needs no hoop: shoot it straight up over your own head and catch it. Backspin means you did it right. Ten of those is the whole static portion."], "image": "Your arm is an oil rig, not a windshield wiper. A wiper sweeps sideways, so the ball can end up anywhere along that line. A rig only ever goes up and down on one hinge. Elbow under the ball and the left and right takes care of itself, which leaves her exactly one thing to think about, which is distance. If the rig does not land, a digger arm and a drawbridge both test well. Pick one, use it all season, never mix them.", "rule": "Miss to the right, aim further left. Miss short, shoot it longer. Her eyes have been telling her arms how to send something at a target for about forty thousand years and they are extremely good at it. Trust that and stop thinking about the hand. This is the only line in the block that makes her her own coach, and it is worth more than the other eight put together.", "cues": ["Elbow under the ball.", "Eyes over the top, at the target.", "Finish high and let the wrist flop over.", "Your legs make the distance, not your arm."], "wrong": ["Half the group cannot reach the hoop with anything resembling a shot: pull the cones in until she can. Never correct the arm of a girl who is throwing the ball to make the distance — everything she is doing wrong is caused by the distance. Distance first, shape second, and neither discussed in public.", "We insist on a jump: a girl who needs her whole body to reach the rim loses everything by adding a jump. Let it be one motion upwards and let her feet leave the floor or not. The jump shows up by itself the week the distance gets easy.", "Seven teaching points in one breath: that list is four weeks of cues, not four minutes of them.", "A beginner shoots once and hides: that is what the point for hitting the rim is for. Say the rule twice before the clock starts."], "note": "Honest flag from the staff: at U13 recreational level the jump shot is the third most useful thing on this page. Run it — they want to shoot, and the aiming rule is genuinely valuable — but this is the block to cut to six minutes if the night runs long. Not the layup."};
+var SHAPE_BALL = {"name": "Ball handling shape", "mins": 5, "lead": "Start from the Knee Tag position and say so out loud. Same wide base, same hips, same low. That sentence saves two minutes of describing a stance.", "points": ["Drive it hard. Whole arm pushing it into the floor, not a flick from the elbow. A hard ball comes back up faster, so the hand is off it for less time — which is also how she stops being called for a carry. Hard is not the opposite of controlled, it is how she gets controlled.", "Dribble step timing. Her foot and her ball never want the same piece of floor. Dribble on the right, step past it with the left, ball riding in the pocket between. Static version first: step forward and cradle, step back and cradle, nobody going anywhere.", "Protect it in the pocket. Nobody runs up the floor with the ball out in front where anyone can take it. Step, pause, dribble, small pause while the body catches the ball up, then push forward and let the body go past the ball.", "Legality, because the pocket dribble done badly is the most common carry at this age: pulling the ball backwards is legal while the hand stays on top of it or on the side. The moment the palm gets underneath it is a carry, and the fix is the same as everything else here — dribble it harder."], "image": "Three moves on day two, not seven. Control push straight on, the one they will use ninety percent of the time. Crossover, changing hands and changing direction. Through the legs, same job with a body close to her. Behind the back, in and out, spin and backwards dribble get named and demoed for ten seconds, then parked — a move she cannot do with a defender on her hip is not a move yet, it is a trick, and a trick learned on day two gets used on October 13 and loses the ball.", "rule": "", "cues": ["Hard enough that I can hear it.", "Step past the ball, not onto it.", "Ball in your pocket, body in front of it."], "wrong": ["Heads down: do not say heads up. Shrink the space and add a second body to go around.", "The taxonomy tour: seven moves demonstrated in five minutes produces seven half moves. Three.", "A girl who cannot dribble and walk at the same time: run a full round at walking pace for everyone. It is not a remedial version if the whole group is doing it.", "The stance disappears the moment the ball arrives: that is the Knee Tag reference doing its work. Say her own game back to her rather than the word stance."], "note": ""};
+var SHAPE_LAYUP = {"name": "Layup shape", "mins": 5, "lead": "The footwork, and the one sentence that replaces having to remember it.", "points": ["Left side: left foot, right foot, up off the right, with the left knee and the left hand rising together.", "Right side: right foot, left foot, up off the left, with the right knee and the right hand rising together.", "The one sentence: take off from the foot furthest from the hoop. It covers both sides, there is nothing to memorise, and it is already in the team language from Chaos Layups. Give them the left and right version once, then only ever use this one.", "Why, and say it out loud: the outside knee and the outside hand put her own body between the ball and whoever is standing under the rim. Protection and balance, not decoration — and there will be somebody standing under the rim on October 13.", "Where to aim: coming in from the side, the top corner of the square nearest her. Coming in straight at it, high off the front of the rim and forget the square exists.", "The speed version: coming in fast on the right, the ball comes up into shooting position as the right foot lands, then up off the left foot and extend. The gather and the take-off are two different feet and that is the whole thing.", "The allowance that keeps beginners in it: a two-foot gather is fine. Footwork is not the gate for scoring. Ten attempts with the wrong foot beats two with the right one."], "image": "Two footprints in painter tape if we can find a roll — the tape does the coaching and nobody has to be told which foot. Check we are allowed to tape that floor before we do it. If not, the two cones do most of the job.", "rule": "", "cues": ["Take off from the foot furthest from the hoop.", "Hit the corner of the square.", "Ball up as you plant.", "Finish high, not hard."], "wrong": [], "note": "Runs straight into Chaos Layups, which is this exact skill with the organisation taken out and the angles randomised. Do not let a water break land between them."};
 
 drill({name:"Knee Tag", slot:"warmup", energy:"high", group:2, minPlayers:4, kit:{"balls": 0, "cones": 4}, say:"Knee tag. Everyone pairs up, and each pair stands inside a circle. Use the centre circle, use the key, or just drop four cones. No balls at all. They face each other, open hand, and try to touch their partner's knees while stopping her touching theirs. Gentle. Thirty to forty-five seconds a round, then a brand new partner. Three touches is a good round. The one rule that matters is that neither girl may step outside the circle. Without it, the fast ones just back away and it stops being a stance game inside forty seconds. Say one thing only. Feet wider than your shoulders. Then let it run. Their legs will burn by round three. Tell them that is the game working, not them being unfit. And if they are standing too tall, do not say get lower. Make the circle smaller.", setup:"Mark two circles — cones, or just use the centre circle and the key. Pairs face each other, one pair per circle. No balls.", key:"1–4 players in pairs · C coach · dashed ring is the boundary they cannot leave", tags:["Defence","Footwork"], players:"Pairs", balls:"No ball", mins:"8", dur:6000,
  why:"You're all standing in a gym with people you mostly don't know, and this is the fastest way to stop being weird about that. It's also the thing itself — in a game, the girl nobody can get past is the girl who can stay low and move sideways.",
@@ -705,7 +743,7 @@ drill({name:"Rock Paper Scissors 1v1", slot:"live", energy:"high", group:2, minP
  ],
  ball:{start:"a1", shot:{t0:.84,t1:.96}}});
 
-drill({name:"Chaos Layups", slot:"shooting", energy:"high", group:"half", minPlayers:6, kit:{"balls": "several", "adults": 2, "hoops": 2}, say:"Chaos layups. Split the team, half at each end. Three to five girls live at a time, the rest waiting out at the arc. You need a parent under each rim with two or three balls, feeding and rolling loose balls back out. That is the P on the diagram. The girls start at the three point line, attack the rim from wherever they are, score, grab their own ball, and clear back out to the arc to go again. The parent counts made baskets out loud, and the two ends compete against each other. Your cue is: take off from the foot furthest from the hoop. It will look disorganised, and that is deliberate, because a real game is never organised either. This is what replaces the layup line, where a girl gets four attempts from one identical angle in ten minutes and queues for the rest.", setup:"Half the team at each end. Three to five girls live at a time, the rest waiting out at the arc. Two or three balls per parent under the rim.", key:"1–4 shooters · P parent under the rim, rolling balls back out", tags:["Shooting","Finishing","Conditioning"], players:"Half the team", balls:"Several", mins:"8", dur:9000, multiball:true,
+drill({name:"Chaos Layups", protect:true, slot:"shooting", energy:"high", group:"half", minPlayers:6, kit:{"balls": "several", "adults": 2, "hoops": 2}, say:"Chaos layups. Split the team, half at each end. Three to five girls live at a time, the rest waiting out at the arc. You need a parent under each rim with two or three balls, feeding and rolling loose balls back out. That is the P on the diagram. The girls start at the three point line, attack the rim from wherever they are, score, grab their own ball, and clear back out to the arc to go again. The parent counts made baskets out loud, and the two ends compete against each other. Your cue is: take off from the foot furthest from the hoop. It will look disorganised, and that is deliberate, because a real game is never organised either. This is what replaces the layup line, where a girl gets four attempts from one identical angle in ten minutes and queues for the rest.", setup:"Half the team at each end. Three to five girls live at a time, the rest waiting out at the arc. Two or three balls per parent under the rim.", key:"1–4 shooters · P parent under the rim, rolling balls back out", tags:["Shooting","Finishing","Conditioning"], players:"Half the team", balls:"Several", mins:"8", dur:9000, multiball:true,
  why:"Lots of shots, lots of decisions. The other end of the gym is counting too.",
  how:"Half at this end, half at the other. Three to five girls live at a time. Start at the three-point line, attack, score, grab your own ball and clear back out to the arc. Parents count out loud. We're counting against the other end.",
  cue:"Take off from the foot furthest from the hoop.",
@@ -725,13 +763,13 @@ drill({name:"Chaos Layups", slot:"shooting", energy:"high", group:"half", minPla
   {id:"p1",side:"coach",label:"P",at:[[0,19,5],[1,31,5]]}
  ]});
 
-drill({name:"Three on Three", slot:"live", energy:"high", group:3, minPlayers:6, kit:{"balls": "games", "pinnies": true, "hoops": 2}, say:"Three on three. Four teams of three, two games running at once on two hoops, one ball per game. Pinnies if you have them. There is one constraint, and it is the most important one in this whole library. Every player on the team has to touch the ball before anyone shoots. Every basket counts one. Score it and you keep it. Four minute games, then rotate. They sort out their own out of bounds. Your cue is: if you have not got the ball, move. Do not blow a whistle. If something is genuinely unfair, hands up. Here is why the touch rule matters. Without it, your two strongest girls play two on three, and the beginner stands in a corner on her first night, works out she is not really part of this, and decides on the drive home. With it, they have to go and find her.", setup:"Four teams of three, two games at once on two hoops, one ball per game. Pinnies if you have them.", key:"1–3 one team · ✕ the other", tags:["Decision-making","Teamwork","Game"], players:"Teams of 3", balls:"One per game", mins:"16", dur:9000,
+drill({name:"Three on Three", protect:true, slot:"live", energy:"high", group:3, minPlayers:6, kit:{"balls": "games", "pinnies": true, "hoops": 2}, say:"Three on three. Four teams of three, two games running at once on two hoops, one ball per game. Pinnies if you have them. There is one constraint, and it is the most important one in this whole library. Every player on the team has to touch the ball before anyone shoots. Every basket counts one. Score it and you keep it. Four minute games, then rotate. They sort out their own out of bounds. Your cue is: if you have not got the ball, move. Do not blow a whistle. If something is genuinely unfair, hands up. Here is why the touch rule matters. Without it, your two strongest girls play two on three, and the beginner stands in a corner on her first night, works out she is not really part of this, and decides on the drive home. With it, they have to go and find her.", setup:"Four teams of three, two games at once on two hoops, one ball per game. Pinnies if you have them.", key:"1–3 one team · ✕ the other", tags:["Decision-making","Teamwork","Game"], players:"Teams of 3", balls:"One per game", mins:"16", dur:9000,
  why:"This is the thing. Everything we did tonight was for this, and it's what your parents came to watch.",
  how:"Four teams of three, two games at once. Every player on your team has to touch the ball before anyone shoots. Every basket is one. Score it and you keep it. Four minutes, then rotate. Out of bounds — sort it out between you.",
  cue:"If you haven't got the ball, move.",
  wrong:"It'll be messy and nobody will be completely sure of the rules. That's fine and I'm not blowing a whistle. Work it out. If something is genuinely unfair, hand up.",
  builds:"The everyone-touches rule is the most important single constraint on these pages. Without it your two most experienced girls play two-on-three and the beginner stands in a corner on her first night, works out she isn't really part of this, and decides on the drive home. With it, the experienced players have to go and find her. No whistle — officiating their own game is a skill they need.",
- ladder:["Easier: everyone touches, no dribble limit, hand the ball in after every score","Standard: everyone touches before a shot, make it and keep it, four-minute games","Harder: two dribble maximum per possession","Harder: no dribbles at all — pass and cut only","Harder: a score in the paint is one, outside the paint is two","Harder: the waiting team counts a ten-second shot clock out loud","Harder: whoever scores sits out the next possession","Harder: three passes before a shot, receivers counting out loud \u2014 hearing the count is what saves you refereeing it","Harder: first shot must come off a cut","Format: twelve girls means 3v3 on two hoops and nobody sits. One hoop only \u2014 go 4v4 and the waiting four count a ten-second clock out loud"],
+ ladder:["Easier: everyone touches, no dribble limit, hand the ball in after every score","Standard: everyone touches before a shot, make it and keep it, four-minute games","Harder: two dribble maximum per possession","Harder: no dribbles at all — pass and cut only","Harder: a score in the paint is one, outside the paint is two","Harder: the waiting team counts a ten-second shot clock out loud","Harder: whoever scores sits out the next possession","Harder: three passes before a shot, receivers counting out loud \u2014 hearing the count is what saves you refereeing it","Harder: first shot must come off a cut","Format: twelve girls means 3v3 on two hoops and nobody sits. One hoop only \u2014 go 4v4 and the waiting four count a ten-second clock out loud","Teach the rules in the gaps tonight, one at a time, never as a block: travel \u2014 ignore it for the first two minutes, then call it gently and say the word once","Carry \u2014 worth naming the night the pocket dribble block runs, and only then. Hand on top or on the side, never underneath","Out of bounds \u2014 the line is out and the other team gets it. They sort the rest out themselves","Foul \u2014 a hand on her arm is a foul, nobody fouls out, and we are not counting them","Everyone touches before a shot stays on all night. If one girl still never gets it, go to everyone touches twice"],
  calls:[
   {t0:.26,t1:.38,actor:"a2",text:"ONE"},
   {t0:.50,t1:.62,actor:"a3",text:"TWO"},
@@ -776,13 +814,13 @@ drill({name:"Arc Race and Shadow", slot:"warmup", energy:"low", group:"all", min
   {id:"a5",side:"off",label:"5",at:[[0,14,1],[.25,6,5],[.5,6,15],[.75,15,24],[1,29,25]]}
  ]});
 
-drill({name:"Signals", slot:"ball", energy:"high", group:"all", minPlayers:4, kit:{"balls": "each", "adults": 1}, say:"Signals. Everyone dribbling in one half, a ball each. One person stands at an end where they can all see her, and a parent can do this job. Every number is a direction. One is forwards, two is backwards, three is right, four is left, five is swap hands. Run it in three stages. Stage one, she calls the number out and holds up the fingers, and the girls shout the number back before they move. Stage two, fingers only, no voice. This is the stage that actually does the work. Stage three, she stays silent and walks around the space, so they have to keep finding her. Your cue is: ball low, eyes high. If you only ever call the numbers out loud, a girl can stare at the floor for six minutes and score full marks, and you have taught her nothing.", setup:"Everyone dribbling in one half, a ball each. The signaller stands at one end where everyone can see her.", key:"1–4 players dribbling · C the signaller — a parent can do this job", tags:["Ball handling","Communication"], players:"Whole group", balls:"One each", mins:"6", dur:8000, multiball:true,
+drill({name:"Signals", shape:SHAPE_BALL, slot:"ball", energy:"high", group:"all", minPlayers:4, kit:{"balls": "each", "adults": 1}, say:"Signals. Everyone dribbling in one half, a ball each. One person stands at an end where they can all see her, and a parent can do this job. Every number is a direction. One is forwards, two is backwards, three is right, four is left, five is swap hands. Run it in three stages. Stage one, she calls the number out and holds up the fingers, and the girls shout the number back before they move. Stage two, fingers only, no voice. This is the stage that actually does the work. Stage three, she stays silent and walks around the space, so they have to keep finding her. Your cue is: ball low, eyes high. If you only ever call the numbers out loud, a girl can stare at the floor for six minutes and score full marks, and you have taught her nothing.", setup:"Everyone dribbling in one half, a ball each. The signaller stands at one end where everyone can see her.", key:"1–4 players dribbling · C the signaller — a parent can do this job", tags:["Ball handling","Communication"], players:"Whole group", balls:"One each", mins:"6", dur:8000, multiball:true,
  why:"You cannot play basketball looking at the floor. This fixes it in six minutes.",
  how:"Everyone dribbling, stay in this half. Every number is a direction. One forwards, two backwards, three right, four left, five swap hands. Shout the number back before you do it. Stage one: voice and fingers. Stage two: fingers only, no voice. Stage three: the silent signaller walks around the space.",
  cue:"Ball low, eyes high.",
  wrong:"Everyone looks down when they change hands. That's exactly the habit we're beating. You will lose the ball. Go get it and get straight back in.",
  builds:"Eyes up under a dribbling load, with attention pointed outward rather than inward at a hand position. Stage two is where the actual work happens — if you only ever call the numbers out loud, a girl can stare at the floor for six minutes and score full marks, and you've taught her nothing. A beginner's correct call counts the same as a four-year player's.",
- ladder:["Stage one: voice and fingers together, signaller stationary, girls call the number back","Stage two: fingers only, no voice, signaller stationary — this is the version that does the work","Stage three: silent signaller walking the space, so they have to keep finding her","Harder: two signallers at opposite ends","Harder: weak hand only","Harder: add one tagger into the middle","Harder: hand the signalling job to a player rather than an adult","Optional: team target of ten correct in a row — read the room","Harder: run stage two through a line of five cones \u2014 only with three or more lines going, or it becomes a queue"],
+ ladder:["Stage one: voice and fingers together, signaller stationary, girls call the number back","Stage two: fingers only, no voice, signaller stationary — this is the version that does the work","Stage three: silent signaller walking the space, so they have to keep finding her","Harder: two signallers at opposite ends","Harder: weak hand only","Harder: add one tagger into the middle","Harder: hand the signalling job to a player rather than an adult","Optional: team target of ten correct in a row — read the room","Harder: run stage two through a line of five cones \u2014 only with three or more lines going, or it becomes a queue","Stage four \u2014 Called Moves: everybody across the floor at once, nobody queuing, and you call the next thing while they keep moving forward. Hard dribble, low dribble, pocket, crossover, through the legs, stop and cradle. Reach the far line, turn, go again","Stage four, the upgrade that makes it ours: hand signals instead of a called word once they know the code. A called word lets a girl stare at the floor for eight minutes and score full marks, which is the exact problem stage two was built to solve"],
  calls:[
   {t0:.20,t1:.44,actor:"c1",text:"3"},
   {t0:.46,t1:.66,actor:"a2",text:"THREE!"}
@@ -1002,6 +1040,102 @@ drill({name:"3v2 continuous", slot:"live", energy:"high", group:"all", minPlayer
  ball:{start:"a1", passes:[{t0:.5,t1:.6,to:"a2"}], shot:{t0:.84,t1:.97}}});
 
 
+
+drill({name:"Keep Uppy", slot:"warmup", energy:"high", group:"all", minPlayers:4,
+ kit:{balls:"each",balloons:25},
+ say:"Keep Uppy. This is the arrival game, so it starts the second the first girls are on the floor and it needs no explanation at all. Balloons go up, everyone has a ball, and nothing is allowed to touch the floor. Not the balloons, and not her own dribble. She keeps her dribble alive with one hand and keeps balloons in the air with anything else. Four minutes, while you and the other coaches put the cones out for the rest of the night. There is exactly one rule you say properly before you start: nobody dives. Somebody will dive for a balloon and land on a ball, so say it first, not after. It will be very loud. That is the game doing its job.",
+ setup:"Twenty-five balloons blown up before anybody arrives, and a pump in the bag. A ball each. Coaches set out the cones for the rest of the night while this runs.",
+ key:"1–5 players, each keeping her own dribble alive · pale ovals are the balloons",
+ tags:["Ball handling","Teamwork","Conditioning"], players:"Whole group", balls:"One each", mins:"4",
+ dur:9000, multiball:true,
+ why:"The arrival game. Nobody queues, nobody is told anything, and the whole team is playing about ten seconds after walking through the door.",
+ how:"Balloons up, everyone dribbling, nothing hits the floor — the balloons or your own dribble. Free hand, head, shoulder, anything except a dive. Four minutes while the coaches set the cones out.",
+ cue:"Nobody dives.",
+ wrong:"Somebody dives for a balloon and lands on a ball. Say the no-diving rule properly before you start rather than after. It will be loud and slightly ridiculous, which is the point on a night with three teaching blocks in it.",
+ builds:"A dribble kept alive while the eyes and the other hand are busy doing something completely different — the same demand a game makes, arriving before anybody has been told it is a skill. It also buys the coaches four minutes to set up without the team standing still.",
+ ladder:["Standard: balloons up, ball each, nothing touches the floor, four minutes",
+         "Easier: no ball, balloons only, for a group that cannot dribble and look up yet",
+         "Harder: weak hand only",
+         "Harder: fewer balloons, so each one matters",
+         "Harder: a balloon on the floor costs the whole group five push-ups — only with a group that will laugh at it",
+         "Format: count how many seconds the group goes with nothing down, and beat it next week"],
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,12,10],[.25,17,16],[.5,13,22],[.75,18,14],[1,14,11]]},
+  {id:"a2",side:"off",label:"2",at:[[0,24,14],[.25,29,20],[.5,23,25],[.75,28,16],[1,25,13]]},
+  {id:"a3",side:"off",label:"3",at:[[0,36,12],[.25,32,19],[.5,38,23],[.75,33,14],[1,37,12]]},
+  {id:"a4",side:"off",label:"4",at:[[0,18,28],[.25,24,31],[.5,19,35],[.75,25,29],[1,20,28]]},
+  {id:"a5",side:"off",label:"5",at:[[0,33,30],[.25,28,34],[.5,34,37],[.75,29,31],[1,33,30]]},
+  {id:"b1",side:"balloon",label:"",at:[[0,14,14],[.3,15,17],[.6,13,15],[1,15,13]]},
+  {id:"b2",side:"balloon",label:"",at:[[0,27,18],[.3,25,22],[.6,28,20],[1,26,17]]},
+  {id:"b3",side:"balloon",label:"",at:[[0,35,16],[.3,37,20],[.6,34,18],[1,36,15]]},
+  {id:"b4",side:"balloon",label:"",at:[[0,22,32],[.3,20,35],[.6,23,33],[1,21,31]]},
+  {id:"b5",side:"balloon",label:"",at:[[0,31,34],[.3,33,37],[.6,30,35],[1,32,33]]}
+ ],
+ calls:[{t0:.18,t1:.34,actor:"a2",text:"UP!"},{t0:.55,t1:.70,actor:"a4",text:"MINE"}]});
+
+drill({name:"Five Spots", cut:1, slot:"shooting", energy:"high", group:3, minPlayers:6,
+ kit:{balls:"group",cones:12,hoops:4},
+ shape:SHAPE_SHOOT,
+ say:"Five Spots. Groups of three at three or four hoops. One shooter, two rebounders, one minute each and then rotate. Five cones around the arc — corner, wing, top, wing, corner — and here is the part that matters more than anything else in the game: pull those cones in until she can actually reach the hoop. If she is throwing the ball to make the distance, every single thing wrong with her shot is caused by the distance, so fix the distance and say nothing about her arm. Scoring is one point if it hits the rim, two for a score, three for a swish, and the rebounders call it out loud, never you. Run it in four rounds of one minute. Round one, her own ball at all five spots. Round two, she shoots off a pass from a rebounder, feet and hands ready before the ball gets there. Round three, she moves into the spot, catches and shoots — that is the round where it starts to look like basketball. Round four, a rebounder closes out with her hand starting on the cone. She may contest, she may not block. Nobody guards anybody before round four.",
+ setup:"Five cones around the arc at a distance she can reach: corner, wing, top, wing, corner. Groups of three at each hoop, one ball per group. One shooter, two rebounders, one minute each.",
+ key:"1 the shooter working the spots · 2 and 3 rebounding and feeding · ✕ the closeout in round four · triangles are the five spots",
+ tags:["Shooting","Footwork","Decision-making"], players:"Groups of 3", balls:"One per group", mins:"10",
+ dur:10000,
+ why:"The shooting shape, then somewhere to put it — with the movement, the pass, the clock and the defender arriving one round at a time instead of all at once.",
+ how:"Four rounds of one minute. Round one: own ball, five spots. Round two: shoot off a pass from a rebounder. Round three: move into the spot, catch and shoot. Round four: a rebounder closes out with her hand starting on the cone — contest, never block. Rim one, score two, swish three, called out loud by the rebounders.",
+ cue:"Get set before you go.",
+ wrong:"She will not be set when the pass arrives, so the feet go first and the shot follows. And somebody will be stuck at a spot she cannot reach — move her cone in rather than coaching her arm.",
+ builds:"Catch-and-shoot footwork from five angles, with the four rungs arriving in the order a beginner can absorb them. The rim-counts-one rule is what stops a beginner shooting once and hiding, so say it twice before the clock starts.",
+ ladder:["Round 1: arc pulled in to a distance she can reach, own ball, five spots, one minute",
+         "Round 2: shoot off a pass from a rebounder — feet and hands ready before the ball arrives",
+         "Round 3: move into the spot, catch and shoot. The rung that makes it look like basketball",
+         "Round 4: a rebounder closes out, hand starting on the cone. Contest, never block",
+         "Scoring stays: rim one, score two, swish three, called by the rebounders and never by a coach",
+         "Season score: her number against her own first number, and the team total against the team total — the same shape as Chaos Layups"],
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,8,7],[.14,11,13],[.28,14,19],[.42,15,20],[.56,20,26],[.70,24,28],[.84,25,28],[1,25,28]]},
+  {id:"a2",side:"off",label:"2",at:[[0,34,9],[.3,32,11],[.5,29,8],[.7,31,12],[1,33,10]]},
+  {id:"a3",side:"def",label:"",at:[[0,37,24],[.60,37,24],[.72,31,27],[.86,27,28],[1,26,28]]},
+  {id:"c1",side:"cone",label:"",at:[[0,6,6],[1,6,6]]},
+  {id:"c2",side:"cone",label:"",at:[[0,14,20],[1,14,20]]},
+  {id:"c3",side:"cone",label:"",at:[[0,25,28],[1,25,28]]},
+  {id:"c4",side:"cone",label:"",at:[[0,36,20],[1,36,20]]},
+  {id:"c5",side:"cone",label:"",at:[[0,44,6],[1,44,6]]}
+ ],
+ ball:{start:"a2",
+   passes:[{t0:.16,t1:.26,to:"a1"},{t0:.50,t1:.58,to:"a1"}],
+   shot:{t0:.30,t1:.40}, rebound:{t0:.40,t1:.48,to:"a2"}},
+ shots:[{actor:"a1",t0:.88,t1:.98}],
+ calls:[{t0:.62,t1:.78,actor:"a3",text:"CLOSEOUT"},{t0:.42,t1:.52,actor:"a2",text:"TWO!"}]});
+
+drill({name:"Three cones", cut:2, slot:"shooting", energy:"high", group:"half", minPlayers:4,
+ kit:{balls:"each",cones:6,hoops:2},
+ shape:SHAPE_LAYUP, dribUntil:.30,
+ say:"Three cones. This is the controlled layup drill, and it runs straight out of the layup shape with no gap. Two cones make a line across the floor, and reaching that line means the dribble is finished — footwork starts there and not before. A third cone sits a few steps behind and out wide. She attacks, finishes, collects her own rebound at the baseline, runs around that wide cone and comes back in from a different angle. That one lap gives you the change of direction, the angle of approach, and the decision about where the dribble ends, and it does it without a queue. Your cue is the only one you need: take off from the foot furthest from the hoop. A two-foot gather is completely fine — footwork is not the gate for scoring, and ten attempts with the wrong foot beats two with the right one. If we are allowed to tape the floor, two footprints in painter tape do the coaching for you and nobody has to be told which foot.",
+ setup:"Two cones in a line across the floor, about six feet out — that line ends the dribble. A third cone a few steps behind and out wide for the return lap. Half the team at each end, a ball each. Painter tape footprints if the gym allows it.",
+ key:"1 the attacker · triangles are the two cones ending the dribble and the wide cone she loops",
+ tags:["Finishing","Footwork"], players:"Half the team", balls:"One each", mins:"8",
+ dur:9500,
+ why:"Everything Chaos Layups asks for, slowed down enough that the feet can be seen — and still with no queue.",
+ how:"Dribble in, and the dribble is over at the cone line. Footwork from there: take off from the foot furthest from the hoop, aim at the near top corner of the square. Collect your own rebound at the baseline, run around the wide cone, come back in.",
+ cue:"Take off from the foot furthest from the hoop.",
+ wrong:"She keeps dribbling past the cone line, because that is what she has always done. The line is the whole drill, so hold it. Expect wrong-footed take-offs all night and let them go — a two-foot gather is fine.",
+ builds:"The layup with the gather and the take-off separated onto two different feet, at an angle that changes every lap. Runs straight into Chaos Layups, which is this same skill with the organisation removed. Do not let a water break land between the two.",
+ ladder:["Standard: cone line ends the dribble, loop the wide cone, both sides",
+         "Easier: no dribble at all — start on the cone line holding the ball",
+         "Easier: two-foot gather, and say out loud that it counts",
+         "Harder: painter-tape footprints removed once they stop looking down",
+         "Harder: come in fast — ball up into shooting position as the near foot lands",
+         "Harder: a coach stands under the rim as a passive body to finish over"],
+ actors:[
+  {id:"a1",side:"off",label:"1",at:[[0,40,28],[.16,38,21],[.30,34,15],[.42,29,10],[.50,27,7],[.62,26,4.5],[.72,29,2.5],[.86,44,14],[1,41,26]]},
+  {id:"k1",side:"cone",label:"",at:[[0,31,13],[1,31,13]]},
+  {id:"k2",side:"cone",label:"",at:[[0,37,13],[1,37,13]]},
+  {id:"k3",side:"cone",label:"",at:[[0,45,17],[1,45,17]]}
+ ],
+ ball:{start:"a1", shot:{t0:.50,t1:.58}, rebound:{t0:.58,t1:.66,to:"a1"}},
+ calls:[{t0:.28,t1:.42,actor:"a1",text:"DRIBBLE DONE"}]});
+
 var cv = document.getElementById("court"), ctx = cv.getContext("2d");
 var S = 1, OX = 0, OY = 0, css = {w:760, h:700};
 
@@ -1072,7 +1206,9 @@ function drawTrail(d, actor, t){
     var tt = t0 + (t - t0) * i / steps;
     var p = posAt(actor, tt);
     pts.push([px(p[0]), py(p[1])]);
-    dribs.push(d.nodrib ? false : (d.multiball ? !(actor.out && tt > actor.out) : holdsAt(d, actor.id, tt)));
+    var drib = d.nodrib ? false : (d.multiball ? !(actor.out && tt > actor.out) : holdsAt(d, actor.id, tt));
+    if(drib && d.dribUntil != null && tt > d.dribUntil) drib = false;   /* the dribble is finished at the cone line */
+    dribs.push(drib);
   }
   ctx.strokeStyle = col;
   var i2;
@@ -1125,6 +1261,13 @@ function drawPasses(d, t){
 function drawActor(a, x, y){
   var r = Math.max(7, S*0.85);
   ctx.lineWidth = Math.max(1.8, S*0.22); ctx.setLineDash([]);
+  if(a.side === "balloon"){
+    ctx.strokeStyle = tok("--cool"); ctx.fillStyle = tok("--floor");
+    ctx.beginPath(); ctx.ellipse(x, y - r*0.2, r*0.66, r*0.86, 0, 0, Math.PI*2);
+    ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x, y + r*0.66); ctx.lineTo(x, y + r*1.35); ctx.stroke();
+    return;
+  }
   if(a.side === "cone"){
     ctx.fillStyle = tok("--cone");
     ctx.beginPath(); ctx.moveTo(x, y-r*0.8); ctx.lineTo(x+r*0.7, y+r*0.6); ctx.lineTo(x-r*0.7, y+r*0.6);
@@ -1295,7 +1438,7 @@ function render(d, t){
   drawCourt();
   drawZones(d);
   var i;
-  for(i=0;i<d.actors.length;i++) if(d.actors[i].side !== "cone") drawTrail(d, d.actors[i], t);
+  for(i=0;i<d.actors.length;i++) if(d.actors[i].side !== "cone" && d.actors[i].side !== "balloon") drawTrail(d, d.actors[i], t);
   drawPasses(d, t);
   drawLinks(d, t);
   for(i=0;i<d.actors.length;i++){
@@ -1340,6 +1483,22 @@ function select(i){
     if(!x) return;
     var sp = document.createElement("span"); sp.textContent = x; mt.appendChild(sp);
   });
+  var shb = document.getElementById("d-shape"), sh = d.shape;
+  shb.hidden = !sh;
+  if(sh){
+    document.getElementById("sh-name").textContent = sh.name;
+    document.getElementById("sh-min").textContent = sh.mins + " min, then straight into the game — no gap, no water break";
+    document.getElementById("sh-lead").textContent = sh.lead || "";
+    function fill(id, arr){
+      var h = document.getElementById(id); h.innerHTML = "";
+      (arr || []).forEach(function(x){ var li = document.createElement("li"); li.textContent = x; h.appendChild(li); });
+      h.hidden = !(arr && arr.length);
+    }
+    fill("sh-pts", sh.points); fill("sh-cues", sh.cues); fill("sh-wrong", sh.wrong);
+    var im = document.getElementById("sh-img"); im.textContent = sh.image || ""; im.hidden = !sh.image;
+    var ru = document.getElementById("sh-rule"); ru.textContent = sh.rule || ""; ru.hidden = !sh.rule;
+    var nt = document.getElementById("sh-note"); nt.textContent = sh.note || ""; nt.hidden = !sh.note;
+  }
   document.getElementById("d-setup").textContent = d.setup || "";
   var kk = document.getElementById("d-key");
   kk.innerHTML = "";
@@ -1468,6 +1627,10 @@ function buildList(){
     var mm = document.createElement("span"); mm.className = "gmeta";
     mm.style.paddingLeft = "0";
     mm.textContent = d.mins + " min  ·  " + d.players + "  ·  " + d.balls;
+    if(d.shape){
+      var sm = document.createElement("span"); sm.className = "shapemark";
+      sm.textContent = "  ·  + " + d.shape.mins + " min shape"; mm.appendChild(sm);
+    }
     b.appendChild(mm);
     b.addEventListener("click", function(){
       select(i); playing = true; document.getElementById("play").textContent = "Pause";
@@ -1686,14 +1849,22 @@ var ALT = [["Knee Tag","Pressure dribble"],
            ["Chaos Layups","Beat the coach"]];
 var CLOSE  = {n:"Closing circle — every name, one thing she did", m:6, b:1};
 var TEMPLATES = {
- "Practice one": [["Knee Tag",8],["Fox and Mother Goose",8],["Circle Tag",8],["Everybody's It",8],
-                  ["Pivot Tag",10],["Rock Paper Scissors 1v1",10],["Chaos Layups",8],["Three on Three",16]],
- "Defence night":[["Fox and Mother Goose",8],["Protector Tag",8],["Arc Race and Shadow",8],["Pressure dribble",6],
-                  ["Everybody's It",8],["3v2 continuous",14],["Three on Three",22]],
- "Ball night":   [["Arc Race and Shadow",6],["Everybody's It",10],["Signals",6],["Two-ball dribbling",4],
-                  ["Pressure dribble",6],["Pivot Tag",12],["Form shooting, close range",8],["Three on Three",20]],
- "Game night":   [["Knee Tag",6],["Everybody's It",8],["Outlet and go",8],["Form shooting, close range",6],
-                  ["Chaos Layups",10],["3v2 continuous",14],["Three on Three",22]]
+ "Practice two": {regroup:0, rows:[["Keep Uppy",6],["Knee Tag",8],["Five Spots",13,3],["Signals",13,5],
+                  ["~Water \u2014 the only one tonight, and never between a shape and its game",3],
+                  ["Three cones",13,5],["Chaos Layups",10],["Three on Three",16],
+                  ["~Closing circle \u2014 what was the hardest thing you did tonight",6]]},
+ "Practice one": {regroup:1, rows:[["Knee Tag",8],["Fox and Mother Goose",8],["Circle Tag",8],["Everybody's It",8],
+                  ["Pivot Tag",10],["Rock Paper Scissors 1v1",10],["Chaos Layups",8],["Three on Three",16],
+                  ["~Closing circle \u2014 every name, one thing she did",6]]},
+ "Defence night":{regroup:1, rows:[["Fox and Mother Goose",8],["Protector Tag",8],["Arc Race and Shadow",8],
+                  ["Pressure dribble",6],["Everybody's It",8],["3v2 continuous",14],["Three on Three",22],
+                  ["~Closing circle \u2014 every name, one thing she did",6]]},
+ "Ball night":   {regroup:1, rows:[["Arc Race and Shadow",6],["Everybody's It",10],["Signals",13,5],
+                  ["Two-ball dribbling",4],["Pivot Tag",12],["Form shooting, close range",8],["Three on Three",20],
+                  ["~Closing circle \u2014 every name, one thing she did",6]]},
+ "Game night":   {regroup:1, rows:[["Knee Tag",6],["Everybody's It",8],["Outlet and go",8],["Three cones",13,5],
+                  ["Chaos Layups",10],["3v2 continuous",14],["Three on Three",18],
+                  ["~Closing circle \u2014 every name, one thing she did",6]]}
 };
 var plan = [];
 
@@ -1706,7 +1877,8 @@ function byName(n){ for(var i=0;i<D.length;i++) if(D[i].name === n) return D[i];
 function num(id, dflt){ var v = parseInt(document.getElementById(id).value, 10); return isNaN(v) ? dflt : v; }
 function girls(){ return Math.max(3, num("p-girls", 12)); }
 function target(){ return Math.max(20, num("p-target", 90)); }
-function transitions(){ return Math.max(0, plan.length - 1); }
+function regroup(){ var v = parseInt(document.getElementById("p-regroup").value,10); return isNaN(v)?1:Math.max(0,v); }
+function transitions(){ return Math.max(0, plan.length - 1) * regroup(); }
 function planMins(){ var t=0; plan.forEach(function(r){ t += (+r.m||0); }); return t + transitions(); }
 function clock(mins){
   var h = Math.floor(mins/60) % 24, m = ((mins%60)+60)%60, a = h >= 12 ? "pm" : "am";
@@ -1732,6 +1904,7 @@ function ballsFor(d){
   if(k === "pair") return Math.ceil(n/2);
   if(k === "one") return 1;
   if(k === "several") return 6;
+  if(k === "group") return Math.ceil(n / (typeof d.group === "number" ? d.group : 3));
   if(k === "games") return 2;
   return 0;
 }
@@ -1760,8 +1933,21 @@ function flags(){
     if(d && ballsFor(d) === 0){ run += (+r.m||0); if(run > worst) worst = run; } else run = 0;
   });
   if(worst >= 26) out.push(worst + " minutes in a row with no ball in anyone's hands.");
+  var blocks = 0, bnames = [];
+  gs.forEach(function(r){ var d = byName(r.n); if(d && d.shape){ blocks++; bnames.push(d.shape.name.toLowerCase()); } });
+  if(blocks > 2)
+    out.push(blocks + " teaching blocks in one night — " + bnames.join(", ") + ". That is the real risk, not the content of any one of them. Split them between coaches so it is not all the same voice.");
   var diff = planMins() - target();
-  if(diff > 2) out.push(diff + " minutes over, and that already counts " + transitions() + " for regrouping.");
+  if(diff > 2){
+    var cuts = gs.filter(function(r){ var d = byName(r.n); return d && d.cut; })
+                 .sort(function(a,b){ return byName(a.n).cut - byName(b.n).cut; })
+                 .map(function(r){ return r.n; });
+    var prot = gs.filter(function(r){ var d = byName(r.n); return d && d.protect; })
+                 .map(function(r){ return r.n; });
+    out.push(diff + " minutes over" + (transitions() ? ", counting " + transitions() + " for regrouping" : "") + "." +
+      (cuts.length ? "  Cut in this order: " + cuts.join(", then ") + "." : "") +
+      (prot.length ? "  Protected: " + prot.join(" and ") + "." : ""));
+  }
   if(diff < -5) out.push(Math.abs(diff) + " minutes short.");
   return out;
 }
@@ -1789,7 +1975,7 @@ function planRender(){
     var li = document.createElement("li");
     var tm = document.createElement("span"); tm.className = "at"; tm.textContent = clock(at);
     li.appendChild(tm);
-    at += (+r.m||0) + (i < plan.length-1 ? 1 : 0);
+    at += (+r.m||0) + (i < plan.length-1 ? regroup() : 0);
 
     var nm = document.createElement("div"); nm.className = "nm";
     if(r.b){
@@ -1804,7 +1990,8 @@ function planRender(){
     var sub = document.createElement("span");
     sub.textContent = r.b ? "Your own block"
       : d ? (SLOT[d.slot].label + "  ·  " + groupNote(d) + "  ·  " +
-             (ballsFor(d) ? ballsFor(d) + " ball" + (ballsFor(d)>1?"s":"") : "no ball"))
+             (ballsFor(d) ? ballsFor(d) + " ball" + (ballsFor(d)>1?"s":"") : "no ball") +
+             (r.s ? "  ·  " + r.s + " min " + d.shape.name.toLowerCase() + " first, no gap" : ""))
           : "no longer in the library";
     nm.appendChild(sub);
     if(d){
@@ -1885,7 +2072,7 @@ function planRender(){
 }
 
 function kitLine(){
-  var kit = {balls:0,cones:0,adults:0,hoops:0,pinnies:false}, why = null;
+  var kit = {balls:0,cones:0,adults:0,hoops:0,pinnies:false,balloons:0}, why = null;
   games().forEach(function(r){
     var d = byName(r.n); if(!d) return;
     var bn = ballsFor(d), k = d.kit || {};
@@ -1894,10 +2081,12 @@ function kitLine(){
     if((k.adults||0) > kit.adults) kit.adults = k.adults;
     if((k.hoops||0) > kit.hoops) kit.hoops = k.hoops;
     if(k.pinnies) kit.pinnies = true;
+    if((k.balloons||0) > kit.balloons) kit.balloons = k.balloons;
   });
   var bits = [];
     if(kit.balls) bits.push(kit.balls + " balls" + (why ? " (" + why + " needs them)" : ""));
-    if(kit.cones) bits.push(kit.cones + " cones");
+    if(kit.balloons) bits.push(kit.balloons + " balloons and a pump");
+  if(kit.cones) bits.push(kit.cones + " cones");
     if(kit.pinnies) bits.push("pinnies");
     if(kit.adults) bits.push(kit.adults + " adult" + (kit.adults>1?"s":"") + " helping");
     if(kit.hoops) bits.push(kit.hoops + " hoop" + (kit.hoops>1?"s":""));
@@ -1924,14 +2113,20 @@ function buildCard(){
     var it = document.createElement("div"); it.className = "gc-item";
     var t = document.createElement("div"); t.className = "gc-t";
     t.textContent = clock(at) + "  ·  " + r.m + " min";
-    at += (+r.m||0) + (i < plan.length-1 ? 1 : 0);
+    at += (+r.m||0) + (i < plan.length-1 ? regroup() : 0);
     it.appendChild(t);
     var nm = document.createElement("div"); nm.className = "gc-n"; nm.textContent = r.n; it.appendChild(nm);
     if(d){
+      if(r.s && d.shape){
+        var sb = document.createElement("div"); sb.className = "gc-shape";
+        sb.textContent = d.shape.name.toUpperCase() + " — " + r.s + " MIN, NO GAP.  " +
+          (d.shape.cues || []).join("  /  ");
+        it.appendChild(sb);
+      }
       var cue = document.createElement("div"); cue.className = "gc-cue";
       cue.textContent = "“" + d.cue + "”"; it.appendChild(cue);
       var set = document.createElement("div"); set.className = "gc-s";
-      set.textContent = "SET UP — " + d.setup + "  " + groupNote(d) + ".";
+      set.textContent = "SET UP — " + d.setup + "   GROUPS — " + groupNote(d) + ".";
       it.appendChild(set);
       var how = document.createElement("div"); how.className = "gc-h"; how.textContent = d.how;
       it.appendChild(how);
@@ -1949,12 +2144,19 @@ function buildCard(){
   host.appendChild(f);
 }
 
-function planAdd(d){ plan.push({n:d.name, m:+d.mins||8}); planSave(); planRender(); }
+function planAdd(d){
+  var g = +d.mins || 8;
+  plan.push(d.shape ? {n:d.name, m:g + d.shape.mins, s:d.shape.mins} : {n:d.name, m:g});
+  planSave(); planRender();
+}
 function loadTemplate(k){
-  var rows = TEMPLATES[k] || [];
-  plan = rows.filter(function(r){ return !!byName(r[0]); })
-             .map(function(r){ return {n:r[0], m:r[1]}; })
-             .concat([{n:CLOSE.n, m:CLOSE.m, b:1}]);
+  var t = TEMPLATES[k]; if(!t) return;
+  document.getElementById("p-regroup").value = t.regroup;
+  plan = t.rows.filter(function(r){ return r[0].charAt(0) === "~" || !!byName(r[0]); })
+               .map(function(r){
+                 if(r[0].charAt(0) === "~") return {n:r[0].slice(1), m:r[1], b:1};
+                 return r[2] ? {n:r[0], m:r[1], s:r[2]} : {n:r[0], m:r[1]};
+               });
   planSave(); planRender();
 }
 (function(){
@@ -1969,6 +2171,7 @@ document.getElementById("addplan").addEventListener("click", function(){ planAdd
 document.getElementById("p-start").addEventListener("input", planRender);
 document.getElementById("p-target").addEventListener("input", planRender);
 document.getElementById("p-girls").addEventListener("input", planRender);
+document.getElementById("p-regroup").addEventListener("input", planRender);
 document.getElementById("p-print").addEventListener("click", function(){ window.print(); });
 document.getElementById("p-clear").addEventListener("click", function(){ plan = []; planSave(); planRender(); });
 document.getElementById("p-block").addEventListener("click", function(){
