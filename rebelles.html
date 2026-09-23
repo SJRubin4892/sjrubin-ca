@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="U13 Rebelles 2026-27 - schedule, practice plan and drill library. Rebels-Rebelles Basketball Association, Victoria BC." />
+  <meta name="description" content="Rebelles Rockets U13 girls 2026-27 - schedule, practice plan and games library. Rebels-Rebelles Basketball Association, Victoria BC." />
   <meta name="color-scheme" content="dark" />
-  <title>U13 Rebelles</title>
+  <title>Rebelles Rockets</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -40,11 +40,6 @@ a{color:inherit}
 .hero h1 .ghost{color:var(--purple-lift);display:block}
 .hero{border-top:3px solid var(--gold)}
 .hero h1 .live{color:var(--team);display:block}
-.hero h1.pending{display:flex;flex-wrap:wrap;align-items:flex-start;gap:6px 18px;line-height:.9}
-.hero h1 .tname{font:inherit;color:var(--purple-lift);
-  border-bottom:5px solid var(--purple-lift);padding-bottom:6px}
-.hero h1 .soon{font-family:"DM Mono",monospace;font-weight:400;font-size:13px;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--gold);white-space:nowrap;align-self:flex-start;padding-top:10px}
 .subtitle{font-family:Syne,sans-serif;font-weight:800;font-size:clamp(26px,5vw,40px);
   letter-spacing:-.02em;color:var(--gold);margin-top:20px}
 @media (max-width:520px){ .hero h1 .soon{font-size:11.5px;padding-top:4px} }
@@ -319,8 +314,8 @@ button.d .xtra{color:var(--gold)}
 
 <div class="hero">
   <div class="kicker">Rebels-Rebelles Basketball Association &middot; Victoria BC</div>
-  <h1 class="pending"><span class="tname">Team name</span><span class="soon">*coming soon</span></h1>
-  <div class="subtitle">U13 Rebelles</div>
+  <h1><span class="ghost">Rebelles</span><span class="live">Rockets.</span></h1>
+  <div class="subtitle">U13 Girls</div>
   <p>Season 2026&ndash;27. Practice schedule, how a practice night runs, and the full games library &mdash; so every coach is working from the same plan and every family knows where to be.</p>
 </div>
 
@@ -338,7 +333,6 @@ button.d .xtra{color:var(--gold)}
 <section>
   <div class="label">The season</div>
   <dl class="facts">
-    <div class="fact"><dt>Team name</dt><dd>To be chosen</dd></div>
     <div class="fact"><dt>Practice</dt><dd>Tuesdays, 7:00 &ndash; 8:30 pm</dd></div>
     <div class="fact"><dt>First practice</dt><dd>September 15</dd></div>
     <div class="fact"><dt>Gym</dt><dd>Prospect Lake Elementary</dd></div>
@@ -511,7 +505,7 @@ button.d .xtra{color:var(--gold)}
 </section>
 
 <footer>
-  <span>U13 Rebelles &middot; 2026&ndash;27</span>
+  <span>Rebelles Rockets &middot; U13 &middot; 2026&ndash;27</span>
   <span>&copy; 2026 S.J. Rubin</span>
 </footer>
 
@@ -559,7 +553,7 @@ function vevent(e){
     "DTSTAMP:" + stamp(e.date, e.time) + "Z",
     "DTSTART:" + stamp(e.date, e.time),
     "DTEND:" + stamp(e.date, e.time, PRACTICE_MINS),
-    "SUMMARY:" + esc("U13 Rebelles " + e.what.toLowerCase()),
+    "SUMMARY:" + esc("Rockets " + e.what.toLowerCase()),
     "LOCATION:" + esc(e.venue || "Gym to be confirmed"),
     "DESCRIPTION:" + esc((e.venue ? "" : "Ben confirms the gym in the week before. ") +
       "Games library and practice plan: https://sjrubin.ca/rebelles"),
@@ -569,8 +563,8 @@ function vevent(e){
     "END:VEVENT"].join("\r\n");
 }
 function download(events, filename){
-  var ics = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//sjrubin.ca//U13 Rebelles//EN",
-             "CALSCALE:GREGORIAN","METHOD:PUBLISH","X-WR-CALNAME:U13 Rebelles"]
+  var ics = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//sjrubin.ca//Rebelles Rockets//EN",
+             "CALSCALE:GREGORIAN","METHOD:PUBLISH","X-WR-CALNAME:Rebelles Rockets"]
             .concat(events.map(vevent)).concat(["END:VCALENDAR"]).join("\r\n");
   var url = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
   var a = document.createElement("a");
@@ -1916,7 +1910,7 @@ function buildCard(){
   var nx = SCH.filter(function(e){ return when(e) >= new Date(); })[0];
   var dd = nx ? when(nx) : null;
   var h = document.createElement("div"); h.className = "gc-head";
-  h.textContent = "Practice plan" +
+  h.textContent = "Rebelles Rockets  ·  practice plan" +
     (dd ? "  ·  " + DSH[dd.getDay()] + " " + MON[dd.getMonth()] + " " + dd.getDate() : "") +
     "  ·  " + clock(startMins()) + "–" + clock(startMins()+planMins()) +
     (nx && nx.venue ? "  ·  " + nx.venue : "") + "  ·  " + girls() + " girls";
